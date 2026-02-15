@@ -30,7 +30,7 @@ function OTPForm() {
     }
 
     setError("");
-    router.push("/");
+    router.push("/home");
   };
 
   return (
