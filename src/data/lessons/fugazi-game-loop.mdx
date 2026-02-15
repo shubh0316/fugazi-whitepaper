@@ -1,0 +1,29 @@
+# The Fugazi Game Loop
+
+Fugazi is designed around a compact, repeatable loop that prioritizes fill-rate, clarity, and retention at the system level. The platform minimizes time-to-match by standardizing rulesets, reducing configuration complexity, and limiting dependency on synchronous participation. Match state transitions are explicit and deterministic, ensuring that users always understand what stage of the competition they are in and what will happen next. Outcomes are resolved using predefined scoring logic, eliminating ambiguity and discretionary intervention. This design enables consistent replay, predictable progression, and high signal density per match, allowing the platform to scale participation while maintaining competitive integrity and reliable skill measurement over time.
+
+## Challenge Creation
+
+A player creates a match by selecting a predefined ruleset. Each match specifies the market universe, time horizon, and portfolio constraints. All matches are standardized to ensure fairness and comparability across participants.
+
+## Match Acceptance
+
+An opposing player accepts the challenge. Once accepted, both players are locked into the same competitive environment with identical starting conditions.
+
+## Competition Window
+
+During the active match window, players manage simulated portfolios using the same underlying market data feed. No player has execution speed advantages, informational asymmetry, or access to privileged tools. Decisions are evaluated solely on their relative effectiveness within the shared environment.
+
+## Deterministic Resolution
+
+At the conclusion of the match, performance is calculated using predefined scoring logic. Outcomes are deterministic, transparent, and reproducible. There is no discretionary intervention in settlement or result calculation.
+
+## Skill Rating Update
+
+Player ratings are adjusted based on relative performance and opponent strength. Consistent success against stronger opponents results in higher skill ratings over time.
+
+## Post-Match Review
+
+Each match generates a structured performance summary, allowing players to review outcomes, compare decisions, and understand how their strategy performed relative to their opponent.
+
+This loop is intentionally compact and repeatable. It allows Fugazi to generate large volumes of comparable competitive data while providing players with immediate feedback and a clear sense of progression. Over time, repeated execution of this loop produces a robust signal of skill that cannot be derived from isolated market outcomes alone.

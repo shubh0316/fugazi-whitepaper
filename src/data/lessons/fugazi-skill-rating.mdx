@@ -1,0 +1,27 @@
+# Skill Rating & Matchmaking
+
+Fugazi uses a skill rating system inspired by Elo-style competitive ranking models to evaluate player performance over time. Ratings are designed to reflect consistent decision-making quality rather than isolated wins or losses by incorporating opponent strength, relative performance, and repetition across matches. Outcomes against higher-rated opponents carry greater informational weight than outcomes against lower-rated ones, allowing the system to converge toward an accurate representation of skill as match history grows. Rating volatility is intentionally higher for new participants and stabilizes as additional data is accumulated, reducing noise while preserving responsiveness. This approach ensures that Fugazi's ratings function as a durable, comparable signal of competitive ability rather than a short-term measure of luck or variance.
+
+## Rating Updates
+
+After each completed match, player ratings are updated based on:
+
+- Relative performance between opponents
+- The strength of the opposing player
+- Match outcome within the predefined scoring framework
+
+Defeating a higher-rated opponent produces a larger rating increase than defeating a lower-rated one, while losses to stronger opponents are penalized less severely. Over repeated matches, this system converges toward an accurate representation of each player's competitive skill level.
+
+## Matchmaking Strategy
+
+Matchmaking is designed to balance competitiveness, fairness, and player retention. Players are generally matched within similar rating bands, with controlled variance to allow for meaningful progression and challenge. New players enter the system through protected brackets to prevent immediate exposure to highly skilled competitors.
+
+## Integrity Safeguards
+
+To preserve integrity, Fugazi incorporates anti-abuse and anti-manipulation safeguards, including:
+
+- Rating volatility limits for new accounts
+- Pattern detection for collusion or intentional losses
+- Constraints on repeat opponent matching
+
+This combination of skill-based ratings and intelligent matchmaking ensures that Fugazi remains competitive, fair, and engaging as the player base grows, while continuously improving the quality and reliability of the underlying skill signal.
