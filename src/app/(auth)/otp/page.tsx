@@ -4,11 +4,11 @@ import { Button } from "@/components/button";
 import { OTPInput } from "@/components/input";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const PASSWORD = "091120";
 
-export default function Page() {
+function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
@@ -60,5 +60,17 @@ export default function Page() {
         </Link>
       </p>
     </>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={
+      <div className="text-center text-sm/7 text-gray-950 dark:text-white">
+        Loading...
+      </div>
+    }>
+      <OTPForm />
+    </Suspense>
   );
 }
