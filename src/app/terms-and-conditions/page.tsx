@@ -73,7 +73,7 @@ export default function TermsAndConditionsPage() {
             Privacy
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Your use of SMS services is subject to our <a href="/privacy-policy" className="text-[#52D593] hover:underline">Privacy Policy</a>, available at: <a href="https://whitepaper.fugazi.fun/privacy" className="text-[#52D593] hover:underline">https://whitepaper.fugazi.fun/privacy</a>
+            Your use of SMS services is subject to our <a href="/privacy-policy" className="text-[#52D593] hover:underline">Privacy Policy</a>, available at: <a href="https://whitepaper.fugazi.fun/privacy-policy" className="text-[#52D593] hover:underline">https://whitepaper.fugazi.fun/privacy</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">

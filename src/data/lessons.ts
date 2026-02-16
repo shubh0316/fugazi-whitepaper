@@ -47,7 +47,7 @@ export async function getLessonContent(slug: string) {
 const lessons = [
   {
     id: "fugazi",
-    title: "Fugazi: Skill-Based Crypto Competition",
+    title: "Fugazi: Whitepaper",
     description:
       "A new category of skill-based competition built directly on real crypto market data, where volatility becomes the playing field.",
     lessons: [
