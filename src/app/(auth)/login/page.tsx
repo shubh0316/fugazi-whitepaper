@@ -55,7 +55,7 @@ export default function Page() {
             htmlFor="phone"
             className="block w-full  text-xs font-medium text-gray-950 dark:text-white text-wrap"
           >
-           Enter your mobile number. We will text you a 6-digit verification code.
+            Enter your mobile number to receive your 6-digit verification code. You must be on the approved list for access. To get added to the approved list, please send an email to whitepaper@fugazi.fun.
           </label>
           <PhoneInput
             id="phone"
