@@ -6,49 +6,74 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
-const PASSWORD = "091120";
-
 function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
+  const phone = searchParams.get("phone") || "";
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const password = formData.get("password") as string;
-
-    if (!password) {
-      setError("Password is required");
-      return;
-    }
-
-    if (password !== PASSWORD) {
-      setError("Incorrect password");
-      return;
-    }
-
     setError("");
-    router.push("/home");
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const otp = formData.get("otp") as string;
+
+    if (!otp || otp.length !== 6) {
+      setError("Please enter a valid 6-digit OTP");
+      setLoading(false);
+      return;
+    }
+
+    if (!phone) {
+      setError("Phone number is missing");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone, otp }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Failed to verify OTP");
+        setLoading(false);
+        return;
+      }
+
+      // OTP verified successfully, redirect to fugazi-overview
+      router.push("/fugazi-overview");
+    } catch (err) {
+      setError("Failed to verify OTP. Please try again.");
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <h1 className="sr-only">Enter password</h1>
+      <h1 className="sr-only">Enter OTP</h1>
       <p className="text-center text-sm/7 text-gray-950 dark:text-white">
-        Please enter your password for{" "}
-        <span className="font-semibold">{email || "your account"}</span>.
+        Please enter the 6-digit OTP sent to{" "}
+        <span className="font-semibold">{phone || "your phone"}</span>.
       </p>
       <form onSubmit={handleSubmit} className="mt-6">
-        <OTPInput maxLength={6} name="password" />
+        <OTPInput maxLength={6} name="otp" />
         {error && (
           <p className="mt-4 text-center text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}
-        <Button type="submit" className="mt-6 w-full">
-          Login
+        <Button type="submit" className="mt-6 w-full" disabled={loading}>
+          {loading ? "Verifying..." : "Verify OTP"}
         </Button>
       </form>
       <p className="mt-6 text-center text-sm/7 dark:text-gray-400">
@@ -56,7 +81,7 @@ function OTPForm() {
           href="/login"
           className="font-semibold text-gray-950 dark:text-white"
         >
-          Use a different email
+          Use a different phone number
         </Link>
       </p>
     </>

@@ -127,7 +127,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
     table: ({ children, ...props }) => (
       <div className="overflow-x-auto my-6">
-        <table className="min-w-full border-collapse" {...props}>
+        <table className="w-full border-collapse" {...props}>
           {children}
         </table>
       </div>
@@ -143,13 +143,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </tbody>
     ),
     tr: ({ children, ...props }) => (
-      <tr className="border-b border-gray-200 dark:border-white/10" {...props}>
+      <tr className="[&:last-child_td]:border-b-0" {...props}>
         {children}
       </tr>
     ),
     th: ({ children, ...props }) => (
       <th
-        className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white"
+        className="px-4 py-3 text-left text-sm font-semibold text-gray-950 dark:text-white border-b border-gray-200 dark:border-white/10"
         {...props}
       >
         {children}
@@ -157,7 +157,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     td: ({ children, ...props }) => (
       <td
-        className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100"
+        className="px-4 py-3 text-sm text-gray-950 dark:text-gray-100 border-b border-gray-200 dark:border-white/10"
         {...props}
       >
         {children}

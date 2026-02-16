@@ -11,7 +11,7 @@ export function Button({
       type={type}
       className={clsx(
         className,
-        "rounded-full bg-gray-950 px-3.5 py-2 text-sm/6 font-semibold text-white hover:bg-gray-800 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 dark:bg-gray-700 dark:hover:bg-gray-600",
+        "rounded-full bg-gray-950 px-3.5 py-2 text-sm/6 font-semibold text-white hover:bg-[#52D593] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 dark:bg-gray-700 dark:hover:bg-[#52D593] active:bg-[#52D593] dark:active:bg-[#52D593] aria-selected:bg-[#52D593] dark:aria-selected:bg-[#52D593] data-selected:bg-[#52D593] dark:data-selected:bg-[#52D593]",
       )}
       {...props}
     />

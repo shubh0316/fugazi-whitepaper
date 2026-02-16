@@ -14,7 +14,10 @@ export function IconButton({
         "relative *:relative",
         "before:absolute before:top-1/2 before:left-1/2 before:size-8 before:-translate-1/2 before:rounded-md",
         "before:bg-white/75 before:backdrop-blur-sm dark:before:bg-gray-950/75",
-        "data-hover:before:bg-gray-950/5 dark:data-hover:before:bg-white/5",
+        "data-hover:before:bg-[#52D593]/20 dark:data-hover:before:bg-[#52D593]/20",
+        "data-active:before:bg-[#52D593]/30 dark:data-active:before:bg-[#52D593]/30",
+        "data-selected:before:bg-[#52D593]/30 dark:data-selected:before:bg-[#52D593]/30",
+        "aria-selected:before:bg-[#52D593]/30 dark:aria-selected:before:bg-[#52D593]/30",
         "focus:outline-hidden data-focus:before:outline-2 data-focus:before:outline-blue-700 data-focus:before:outline-solid",
       )}
       {...props}

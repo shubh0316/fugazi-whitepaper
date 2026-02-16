@@ -1,6 +1,8 @@
 import { clsx } from "clsx";
 import Link, { type LinkProps } from "next/link";
+import Image from "next/image";
 import type React from "react";
+import logo from "@/assets/logo.png";
 
 export function Breadcrumbs(props: React.ComponentProps<"nav">) {
   return (
@@ -14,8 +16,15 @@ export function Breadcrumbs(props: React.ComponentProps<"nav">) {
 
 export function BreadcrumbHome() {
   return (
-    <Link href="/" className="min-w-0 shrink-0 text-gray-950 dark:text-white">
-        Fugazi
+    <Link href="/" className="min-w-0 shrink-0 flex items-center gap-x-2 text-gray-950 dark:text-white hover:text-[#52D593] transition-colors">
+      <Image 
+        src={logo} 
+        alt="Logo" 
+        width={20} 
+        height={20} 
+        className="shrink-0"
+      />
+      Fugazi
     </Link>
   );
 }
@@ -35,7 +44,7 @@ export function Breadcrumb({
         href={href}
         className={clsx(
           className,
-          "min-w-0 truncate text-gray-950 dark:text-white",
+          "min-w-0 truncate text-gray-950 dark:text-white hover:text-[#52D593] transition-colors",
         )}
       >
         {children}

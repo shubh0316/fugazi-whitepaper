@@ -4,6 +4,7 @@ import {
   Breadcrumbs,
   BreadcrumbSeparator,
 } from "@/components/breadcrumbs";
+import { FugaziOverviewWrapper } from "@/components/fugazi-overview-wrapper";
 import { NextPageLink } from "@/components/next-page-link";
 import { SidebarLayoutContent } from "@/components/sidebar-layout";
 import TableOfContents from "@/components/table-of-contents";
@@ -39,7 +40,7 @@ export default async function Page({
 
   let Content = await getLessonContent(slug);
 
-  return (
+  const pageContent = (
     <SidebarLayoutContent
       breadcrumbs={
         <Breadcrumbs>
@@ -85,4 +86,11 @@ export default async function Page({
       </div>
     </SidebarLayoutContent>
   );
+
+  // Only show modal for fugazi-overview
+  if (slug === "fugazi-overview") {
+    return <FugaziOverviewWrapper>{pageContent}</FugaziOverviewWrapper>;
+  }
+
+  return pageContent;
 }
