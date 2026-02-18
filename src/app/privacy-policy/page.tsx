@@ -73,16 +73,20 @@ export default function PrivacyPolicyPage() {
             3. SMS & Phone Number Usage
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi collects mobile phone numbers only for account authentication, security verification, and transactional notifications.
+            Fugazi collects mobile phone numbers solely to control access to the Fugazi whitepaper and to perform account authentication and security verification. Phone numbers are used only to deliver one-time verification codes to users whose numbers have been approved in advance.
           </p>
-          <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mb-4 ml-4 space-y-2">
-            <li>Phone numbers are used to deliver one-time passcodes and account-related alerts</li>
-            <li>Fugazi does not send marketing or promotional SMS messages</li>
-            <li>Fugazi does not sell, rent, or share phone numbers with third parties for marketing purposes</li>
-            <li>Users may opt out of SMS messages at any time by replying STOP</li>
-            <li>Help is available by replying HELP or contacting support</li>
-            <li>Standard message and data rates may apply.</li>
-          </ul>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            Access to the Fugazi whitepaper is limited to an approved list of mobile phone numbers maintained by Fugazi. Only approved numbers are permitted to receive verification codes. Submission of a mobile phone number alone does not guarantee access.
+          </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            By requesting a verification code, approved users consent to receive transactional SMS messages strictly for identity verification and access control purposes.
+          </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            Fugazi does not send marketing or promotional SMS messages and does not sell, rent, or share phone numbers with third parties for marketing purposes.
+          </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Users may opt out of SMS messages at any time by replying STOP.
+          </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             4. Information Sharing
@@ -202,8 +206,88 @@ export default function PrivacyPolicyPage() {
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
             As a result, Fugazi does not offer an opt-out mechanism for the sale or sharing of personal information, because no such activity occurs.
           </p>
-          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
             California residents may still exercise their other privacy rights, including the right to access or delete personal information, by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>
+          </p>
+
+          <h1 className="text-3xl font-bold text-gray-950 dark:text-white mt-12 mb-2">
+            Fugazi SMS Terms & Conditions
+          </h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+            Last Updated: February 16, 2026
+          </p>
+
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            These SMS Terms & Conditions ("SMS Terms") govern the delivery of text messages sent by Fugazi Labs, LLC ("Fugazi," "we," "us") in connection with account authentication and security services.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Program Description
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Fugazi sends SMS messages solely to deliver one-time verification codes used to control access to the Fugazi whitepaper. Messages are strictly transactional and non-marketing.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Opt-In
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Access to SMS verification is limited to mobile phone numbers approved in advance by Fugazi. Approved users receive SMS messages only after requesting a one-time verification code. By requesting a verification code, approved users consent to receive transactional SMS messages for identity verification and access control purposes.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Message Frequency
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Message frequency varies and is limited to verification attempts initiated by the user. No recurring or promotional messages are sent.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Costs
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Message and data rates may apply depending on your mobile carrier and plan. Fugazi does not charge for SMS messages but is not responsible for carrier fees.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Opt-Out
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            You may opt out of receiving SMS messages at any time by replying STOP to any message. After opting out, you will no longer receive SMS authentication messages.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Help
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            For help, reply HELP to any message or contact us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Supported Carriers
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            SMS delivery is subject to carrier availability. Fugazi is not responsible for delayed or undelivered messages.
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Privacy
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            Your use of SMS services is subject to our Privacy Policy, available at:
+          </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            <a href="https://whitepaper.fugazi.fun/privacy" className="text-[#30C67B] hover:underline">https://whitepaper.fugazi.fun/privacy</a>
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
+            Contact Information
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+            Fugazi Labs, LLC
+          </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
+            Email: <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>
           </p>
         </div>
         <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
