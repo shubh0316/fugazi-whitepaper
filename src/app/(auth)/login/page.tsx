@@ -79,9 +79,9 @@ export default function Page() {
         <div>
           <label
             htmlFor="phone"
-            className="block w-full  text-xs font-medium text-gray-950 dark:text-white text-wrap"
+            className="block w-full  text-xs font-medium text-gray-950 dark:text-white text-wrap leading-tight"
           >
-            Enter your mobile number to receive your 6-digit verification code. You must be on the approved list for access. To get added to the approved list, please send an email to whitepaper@fugazi.fun.
+            Enter your mobile number to receive your 6-digit verification code. You must be on the approved list for access. To get added to the approved list, please send an email to <Link href="mailto:whitepaper@fugazi.fun" className="text-[#30C67B] hover:underline">whitepaper@fugazi.fun</Link>.
           </label>
           <PhoneInput
             id="phone"

@@ -2,7 +2,16 @@ import { clsx } from "clsx";
 import { GeistMono } from "geist/font/mono";
 import localFont from "next/font/local";
 import type React from "react";
+import type { Metadata } from "next";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "fugazi: Whitepaper",
+  description: "Fugazi:whitepaper",
+  icons: {
+    icon: "/fav.png",
+  },
+};
 
 const InterVariable = localFont({
   variable: "--font-inter",
