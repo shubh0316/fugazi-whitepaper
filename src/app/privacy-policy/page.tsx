@@ -1,7 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import logo from "@/assets/logo.png";
+import { Button } from "@/components/button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function PrivacyPolicyPage() {
+  const router = useRouter();
+  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
+
+  const handleContinue = () => {
+    router.push("/login");
+  };
+
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12">
       <div className="w-full max-w-3xl">
@@ -137,7 +149,7 @@ export default function PrivacyPolicyPage() {
             Fugazi Labs, LLC
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Email: <a href="mailto:support@fugazi.fun" className="text-[#52D593] hover:underline">support@fugazi.fun</a>
+            Email: <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -158,7 +170,7 @@ export default function PrivacyPolicyPage() {
             Fugazi does not sell or share personal information for cross-context behavioral advertising.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Requests may be submitted by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#52D593] hover:underline">support@fugazi.fun</a>. We may verify your identity before processing requests.
+            Requests may be submitted by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>. We may verify your identity before processing requests.
           </p>
 
           <h3 className="text-lg font-medium text-gray-950 dark:text-white mt-6 mb-3">
@@ -178,7 +190,7 @@ export default function PrivacyPolicyPage() {
             Fugazi processes personal data only where a lawful basis exists, including user consent, contractual necessity, or compliance with legal obligations.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
-            Requests may be submitted to <a href="mailto:support@fugazi.fun" className="text-[#52D593] hover:underline">support@fugazi.fun</a>.
+            Requests may be submitted to <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -191,8 +203,29 @@ export default function PrivacyPolicyPage() {
             As a result, Fugazi does not offer an opt-out mechanism for the sale or sharing of personal information, because no such activity occurs.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            California residents may still exercise their other privacy rights, including the right to access or delete personal information, by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#52D593] hover:underline">support@fugazi.fun</a>
+            California residents may still exercise their other privacy rights, including the right to access or delete personal information, by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>
           </p>
+        </div>
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={acceptedPrivacyPolicy}
+              onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
+              className="h-4 w-4 rounded border-gray-300 text-[#30C67B] focus:ring-[#30C67B] focus:ring-2"
+            />
+            <span className="text-xs text-gray-700 dark:text-gray-300">
+              I accept the privacy policy
+            </span>
+          </label>
+          {acceptedPrivacyPolicy && (
+            <Button
+              onClick={handleContinue}
+              className="mt-6 w-full hover:text-black"
+            >
+              Continue
+            </Button>
+          )}
         </div>
       </div>
     </div>

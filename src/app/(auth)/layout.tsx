@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href="/privacy-policy"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold underline hover:text-[#52D593] dark:hover:text-[#52D593] transition-colors"
+            className="font-semibold underline hover:text-[#30C67B] dark:hover:text-[#30C67B] transition-colors"
           >
             Privacy Policy
           </a>
@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href="/terms-and-conditions"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold underline hover:text-[#52D593] dark:hover:text-[#52D593] transition-colors"
+            className="font-semibold underline hover:text-[#30C67B] dark:hover:text-[#30C67B] transition-colors"
           >
             Terms and Conditions
           </a>

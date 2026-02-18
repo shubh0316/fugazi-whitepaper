@@ -4,11 +4,14 @@ import { Button } from "@/components/button";
 import { PhoneInput } from "@/components/phone-input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
+
 export default function Page() {
   const router = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState<string>("");
+  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +24,30 @@ export default function Page() {
       return;
     }
 
+    if (!acceptedPrivacyPolicy) {
+      setError("Please accept the privacy policy to continue");
+      setLoading(false);
+      return;
+    }
+
     try {
+      // First, accept the privacy policy
+      const privacyResponse = await fetch("/api/accept-privacy-policy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone }),
+      });
+
+      if (!privacyResponse.ok) {
+        const privacyData = await privacyResponse.json();
+        setError(privacyData.error || "Failed to accept privacy policy");
+        setLoading(false);
+        return;
+      }
+
+      // Then send OTP
       const response = await fetch("/api/send-otp", {
         method: "POST",
         headers: {
@@ -70,6 +96,27 @@ export default function Page() {
               {error}
             </p>
           )}
+          <div className="mt-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={acceptedPrivacyPolicy}
+                onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
+                className="h-4 w-4 rounded border-gray-300 text-[#30C67B] focus:ring-[#30C67B] focus:ring-2"
+                required
+              />
+              <span className="text-xs text-gray-700 dark:text-gray-300">
+                I accept the{" "}
+                <Link
+                  href="/privacy-policy"
+                  className="text-[#30C67B] hover:underline"
+                  target="_blank"
+                >
+                  privacy policy
+                </Link>
+              </span>
+            </label>
+          </div>
         </div>
         <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading}>
           {loading ? "Sending OTP..." : "Continue"}
