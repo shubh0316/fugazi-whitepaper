@@ -24,21 +24,21 @@ export default function TermsAndConditionsPage() {
             Program Description
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Fugazi sends SMS messages solely for account authentication, identity verification, and security-related notifications, including one-time passcodes (OTP). Messages are strictly transactional and non-marketing.
+            Fugazi sends SMS messages solely to deliver one-time passcodes used to control access to the Fugazi whitepaper. Messages are strictly transactional and non-marketing.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Opt-In
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Users opt in to receive SMS messages by providing their mobile phone number during Fugazi account registration and explicitly consenting via an unchecked checkbox. SMS consent is required to complete account setup.
+            Access to SMS verification is limited to mobile phone numbers approved in advance by Fugazi. Approved users receive SMS messages only after requesting a one-time passcode. By requesting a passcode code, approved users consent to receive transactional SMS messages for identity verification and access control purposes.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Message Frequency
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Message frequency varies based on user activity and security events. Users will receive messages only when authentication or account verification is required.
+            Message frequency varies and is limited to verification attempts initiated by the user. No recurring or promotional messages are sent.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -59,7 +59,7 @@ export default function TermsAndConditionsPage() {
             Help
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            For help, reply HELP to any message or contact us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>.
+            For help and assistance, contact us at <a href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</a>.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -72,8 +72,11 @@ export default function TermsAndConditionsPage() {
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Privacy
           </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            Your use of SMS services is subject to our Privacy Policy, available at:
+          </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Your use of SMS services is subject to our <a href="/privacy-policy" className="text-[#30C67B] hover:underline">Privacy Policy</a>, available at: <a href="https://whitepaper.fugazi.fun/privacy-policy" className="text-[#30C67B] hover:underline">https://whitepaper.fugazi.fun/privacy</a>
+            <a href="https://whitepaper.fugazi.fun/privacy-policy" className="text-[#30C67B] hover:underline">https://whitepaper.fugazi.fun/privacy-policy</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">

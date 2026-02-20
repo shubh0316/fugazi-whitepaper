@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     // Check if phone number is allowed
     if (!ALLOWED_PHONES.includes(normalizedPhone)) {
       return NextResponse.json(
-        { error: "This phone number is not authorized to login" },
+        { error: "The phone number you entered is not on our approved access list." },
         { status: 403 }
       );
     }

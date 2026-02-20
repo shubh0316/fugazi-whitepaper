@@ -15,27 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="mt-10 w-full">{children}</div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 pb-6 px-6">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-600 dark:text-gray-400">
-          <a
-            href="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold underline hover:text-[#30C67B] dark:hover:text-[#30C67B] transition-colors"
-          >
-            Privacy Policy
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a
-            href="/terms-and-conditions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold underline hover:text-[#30C67B] dark:hover:text-[#30C67B] transition-colors"
-          >
-            Terms and Conditions
-          </a>
-        </div>
-      </div>
+    
     </div>
   );
 }

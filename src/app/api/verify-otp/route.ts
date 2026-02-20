@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     if (!storedOtp) {
       return NextResponse.json(
-        { error: "OTP not found or expired" },
+        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 404 }
       );
     }
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     if (Date.now() > storedOtp.expiresAt) {
       otpStore.delete(normalizedPhone);
       return NextResponse.json(
-        { error: "OTP has expired" },
+        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 400 }
       );
     }
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     // Verify OTP
     if (storedOtp.code !== otp) {
       return NextResponse.json(
-        { error: "Incorrect OTP" },
+        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 401 }
       );
     }

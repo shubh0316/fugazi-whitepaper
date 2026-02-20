@@ -105,6 +105,7 @@ export function PhoneInput({
           "block w-full rounded-lg bg-white pl-10 pr-3 py-1.5",
           "text-base/6 text-gray-950 sm:text-sm/6 dark:text-white",
           "outline -outline-offset-1 outline-gray-950/15 focus:outline-2 focus:outline-blue-500 dark:bg-white/10 dark:outline-white/15",
+          "placeholder:text-[#444954]",
         )}
         value={displayValue}
         onChange={handleChange}

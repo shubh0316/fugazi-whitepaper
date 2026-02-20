@@ -122,29 +122,27 @@ function OTPForm() {
   return (
     <>
       <h1 className="sr-only">Enter OTP</h1>
-      <p className="text-center text-sm/7 text-gray-950 dark:text-white">
-        Please enter the 6-digit verification code sent to{" "}
-        <span className="font-semibold">{phone || "your phone number"}</span>.
+      <p className="text-start text-sm/7 text-gray-950 dark:text-white">
+        Enter your 6-digit passcode
       </p>
-      <form onSubmit={handleSubmit} className="mt-6">
+      <form onSubmit={handleSubmit} className="mt-2">
         <OTPInput maxLength={6} name="otp" />
         {error && (
-          <p className="mt-4 text-center text-sm text-red-600 dark:text-red-400">
+          <p className="mt-4 text-start text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}
         <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading || checkingLegalNotice}>
-          {loading || checkingLegalNotice ? "Verifying..." : "Verify code"}
+          {loading || checkingLegalNotice ? "Verifying..." : "Verify"}
         </Button>
       </form>
-      <p className="mt-6 text-center text-sm/7 dark:text-gray-400">
-        <Link
-          href="/login"
-          className="font-semibold text-gray-950 dark:text-white  hover:underline hover:text-[#30C67B]"
-        >
-          Use a different phone number
-        </Link>
-      </p>
+      <Button
+        type="button"
+        onClick={() => router.push("/login")}
+        className="mt-4 w-full  hover:text-black bg-[#30C67B]"
+      >
+        Request a new passcode
+      </Button>
       <LegalNoticeModal open={showLegalModal} onAgree={handleAgree} />
     </>
   );

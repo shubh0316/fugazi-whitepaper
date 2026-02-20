@@ -30,16 +30,19 @@ function OTPSlot({ isActive, char, hasFakeCaret }: BaseOTPSlotProps) {
     <div
       data-active={isActive ? "" : undefined}
       className={clsx(
-        "relative flex h-16 w-14 items-center justify-center bg-white dark:text-white",
-        "text-2xl/7 text-gray-950 dark:bg-white/10",
-        "border-y border-r border-gray-950/15 first:rounded-l-md first:border-l last:rounded-r-md dark:border-white/15",
-        "data-active:z-10 data-active:outline-3 data-active:-outline-offset-1 data-active:outline-blue-500",
+        "relative flex h-[47px] w-[46px] items-center justify-center",
+        "bg-gray-700 dark:bg-gray-700",
+        "text-2xl/7 text-white",
+        "rounded-md",
+        "border border-gray-600 dark:border-gray-600",
+        "shadow-sm",
+        "data-active:z-10 data-active:outline-2 data-active:outline-blue-500 data-active:outline-offset-2",
       )}
     >
       {hasFakeCaret ? (
         <span
           aria-hidden="true"
-          className="animate-caret-blink h-8 w-px bg-gray-950 dark:bg-white"
+          className="animate-caret-blink h-8 w-px bg-white"
         />
       ) : (
         char
@@ -66,7 +69,7 @@ export function OTPInput({
       spellCheck={false}
       pattern={REGEXP_ONLY_DIGITS}
       render={({ slots }) => (
-        <div className="isolate flex w-full justify-center">
+        <div className="isolate flex w-full justify-center gap-2">
           {slots.map((slot, index) => (
             <OTPSlot key={index} {...slot} />
           ))}

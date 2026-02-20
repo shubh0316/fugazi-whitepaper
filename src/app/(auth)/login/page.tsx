@@ -11,7 +11,6 @@ export default function Page() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState<string>("");
-  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,30 +23,8 @@ export default function Page() {
       return;
     }
 
-    if (!acceptedPrivacyPolicy) {
-      setError("Please accept the privacy policy to continue");
-      setLoading(false);
-      return;
-    }
-
     try {
-      // First, accept the privacy policy
-      const privacyResponse = await fetch("/api/accept-privacy-policy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone }),
-      });
-
-      if (!privacyResponse.ok) {
-        const privacyData = await privacyResponse.json();
-        setError(privacyData.error || "Failed to accept privacy policy");
-        setLoading(false);
-        return;
-      }
-
-      // Then send OTP
+      // Send OTP
       const response = await fetch("/api/send-otp", {
         method: "POST",
         headers: {
@@ -79,9 +56,9 @@ export default function Page() {
         <div>
           <label
             htmlFor="phone"
-            className="block w-full  text-xs font-medium text-gray-950 dark:text-white text-wrap leading-tight"
+            className="block w-full text-sm font-medium    text-gray-950 dark:text-white text-wrap leading-[26px]"
           >
-            Enter your mobile number to receive your 6-digit verification code. You must be on the approved list for access. To get added to the approved list, please send an email to <Link href="mailto:whitepaper@fugazi.fun" className="text-[#30C67B] hover:underline">whitepaper@fugazi.fun</Link>.
+            Enter your 10-digit mobile number to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</Link>
           </label>
           <PhoneInput
             id="phone"
@@ -92,35 +69,26 @@ export default function Page() {
             className="mt-2"
           />
           {error && (
-            <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+            <p className="mt-2 text-start text-sm text-red-600 dark:text-red-400">
               {error}
             </p>
           )}
-          <div className="mt-4">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={acceptedPrivacyPolicy}
-                onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300 text-[#30C67B] focus:ring-[#30C67B] focus:ring-2"
-                required
-              />
-              <span className="text-xs text-gray-700 dark:text-gray-300">
-                I accept the{" "}
-                <Link
-                  href="/privacy-policy"
-                  className="text-[#30C67B] hover:underline"
-                  target="_blank"
-                >
-                  privacy policy
-                </Link>
-              </span>
-            </label>
-          </div>
+       
         </div>
         <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading}>
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
+        <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[26px]">
+          By continuing you are consenting to receive a one-time passcode via SMS and agree to the{" "}
+          <Link href="/privacy-policy" className="text-[#30C67B] hover:underline">
+            Privacy Policy
+          </Link>
+          {" "}and{" "}
+          <Link href="/terms-and-conditions" className="text-[#30C67B] hover:underline">
+            Terms & Conditions
+          </Link>
+          .
+        </p>
       </form>
     </>
   );
