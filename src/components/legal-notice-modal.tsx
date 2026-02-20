@@ -19,11 +19,11 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
     <Dialog open={open} onClose={() => {}} className="relative z-50">
       <DialogBackdrop className="fixed inset-0 bg-gray-950/50 backdrop-blur-sm" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <DialogPanel className="w-full  rounded-2xl bg-gray-950 p-6 shadow-xl sm:p-8 mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-[#30C67B] sm:text-3xl">
+        <DialogPanel className="mx-auto max-w-lg rounded-lg bg-gray-950 dark:bg-gray-950 p-6 shadow-xl">
+          <h2 className="text-left text-xl font-bold text-[#30C67B] mb-6">
             LEGAL NOTICE
           </h2>
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-white sm:text-base">
+          <div className="space-y-4 text-sm text-white leading-[26px] text-left">
             <p>
               The materials available through https://whitepaper.fugazi.fun are
               confidential and proprietary to Fugazi Labs, LLC and are provided
@@ -35,16 +35,16 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
               prior written consent from Fugazi Labs, LLC.
             </p>
           </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <div className="mt-8 flex gap-3 justify-end">
             <button
               onClick={handleExit}
-              className="w-full rounded-full bg-black px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-900 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 sm:w-auto"
+              className="rounded-md bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-900 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
             >
               Exit
             </button>
             <button
               onClick={onAgree}
-              className="w-full rounded-full bg-[#30C67B] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#30C67B]/90 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 sm:w-auto"
+              className="rounded-md bg-[#30C67B] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#30C67B] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
             >
               I agree
             </button>

@@ -47,15 +47,7 @@ function MobileNavigation({
             </CloseButton>
           </div>
           <div className="mt-4">
-            <div className="flex flex-col gap-y-2">
-              <CloseButton
-                as={Link}
-                href="/"
-                className="block rounded-md px-4 py-1.5 text-lg/7 font-medium tracking-tight text-gray-950 hover:bg-[#30C67B]/20 hover:text-[#30C67B] dark:text-white dark:hover:bg-[#30C67B]/20 dark:hover:text-[#30C67B]"
-              >
-                Start
-              </CloseButton>
-            </div>
+          
             <div className="mt-6 flex flex-col gap-y-2">
               <CloseButton
                 as={Link}
@@ -85,7 +77,6 @@ function SiteNavigation() {
         onClose={() => setMobileMenuOpen(false)}
       />
       <div className="flex gap-x-6 items-center text-sm/6 text-gray-950 max-lg:hidden dark:text-white">
-        <Link href="/" className="hover:text-[#30C67B] transition-colors">Start</Link>
         <Link href="/login" className="font-semibold hover:text-[#30C67B] transition-colors">Sign out</Link>
       </div>
     </nav>
