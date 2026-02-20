@@ -110,7 +110,7 @@ export function PhoneInput({
         value={displayValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="(707) 245-2338"
+        placeholder=""
         maxLength={14} // (XXX) XXX-XXXX
         {...props}
       />
