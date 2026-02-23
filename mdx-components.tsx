@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { ReactNode } from "react";
 import { createHighlighter, Highlighter } from "shiki";
 import theme from "./src/app/syntax-theme.json";
+import { FullscreenImageModal } from "./src/components/fullscreen-image-modal";
 
 function getTextContent(node: ReactNode): string {
   if (typeof node === "string") return node;
@@ -92,6 +93,21 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         [width, height] = alt.split("|")[1].split("x").map(Number);
         alt = alt.split("|")[0];
       }
+      
+      // Use fullscreen modal for fugazi.png image
+      if (props.src === "/fugazi.png" || props.src?.includes("fugazi.png")) {
+        return (
+          <div className="w-full my-6">
+            <FullscreenImageModal
+              src={props.src}
+              alt={alt}
+              width={width}
+              height={height}
+            />
+          </div>
+        );
+      }
+      
       if (props.src.includes(schemePlaceholder)) {
         return (
           <>
@@ -101,7 +117,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
               width={width}
               height={height}
               src={props.src.replace(schemePlaceholder, "light")}
-              className="dark:hidden"
+              className="dark:hidden rounded-none"
+              style={{ borderRadius: 0 }}
             />
             <Image
               {...props}
@@ -109,12 +126,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
               width={width}
               height={height}
               src={props.src.replace(schemePlaceholder, "dark")}
-              className="not-dark:hidden"
+              className="not-dark:hidden rounded-none"
+              style={{ borderRadius: 0 }}
             />
           </>
         );
       } else {
-        return <Image {...props} alt={alt} width={width} height={height} />;
+        return (
+          <Image
+            {...props}
+            alt={alt}
+            width={width}
+            height={height}
+            className="rounded-none"
+            style={{ borderRadius: 0 }}
+          />
+        );
       }
     },
     async pre(props) {
