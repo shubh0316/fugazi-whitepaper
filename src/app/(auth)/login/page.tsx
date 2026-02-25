@@ -87,7 +87,7 @@ export default function Page() {
           <Link href="/terms-and-conditions" className="text-[#30C67B] hover:underline">
             Terms & Conditions
           </Link>
-          .
+          . Fugazi will never send you marketing or promotional messages. SMS messages are used strictly for verification purposes only. Messaging and data rates may apply. Check with your carrier for details.
         </p>
       </form>
     </>
