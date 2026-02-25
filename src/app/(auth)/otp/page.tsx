@@ -139,7 +139,7 @@ function OTPForm() {
       <Button
         type="button"
         onClick={() => router.push("/login")}
-        className="mt-4 w-full  hover:text-black bg-[#30C67B]"
+        className="mt-4 w-full  hover:text-black bg-[#52D593]"
       >
         Request a new passcode
       </Button>

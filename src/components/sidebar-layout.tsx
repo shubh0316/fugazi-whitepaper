@@ -52,8 +52,8 @@ function CourseNavigation({
                 key={lesson.id}
                 className={clsx(
                   "-ml-px flex border-l border-transparent pl-4",
-                  "hover:text-[#30C67B] hover:not-has-aria-[current=page]:border-[#30C67B]",
-                  "has-aria-[current=page]:border-[#30C67B]",
+                  "hover:text-[#52D593] hover:not-has-aria-[current=page]:border-[#52D593]",
+                  "has-aria-[current=page]:border-[#52D593]",
                 )}
               >
                 <Link
@@ -62,7 +62,7 @@ function CourseNavigation({
                     `/${lesson.id}` === pathname ? "page" : undefined
                   }
                   onNavigate={onNavigate}
-                  className="aria-[current=page]:font-medium aria-[current=page]:text-[#30C67B]"
+                  className="aria-[current=page]:font-medium aria-[current=page]:text-[#52D593]"
                 >
                   {lesson.title}
                 </Link>

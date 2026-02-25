@@ -58,7 +58,7 @@ export default function Page() {
             htmlFor="phone"
             className="block w-full text-sm font-medium    text-gray-950 dark:text-white text-wrap leading-[26px]"
           >
-            Enter your 10-digit mobile number to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#30C67B] hover:underline">support@fugazi.fun</Link>
+            Enter your 10-digit mobile number to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#52D593] hover:underline">support@fugazi.fun</Link>
           </label>
           <PhoneInput
             id="phone"
@@ -80,11 +80,11 @@ export default function Page() {
         </Button>
         <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[26px]">
           By continuing you are consenting to receive a one-time passcode via SMS and agree to the{" "}
-          <Link href="/privacy-policy" className="text-[#30C67B] hover:underline">
+          <Link href="/privacy-policy" className="text-[#52D593] hover:underline">
             Privacy Policy
           </Link>
           {" "}and{" "}
-          <Link href="/terms-and-conditions" className="text-[#30C67B] hover:underline">
+          <Link href="/terms-and-conditions" className="text-[#52D593] hover:underline">
             Terms & Conditions
           </Link>
           . Fugazi will never send you marketing or promotional messages. SMS messages are used strictly for verification purposes only. Messaging and data rates may apply. Check with your carrier for details.
