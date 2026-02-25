@@ -20,7 +20,7 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
       <DialogBackdrop className="fixed inset-0 bg-gray-950/50 backdrop-blur-sm" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="mx-auto max-w-lg rounded-lg bg-gray-950 dark:bg-gray-950 p-6 shadow-xl">
-          <h2 className="text-left text-xl font-bold text-[#52D593] mb-6">
+          <h2 className="text-left text-xl font-bold text-[#3CC383] mb-6">
             LEGAL NOTICE
           </h2>
           <div className="space-y-4 text-sm text-white leading-[26px] text-left">
@@ -44,7 +44,7 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
             </button>
             <button
               onClick={onAgree}
-              className="rounded-md bg-[#52D593] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#52D593] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+              className="rounded-md bg-[#3CC383] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#3CC383] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
             >
               I agree
             </button>
