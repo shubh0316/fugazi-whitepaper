@@ -1,27 +1,216 @@
-# Skill Rating & Matchmaking
+import Image from "next/image";
 
-Fugazi uses a skill rating system inspired by Elo-style competitive ranking models to evaluate player performance over time. Ratings are designed to reflect consistent decision-making quality rather than isolated wins or losses by incorporating opponent strength, relative performance, and repetition across matches. Outcomes against higher-rated opponents carry greater informational weight than outcomes against lower-rated ones, allowing the system to converge toward an accurate representation of skill as match history grows. Rating volatility is intentionally higher for new participants and stabilizes as additional data is accumulated, reducing noise while preserving responsiveness. This approach ensures that Fugazi's ratings function as a durable, comparable signal of competitive ability rather than a short-term measure of luck or variance.
+# Skill Ranking & Matchmaking
 
-## Rating Updates
+Fugazi uses a structured, performance-weighted ranking system designed to measure competitive market decision-making over time. The system draws conceptual inspiration from Elo-style frameworks but is implemented as a bounded 0–1000 scale to provide intuitive clarity, psychological stability, and long-term signal durability.
 
-After each completed match, player ratings are updated based on:
+Diamond tier thresholds are initially defined as fixed milestone bands. As ranking distribution data accumulates, thresholds may be recalibrated to preserve competitive scarcity and balanced tier density. Any adjustments will be versioned and documented to maintain transparency and ranking continuity.
 
-- Relative performance between opponents
-- The strength of the opposing player
-- Match outcome within the predefined scoring framework
+The ranking model prioritizes:
 
-Defeating a higher-rated opponent produces a larger rating increase than defeating a lower-rated one, while losses to stronger opponents are penalized less severely. Over repeated matches, this system converges toward an accurate representation of each player's competitive skill level.
+- Repeated relative performance
+- Opponent strength calibration
+- Format-weighted signal quality
+- Controlled volatility
+- Long-term convergence toward demonstrated skill
 
-## Matchmaking Strategy
+The objective is not to reward isolated outcomes, but to produce a persistent, interpretable measure of competitive ability.
 
-Matchmaking is designed to balance competitiveness, fairness, and player retention. Players are generally matched within similar rating bands, with controlled variance to allow for meaningful progression and challenge. New players enter the system through protected brackets to prevent immediate exposure to highly skilled competitors.
+## Ranking Scale Structure
 
-## Integrity Safeguards
+**Ranking Range:** 0 to 1000  
+**New Participant Baseline:** 500
 
-To preserve integrity, Fugazi incorporates anti-abuse and anti-manipulation safeguards, including:
+The midpoint baseline allows immediate directional movement (up or down) without implying prior competence or incompetence. Over time, ranking distribution forms organically through repeated competition.
 
-- Rating volatility limits for new accounts
-- Pattern detection for collusion or intentional losses
-- Constraints on repeat opponent matching
+## Provisional Calibration Phase
 
-This combination of skill-based ratings and intelligent matchmaking ensures that Fugazi remains competitive, fair, and engaging as the player base grows, while continuously improving the quality and reliability of the underlying skill signal.
+The first 20 completed matches constitute a provisional calibration period.
+
+During this phase:
+
+- Ranking volatility is elevated
+- Swings may exceed normal movement ranges
+- Match outcomes carry amplified informational weight
+- Opponent ranking adjustments remain bounded
+
+The purpose of the provisional phase is rapid convergence toward an approximate skill band without requiring excessive match volume.
+
+After 20 matches:
+
+- Volatility dampens
+- Movement becomes more incremental
+- Ranking stability increases
+
+This prevents long-term distortion from early variance.
+
+## Ranking Movement Per Match
+
+Typical ranking change after stabilization: 10–25 points
+
+Movement magnitude is determined by:
+
+- Relative performance outcome (win/loss)
+- Ranking differential between opponents
+- Format weight multiplier
+- Volatility factor (reduced after provisional phase)
+
+Defeating a significantly higher-rated opponent produces larger upward movement.  
+Losing to a significantly lower-rated opponent produces larger downward movement.  
+Losses to stronger opponents are penalized less severely.
+
+## Format Weighting
+
+All competitive formats contribute to a single unified ranking.
+
+Weight multipliers:
+
+- **Blitz Match** — 1x
+- **Standard Match** — 2x
+- **Championship Match** — 3x
+
+The weighting reflects relative signal depth:
+
+- Blitz generates high-volume, higher-variance data.
+- Standard introduces sustained judgment.
+- Championship produces the highest-quality signal across a full market session.
+
+Weighting increases informational impact without introducing disproportionate volatility.
+
+## Ranking Floors and Stability Controls
+
+**Hard Floor:** 0  
+No participant may fall below 0.
+
+**Soft Drawdown Guard (Post-Stabilization Only):**  
+Once a participant exits the provisional phase, ranking may not fall more than 150 points below their historical peak without triggering volatility dampening.
+
+This mechanism:
+
+- Prevents extreme collapse from short losing streaks
+- Preserves earned competitive identity
+- Encourages continued participation after variance events
+- Maintains psychological durability without distorting skill measurement
+
+The drawdown guard reduces volatility incrementally as the player approaches the 150-point threshold.  
+It does not guarantee recovery.  
+It prevents catastrophic destabilization.
+
+## Diamond Tier Framework
+
+Skill Ranking determines eligibility for competitive tiers, expressed visually as distinct diamond identities.
+
+Diamond tiers are represented by flat, monochrome gemstone-based diamond icons. Each tier corresponds to a specific ranking band and reflects earned competitive standing within the Fugazi ecosystem.
+
+Key principles:
+
+- Tier movement is intentionally stable
+- Short-term variance does not cause immediate tier demotion
+- Promotion requires both ranking threshold and activity threshold
+- Demotion requires sustained underperformance
+- Tier identity is represented visually by diamond icon only (no text labels displayed inline)
+
+Tier eligibility is derived from:
+
+- Ranking threshold
+- Minimum wins achieved
+- Minimum matches created (participation density contribution)
+
+This ensures tiers reflect:
+
+- Demonstrated ability
+- Competitive commitment
+- Marketplace participation
+
+Tier identity is not cosmetic.  
+It represents earned competitive standing within a bounded and deterministic ranking system.
+
+## Diamond Tier Bands
+
+| Tiers | Rank Range |
+| :----- | :--------- |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier1.svg" alt="Tier I" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier I</span> | 0–549 |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier2.svg" alt="Tier II" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier II</span> | 550–649 |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier3.svg" alt="Tier III" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier III</span> | 650–749 |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier4.svg" alt="Tier IV" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier IV</span> | 750–829 |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier5.svg" alt="Tier V" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier V</span> | 830–899 |
+| <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><Image src="/tier6.svg" alt="Tier VI" width={40} height={43} style={{ display: "inline-block", verticalAlign: "middle" }} /> Tier VI</span> | 900–1000 |
+
+Baseline 500 sits in Fugazi Green (neutral entry)  
+Early advancement feels achievable  
+Mid tiers are meaningful jumps  
+Upper tiers compress (prestige density)  
+Apex is scarce by design  
+900+ psychologically signals elite without feeling unreachable
+
+## Matchmaking Logic
+
+Matchmaking balances:
+
+- Competitive fairness
+- Challenge accessibility
+- Retention durability
+- Marketplace liquidity
+
+**General Rules:**
+
+- Players are matched primarily within similar ranking bands.
+- Controlled variance allows upward challenge opportunities.
+- Lower-rated players may challenge higher-rated players directly.
+- Higher-rated players are not automatically matched downward outside controlled variance thresholds.
+
+This preserves:
+
+- Aspirational challenge behavior
+- Protection against predatory pairing
+- Integrity of ranking progression
+
+## Championship Tier Segmentation
+
+Championship Matches are segmented by ranking band to preserve signal integrity.
+
+Participants compete against opponents within defined ranking tiers during Championship events.
+
+This prevents:
+
+- Extreme skill mismatches
+- Ranking inflation from low-band victories
+- Prestige dilution
+
+Championship participation reflects competitive maturity.
+
+## Integrity Safeguards Within Ranking System
+
+To prevent manipulation:
+
+- Ranking volatility limits apply to new accounts
+- Repeat opponent matching is constrained
+- Pattern detection identifies coordinated ranking farming
+- Extreme outcome anomalies trigger integrity review flags
+- No manual ranking overrides are applied except under verified technical fault conditions
+
+The ranking system must remain:
+
+- Deterministic
+- Explainable
+- Statistically convergent
+- Resistant to collusion
+
+## Psychological Design Considerations
+
+The ranking model is intentionally:
+
+- Bounded (0–1000)
+- Incremental
+- Visually interpretable
+- Stable after calibration
+
+This structure avoids:
+
+- Infinite inflation
+- Arbitrary prestige tiers
+- Rapid demotion cycles
+- Volatile identity swings
+
+Skill expression compounds gradually.  
+Reputation must be earned and defended.

@@ -26,7 +26,7 @@ Fugazi reduces liquidity pressure through standardized rulesets, low-friction ma
 Highly skilled early adopters can dominate competition, discouraging new or casual players and accelerating churn.
 
 **Mitigation:**  
-Fugazi employs protected onboarding brackets, rating volatility controls for new players, and controlled matchmaking variance to prevent early skill cliffs. Progression systems emphasize improvement and learning rather than win-only outcomes, allowing players to remain engaged even when losing.
+Fugazi employs protected onboarding brackets, ranking volatility controls for new players, and controlled matchmaking variance to prevent early skill cliffs. Progression systems emphasize improvement and learning rather than win-only outcomes, allowing players to remain engaged even when losing.
 
 ### 3. Distribution and Growth Stall Risk
 
@@ -50,7 +50,7 @@ Fugazi operates under a social competition model with no real-world prizes, cust
 Collusion, smurfing, or coordinated behavior could undermine trust in rankings and outcomes.
 
 **Mitigation:**  
-Fugazi treats integrity as a core system requirement. Safeguards include rating volatility controls, opponent repetition limits, behavioral pattern detection, and auditability of match outcomes. Abuse resistance is evaluated continuously and is a gating requirement for any future expansion.
+Fugazi treats integrity as a core system requirement. Safeguards include ranking volatility controls, opponent repetition limits, behavioral pattern detection, and auditability of match outcomes. Abuse resistance is evaluated continuously and is a gating requirement for any future expansion.
 
 ### 6. Market Cycle Dependency
 
@@ -68,20 +68,190 @@ Premature expansion into real-stakes competition or adjacent products could dilu
 **Mitigation:**  
 Fugazi anchors execution and monetization on the Phase 1 social competition platform. Any expansion into real-stakes competition is treated as optional, separate, and gated by measurable performance thresholds. This sequencing ensures that capital and execution remain concentrated on scaling the core product.
 
-## Early Warning Indicators
+## Early Warning Indicators and Risk Monitoring
 
-Fugazi treats risk management as an ongoing operational process rather than a static assessment. Key risk categories are monitored through early warning indicators designed to surface degradation in system health before it manifests as visible failure.
+Fugazi treats risk management as an ongoing operational process rather than a static assessment. Key risk categories are monitored through early warning indicators designed to surface degradation in system health before it manifests as visible failure. These indicators inform prioritization, tuning, and sequencing decisions as the platform scales.
 
-**Operating Principle**
+### 1. Marketplace Liquidity Indicators
+
+Early signals of liquidity risk include:
+
+- Increasing average time-to-match within ranking bands
+- Rising match abandonment or unaccepted challenge rates
+- Concentration of matches among a shrinking subset of active players
+
+These signals indicate insufficient participation density or ruleset fragmentation and trigger corrective actions such as ruleset consolidation, matchmaking parameter adjustment, or targeted community activation.
+
+### 2. Retention and Engagement Indicators
+
+Early signals of retention risk include:
+
+- Declines in repeat match frequency per user
+- Drop-offs in participation after initial ranking placement
+- Reduced re-engagement at season resets
+
+These indicators suggest friction in progression, excessive skill cliffs, or insufficient post-match feedback clarity, prompting adjustments to onboarding brackets, progression pacing, or feedback depth.
+
+### 3. Skill Signal Degradation Indicators
+
+Early signals that the skill signal is weakening include:
+
+- Ranking inflation or compression beyond expected distributions
+- Outcome variance inconsistent with ranking expectations
+- Decreased predictive value of ranking differences over time
+
+These patterns indicate potential scoring issues, matchmaking imbalance, or abuse behavior and trigger review of ranking parameters, scoring normalization, and integrity safeguards.
+
+### 4. Competitive Integrity Indicators
+
+Early signals of integrity risk include:
+
+- Unusual clustering of repeat opponents
+- Abnormal win/loss streaks inconsistent with ranking variance
+- Spikes in flagged behavioral patterns or coordinated activity
+
+These indicators activate deeper review pipelines, automated constraints, or temporary enforcement measures to prevent erosion of trust in rankings and outcomes.
+
+### 5. Growth and Distribution Indicators
+
+Early signals of growth risk include:
+
+- Declining conversion from social view to first match
+- Reduced sharing frequency of competitive artifacts
+- Over-dependence on a small number of influencers or communities
+
+These trends signal weakening distribution loops and prompt intervention through event-driven competition, refreshed social artifacts, or broader community engagement strategies.
+
+### 6. Operational and Scaling Indicators
+
+Early signals of execution risk include:
+
+- Increased manual intervention in match resolution or enforcement
+- System instability during predictable usage spikes
+- Latency or inconsistency in outcome reporting and ranking updates
+
+These indicators inform infrastructure prioritization and scaling decisions, ensuring that operational complexity does not outpace platform maturity.
+
+### Operating Principle
 
 No single metric is treated as determinative. Risk assessment is based on patterns across indicators and sustained trends rather than isolated anomalies. This approach allows Fugazi to intervene early, tune systems incrementally, and preserve platform integrity as participation and complexity increase.
 
-## Kill Criteria and Decision Discipline
+## Kill Criteria, Escalation Thresholds, and Decision Discipline
 
 Fugazi operates with explicit escalation and stop-loss criteria to ensure that emerging risks are addressed decisively rather than rationalized over time. These criteria are not designed to constrain ambition, but to enforce focus, protect platform integrity, and prevent sunk-cost bias from driving execution decisions.
 
 Kill criteria are evaluated based on sustained trends rather than short-term volatility. No single metric triggers action in isolation; decisions are informed by corroborating signals across multiple indicators.
 
-**Operating Principle**
+### 1. Marketplace Viability Kill Criteria
+
+**Escalation triggers:**
+
+- Median time-to-match exceeds acceptable bounds across multiple ranking bands for a sustained period
+- Match fill rates decline despite increased user acquisition
+- Competitive activity concentrates into a shrinking subset of users
+
+**Decision response:**
+
+- Pause expansion of new rulesets or formats
+- Consolidate matchmaking pools
+- Narrow target user cohorts rather than expanding acquisition spend
+
+**Hard stop condition:**
+
+If reliable match formation cannot be achieved after structural simplification and cohort refocusing, further scaling efforts are halted until liquidity fundamentals are restored.
+
+### 2. Retention and Engagement Kill Criteria
+
+**Escalation triggers:**
+
+- Persistent decline in D30 retention despite product iteration
+- Repeated failure of seasonal resets to reactivate dormant users
+- Declining matches-per-user indicating weakening competitive motivation
+
+D30 retention is defined as participation in at least one competition 30 days after a user's first completed match.
+
+**Decision response:**
+
+- Halt feature expansion
+- Reallocate resources toward progression systems, onboarding protection, and feedback clarity
+- Reduce surface area to focus on the core competitive loop
+
+**Hard stop condition:**
+
+If the core loop fails to demonstrate durable retention independent of incentives, Fugazi does not advance toward higher-complexity offerings.
+
+### 3. Skill Signal Integrity Kill Criteria
+
+**Escalation triggers:**
+
+- Skill rankings lose predictive power over repeated samples
+- Outcome distributions diverge materially from expected variance
+- Repeated need for manual overrides or ad-hoc adjustments
+
+**Decision response:**
+
+- Freeze expansion of competitive formats
+- Re-baseline scoring and ranking parameters
+- Commission internal or third-party validation of skill signal integrity
+
+**Hard stop condition:**
+
+If Fugazi cannot produce a stable, explainable skill signal under controlled conditions, the platform does not progress to higher-stakes or higher-visibility competition layers.
+
+### 4. Competitive Integrity Kill Criteria
+
+**Escalation triggers:**
+
+- Sustained increase in confirmed collusion, smurfing, or coordinated abuse
+- Integrity enforcement requires increasing manual intervention
+- Community trust in rankings or outcomes visibly degrades
+
+**Decision response:**
+
+- Tighten enforcement constraints and matchmaking limits
+- Temporarily restrict competition modes most susceptible to abuse
+- Prioritize integrity tooling over growth initiatives
+
+**Hard stop condition:**
+
+If competitive trust cannot be maintained at scale, Fugazi prioritizes platform stability over growth and pauses expansion initiatives.
+
+### 5. Growth Concentration and Dependency Risk
+
+**Escalation triggers:**
+
+- Acquisition or engagement becomes overly dependent on a small number of influencers, communities, or events
+- Social sharing rates decline while paid acquisition pressure increases
+- Growth becomes episodic rather than compounding
+
+**Decision response:**
+
+- Shift emphasis toward system-driven competition (seasons, championships)
+- Reduce reliance on individual creators
+- Re-invest in artifact quality and competitive visibility
+
+**Hard stop condition:**
+
+If growth cannot be sustained without increasing acquisition spend or external dependency, Fugazi slows expansion to protect unit economics and platform credibility.
+
+### 6. Strategic Focus and Scope Discipline
+
+**Escalation triggers:**
+
+- Team bandwidth becomes fragmented across parallel initiatives
+- Phase 2 planning begins to distract from Phase 1 execution
+- Legal, operational, or compliance complexity outpaces core product maturity
+
+**Decision response:**
+
+- Explicitly deprioritize non-core initiatives
+- Reaffirm Phase 1 as the execution anchor
+- Delay expansion until foundational metrics stabilize
+
+**Hard stop condition:**
+
+Fugazi does not pursue expansion paths that compromise focus, integrity, or operational clarity, regardless of perceived opportunity size.
+
+### Operating Principle
 
 Fugazi's operating discipline prioritizes long-term credibility over short-term momentum. When indicators signal structural weakness, the platform responds by narrowing scope, simplifying systems, and restoring fundamentals before resuming growth. Expansion is earned through demonstrated stability, not assumed through ambition.
