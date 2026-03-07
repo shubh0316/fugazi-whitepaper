@@ -66,13 +66,21 @@ export async function POST(request: NextRequest) {
     sgMail.setApiKey(apiKey);
 
     let templateBase64 = "";
+    let fugaziBase64 = "";
     try {
       // On Vercel, files in the /public folder are guaranteed to be available in the serverless bundle
       const templateImagePath = path.join(process.cwd(), "public", "template.png");
-      const imageBuffer = await fs.readFile(templateImagePath);
-      templateBase64 = imageBuffer.toString("base64");
+      const fugaziImagePath = path.join(process.cwd(), "public", "fugazi.png");
+
+      const [templateBuffer, fugaziBuffer] = await Promise.all([
+        fs.readFile(templateImagePath),
+        fs.readFile(fugaziImagePath)
+      ]);
+
+      templateBase64 = templateBuffer.toString("base64");
+      fugaziBase64 = fugaziBuffer.toString("base64");
     } catch (imgError) {
-      console.error("Error reading template image:", imgError);
+      console.error("Error reading template images:", imgError);
     }
 
     const msg: any = {
@@ -80,35 +88,47 @@ export async function POST(request: NextRequest) {
       from: fromEmail,
       subject: "Your Fugazi Whitepaper Access Passcode",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #000;">
-          <div style="background-color: #0A0F1A; padding: 20px; text-align: center;">
-            <img src="cid:templateImage" alt="Fugazi" style="max-height: 40px;" />
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
+          <div style="width: 100%; margin-bottom: 24px;">
+            <img src="cid:templateImage" alt="Fugazi" style="width: 100%; height: auto; display: block;" />
           </div>
-          <div style="padding: 20px 0;">
-            <p style="font-size: 14px;">Please enter the following passcode to access the Fugazi whitepaper.</p>
-            <p style="font-size: 18px; font-weight: bold; margin: 20px 0;">${otp}</p>
-            <p style="font-size: 14px; line-height: 1.5;">
-              The materials available through https://whitepaper.fugazi.fun are confidential and are provided solely for informational and evaluation purposes. Do not share your passcode with anyone without the expressed written consent of Fugazi Labs, LLC.
+          
+          <div style="padding: 0 0 20px 0;">
+            <p style="font-size: 14px; margin: 0 0 24px 0;">Please enter the following passcode to access the Fugazi whitepaper.</p>
+            
+            <p style="font-size: 16px; font-weight: 700; margin: 0 0 24px 0;">${otp}</p>
+            
+            <p style="font-size: 14px; line-height: 1.6; margin: 0 0 24px 0;">
+              The materials available through https://whitepaper.fugazi.fun are
+              confidential and are provided solely for informational and evaluation
+              purposes. Do not share your passcode with anyone without the
+              expressed written consent of Fugazi Labs, LLC.
             </p>
           </div>
           
-          <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #666;">
-            <p>Fugazi Labs, LLC. 125 S. King Street, Suite 2A, Jackson, WY 83001-2922.</p>
+         
+          
+          <div style="text-align: center; font-size: 11px; color: #555; padding-top: 20px;">
+            <p style="margin: 0 0 8px 0;">Fugazi Labs, LLC. 125 S. King Street, Suite 2A, Jackson, WY 83001-2922.</p>
+            <p style="margin: 0;">If you have any questions regarding this message, please contact support@fugazi.fun.</p>
           </div>
         </div>
       `,
     };
 
+    const attachments: any[] = [];
+
     if (templateBase64) {
-      msg.attachments = [
-        {
-          content: templateBase64,
-          filename: "template.png",
-          type: "image/png",
-          disposition: "inline",
-          content_id: "templateImage",
-        },
-      ];
+      attachments.push({
+        content: templateBase64,
+        filename: "template.png",
+        type: "image/png",
+        disposition: "inline",
+        content_id: "templateImage",
+      });
+    }
+    if (attachments.length > 0) {
+      msg.attachments = attachments;
     }
 
     await sgMail.send(msg);
