@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/button";
-import { PhoneInput } from "@/components/phone-input";
+import { TextInput } from "@/components/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -10,15 +10,15 @@ export default function Page() {
   const router = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [phone, setPhone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    if (!phone || phone.length !== 12) {
-      setError("Please enter a valid 10-digit phone number");
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Please enter a valid email address");
       setLoading(false);
       return;
     }
@@ -30,7 +30,7 @@ export default function Page() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ phone }),
+        body: JSON.stringify({ email }),
       });
 
       const data = await response.json();
@@ -42,7 +42,7 @@ export default function Page() {
       }
 
       // OTP sent successfully, redirect to OTP page
-      router.push(`/otp?phone=${encodeURIComponent(phone)}`);
+      router.push(`/otp?email=${encodeURIComponent(email)}`);
     } catch (err) {
       setError("Failed to send OTP. Please try again.");
       setLoading(false);
@@ -55,16 +55,17 @@ export default function Page() {
       <form onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="phone"
+            htmlFor="email"
             className="block w-full text-sm font-medium    text-gray-950 dark:text-white text-wrap leading-[26px]"
           >
-            Enter your 10-digit mobile number to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</Link>
+            Enter your email address to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</Link>
           </label>
-          <PhoneInput
-            id="phone"
-            name="phone"
-            value={phone}
-            onChange={setPhone}
+          <TextInput
+            id="email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             className="mt-2"
           />
@@ -79,7 +80,7 @@ export default function Page() {
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
         <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[26px]">
-          By continuing you are consenting to receive a one-time passcode via SMS and agree to the{" "}
+          By continuing you are consenting to receive a one-time passcode via email and agree to the{" "}
           <Link href="/privacy-policy" className="text-[#3CC383] hover:underline">
             Privacy Policy
           </Link>
@@ -87,7 +88,7 @@ export default function Page() {
           <Link href="/terms-and-conditions" className="text-[#3CC383] hover:underline">
             Terms & Conditions
           </Link>
-          . Fugazi will never send you marketing or promotional messages. SMS messages are used strictly for verification purposes only. Messaging and data rates may apply. Check with your carrier for details.
+          . Fugazi will never send you marketing or promotional messages. Emails are used strictly for verification purposes only.
         </p>
       </form>
     </>

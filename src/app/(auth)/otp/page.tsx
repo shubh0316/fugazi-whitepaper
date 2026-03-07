@@ -10,7 +10,7 @@ import { Suspense, useState } from "react";
 function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const phone = searchParams.get("phone") || "";
+  const email = searchParams.get("email") || "";
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
@@ -18,11 +18,11 @@ function OTPForm() {
 
   // Check if user has already accepted legal notice after OTP verification
   const checkLegalNoticeStatus = async () => {
-    if (!phone) return;
+    if (!email) return;
 
     setCheckingLegalNotice(true);
     try {
-      const response = await fetch(`/api/accept-legal-notice?phone=${encodeURIComponent(phone)}`);
+      const response = await fetch(`/api/accept-legal-notice?email=${encodeURIComponent(email)}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -57,8 +57,8 @@ function OTPForm() {
       return;
     }
 
-    if (!phone) {
-      setError("Phone number is missing");
+    if (!email) {
+      setError("Email address is missing");
       setLoading(false);
       return;
     }
@@ -69,7 +69,7 @@ function OTPForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ phone, otp }),
+        body: JSON.stringify({ email, otp }),
       });
 
       const data = await response.json();
@@ -90,7 +90,7 @@ function OTPForm() {
   };
 
   const handleAgree = async () => {
-    if (!phone) return;
+    if (!email) return;
 
     try {
       const response = await fetch("/api/accept-legal-notice", {
@@ -98,7 +98,7 @@ function OTPForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ phone }),
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {

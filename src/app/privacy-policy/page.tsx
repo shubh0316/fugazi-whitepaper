@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
             a. Information You Provide
           </h3>
           <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mb-4 space-y-2 ml-4">
-            <li>Mobile phone number (for account authentication)</li>
+            <li>Email address (for account authentication)</li>
           </ul>
           <h3 className="text-lg font-medium text-gray-950 dark:text-white mt-6 mb-3">
             b. Automatically Collected Information
@@ -59,22 +59,22 @@ export default function PrivacyPolicyPage() {
           </ul>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
-            3. SMS & Phone Number Usage
+            3. Email Usage
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi collects mobile phone numbers solely to control access to the Fugazi whitepaper and to perform account authentication and security verification. Phone numbers are used only to deliver one-time passcodes to users whose numbers have been approved in advance.
+            Fugazi collects email addresses solely to control access to the Fugazi whitepaper and to perform account authentication and security verification. Email addresses are used only to deliver one-time passcodes to users whose addresses have been approved in advance.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Access to the Fugazi whitepaper is limited to an approved list of mobile phone numbers maintained by Fugazi. Only approved numbers are permitted to receive passcodes. Submission of a mobile phone number alone does not guarantee access.
+            Access to the Fugazi whitepaper is limited to an approved list of email addresses maintained by Fugazi. Only approved addresses are permitted to receive passcodes. Submission of an email address alone does not guarantee access.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            By requesting a one-time passcode, approved users consent to receive transactional SMS messages strictly for identity verification and access control purposes.
+            By requesting a one-time passcode, approved users consent to receive transactional emails strictly for identity verification and access control purposes.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi does not send marketing or promotional SMS messages and does not sell, rent, or share phone numbers with third parties for marketing purposes.
+            Fugazi does not send marketing or promotional emails and does not sell, rent, or share email addresses with third parties for marketing purposes.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Users may opt out of SMS messages at any time by replying STOP.
+            Users may opt out of emails at any time by clicking the unsubscribe link in any message.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
             Users may request help or assistance with their account, by emailing <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>

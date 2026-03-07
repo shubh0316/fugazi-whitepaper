@@ -5,33 +5,12 @@ import path from "path";
 const DATA_FILE = path.join(process.cwd(), "src/data/legal-notice-acceptances.json");
 
 interface LegalNoticeAcceptance {
-  phone: string;
+  email: string;
   acceptedAt: string;
   ipAddress?: string;
 }
 
-// Normalize phone number to E.164 format (same as in other routes)
-function normalizePhone(phone: string): string {
-  let cleaned = phone.replace(/[^\d+]/g, "");
-  
-  if (cleaned.startsWith("+")) {
-    return cleaned;
-  }
-  
-  if (cleaned.startsWith("1") && cleaned.length === 11) {
-    return `+${cleaned}`;
-  }
-  
-  if (cleaned.startsWith("91") && cleaned.length === 12) {
-    return `+${cleaned}`;
-  }
-  
-  if (cleaned.length === 10) {
-    return `+1${cleaned}`;
-  }
-  
-  return cleaned;
-}
+
 
 // In-memory fallback for Vercel (filesystem is read-only)
 let memoryStore: LegalNoticeAcceptance[] = [];
@@ -41,7 +20,7 @@ async function readAcceptances(): Promise<LegalNoticeAcceptance[]> {
   if (process.env.VERCEL) {
     return memoryStore;
   }
-  
+
   // Local development: read from JSON file
   try {
     const fileContents = await fs.readFile(DATA_FILE, "utf-8");
@@ -58,33 +37,33 @@ async function writeAcceptances(acceptances: LegalNoticeAcceptance[]): Promise<v
     memoryStore = acceptances;
     return;
   }
-  
+
   // Local development: write to JSON file
   await fs.writeFile(DATA_FILE, JSON.stringify(acceptances, null, 2), "utf-8");
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone } = await request.json();
+    const { email } = await request.json();
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    const normalizedPhone = normalizePhone(phone);
-    const ipAddress = request.headers.get("x-forwarded-for") || 
-                     request.headers.get("x-real-ip") || 
-                     "unknown";
+    const normalizedEmail = email.toLowerCase().trim();
+    const ipAddress = request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
 
     // Read existing acceptances
     const acceptances = await readAcceptances();
 
     // Check if user has already accepted
     const existingAcceptance = acceptances.find(
-      (acc) => acc.phone === normalizedPhone
+      (acc) => acc.email === normalizedEmail
     );
 
     if (existingAcceptance) {
@@ -94,7 +73,7 @@ export async function POST(request: NextRequest) {
     } else {
       // Add new acceptance
       acceptances.push({
-        phone: normalizedPhone,
+        email: normalizedEmail,
         acceptedAt: new Date().toISOString(),
         ipAddress: ipAddress,
       });
@@ -120,20 +99,20 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const phone = searchParams.get("phone");
+    const email = searchParams.get("email");
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    const normalizedPhone = normalizePhone(phone);
+    const normalizedEmail = email.toLowerCase().trim();
     const acceptances = await readAcceptances();
 
     const acceptance = acceptances.find(
-      (acc) => acc.phone === normalizedPhone
+      (acc) => acc.email === normalizedEmail
     );
 
     return NextResponse.json({

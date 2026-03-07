@@ -10,28 +10,28 @@ export default function TermsAndConditionsPage() {
         </div>
         <div className="prose prose-sm max-w-none dark:prose-invert">
           <h1 className="text-3xl font-bold text-gray-950 dark:text-white mb-2">
-            Fugazi SMS Terms & Conditions
+            Fugazi Email Terms & Conditions
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-8">
             Last Updated: February 16, 2026
           </p>
 
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
-            These SMS Terms & Conditions ("SMS Terms") govern the delivery of text messages sent by Fugazi Labs, LLC ("Fugazi," "we," "us") in connection with account authentication and security services.
+            These Email Terms & Conditions ("Email Terms") govern the delivery of emails sent by Fugazi Labs, LLC ("Fugazi," "we," "us") in connection with account authentication and security services.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Program Description
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Fugazi sends SMS messages solely to deliver one-time passcodes used to control access to the Fugazi whitepaper. Messages are strictly transactional and non-marketing.
+            Fugazi sends emails solely to deliver one-time passcodes used to control access to the Fugazi whitepaper. Messages are strictly transactional and non-marketing.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Opt-In
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Access to SMS verification is limited to mobile phone numbers approved in advance by Fugazi. Approved users receive SMS messages only after requesting a one-time passcode. By requesting a passcode code, approved users consent to receive transactional SMS messages for identity verification and access control purposes.
+            Access to email verification is limited to email addresses approved in advance by Fugazi. Approved users receive emails only after requesting a one-time passcode. By requesting a passcode code, approved users consent to receive transactional emails for identity verification and access control purposes.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -45,14 +45,14 @@ export default function TermsAndConditionsPage() {
             Costs
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Message and data rates may apply depending on your mobile carrier and plan. Fugazi does not charge for SMS messages but is not responsible for carrier fees.
+            Fugazi does not charge for emails.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Opt-Out
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            You may opt out of receiving SMS messages at any time by replying STOP to any message. After opting out, you will no longer receive SMS authentication messages.
+            You may opt out of receiving emails at any time by clicking the unsubscribe link in any message. After opting out, you will no longer receive email authentication messages.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -62,18 +62,13 @@ export default function TermsAndConditionsPage() {
             For help and assistance, contact us at <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>.
           </p>
 
-          <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
-            Supported Carriers
-          </h2>
-          <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            SMS delivery is subject to carrier availability. Fugazi is not responsible for delayed or undelivered messages.
-          </p>
+
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Privacy
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Your use of SMS services is subject to our Privacy Policy, available at:
+            Your use of email services is subject to our Privacy Policy, available at:
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
             <a href="https://whitepaper.fugazi.fun/privacy-policy" className="text-[#3CC383] hover:underline">https://whitepaper.fugazi.fun/privacy-policy</a>

@@ -1,40 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import twilio from "twilio";
+import sgMail from "@sendgrid/mail";
 import { otpStore } from "@/lib/otp-store";
+import { promises as fs } from "fs";
+import path from "path";
 
-// Allowed phone numbers (normalized to E.164 format)
-const ALLOWED_PHONES = [
-  "+17072452338", // +1 (707) 245-2338
-  "+14084839859",
+// Allowed email addresses
+const ALLOWED_EMAILS = [
+  "shubh0316@gmail.com", // Example allowed email
 ];
-
-// Normalize phone number to E.164 format
-function normalizePhone(phone: string): string {
-  // Remove all non-digit characters except +
-  let cleaned = phone.replace(/[^\d+]/g, "");
-  
-  // If it starts with +, keep it
-  if (cleaned.startsWith("+")) {
-    return cleaned;
-  }
-  
-  // If it starts with 1 and has 11 digits, add +
-  if (cleaned.startsWith("1") && cleaned.length === 11) {
-    return `+${cleaned}`;
-  }
-  
-  // If it starts with 91 and has 12 digits, add +
-  if (cleaned.startsWith("91") && cleaned.length === 12) {
-    return `+${cleaned}`;
-  }
-  
-  // If it's 10 digits, assume US number and add +1
-  if (cleaned.length === 10) {
-    return `+1${cleaned}`;
-  }
-  
-  return cleaned;
-}
 
 // Generate 6-digit OTP
 function generateOTP(): string {
@@ -43,65 +16,106 @@ function generateOTP(): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone } = await request.json();
+    const { email } = await request.json();
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    const normalizedPhone = normalizePhone(phone);
+    const normalizedEmail = email.toLowerCase().trim();
 
-    // Check if phone number is allowed
-    if (!ALLOWED_PHONES.includes(normalizedPhone)) {
+    // Check if email is allowed (Optional: uncomment to enforce allowlist)
+    /*
+    if (!ALLOWED_EMAILS.includes(normalizedEmail)) {
       return NextResponse.json(
-        { error: "The phone number you entered is not on our approved access list." },
+        { error: "The email address you entered is not on our approved access list." },
         { status: 403 }
       );
     }
+    */
 
     // Generate OTP
     const otp = generateOTP();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
     // Store OTP
-    otpStore.set(normalizedPhone, { code: otp, expiresAt });
+    otpStore.set(normalizedEmail, { code: otp, expiresAt });
 
-    // Send OTP via Twilio
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const fromNumber = process.env.TWILIO_PHONE_NUMBER;
+    const apiKey = process.env.SENDGRID_API_KEY;
+    const fromEmail = process.env.SENDGRID_FROM_EMAIL || "support@fugazi.fun";
 
-    if (!accountSid || !authToken || !fromNumber) {
-      console.error("Twilio credentials not configured");
-      // In development, log the OTP instead
+    if (!apiKey) {
+      console.error("SendGrid credentials not configured");
       if (process.env.NODE_ENV === "development") {
-        console.log(`OTP for ${normalizedPhone}: ${otp}`);
-        return NextResponse.json({ 
-          success: true, 
+        console.log(`OTP for ${normalizedEmail}: ${otp}`);
+        return NextResponse.json({
+          success: true,
           message: "OTP sent (check console in development)",
-          otp: otp // Only in development
+          otp: otp
         });
       }
       return NextResponse.json(
-        { error: "SMS service not configured" },
+        { error: "Email service not configured" },
         { status: 500 }
       );
     }
 
-    const client = twilio(accountSid, authToken);
+    sgMail.setApiKey(apiKey);
 
-    await client.messages.create({
-      body: `Your OTP code is: ${otp}. This code will expire in 10 minutes.`,
-      from: fromNumber,
-      to: normalizedPhone,
-    });
+    let templateBase64 = "";
+    try {
+      // On Vercel, files in the /public folder are guaranteed to be available in the serverless bundle
+      const templateImagePath = path.join(process.cwd(), "public", "template.png");
+      const imageBuffer = await fs.readFile(templateImagePath);
+      templateBase64 = imageBuffer.toString("base64");
+    } catch (imgError) {
+      console.error("Error reading template image:", imgError);
+    }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: "OTP sent successfully" 
+    const msg: any = {
+      to: normalizedEmail,
+      from: fromEmail,
+      subject: "Your Fugazi Whitepaper Access Passcode",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #000;">
+          <div style="background-color: #0A0F1A; padding: 20px; text-align: center;">
+            <img src="cid:templateImage" alt="Fugazi" style="max-height: 40px;" />
+          </div>
+          <div style="padding: 20px 0;">
+            <p style="font-size: 14px;">Please enter the following passcode to access the Fugazi whitepaper.</p>
+            <p style="font-size: 18px; font-weight: bold; margin: 20px 0;">${otp}</p>
+            <p style="font-size: 14px; line-height: 1.5;">
+              The materials available through https://whitepaper.fugazi.fun are confidential and are provided solely for informational and evaluation purposes. Do not share your passcode with anyone without the expressed written consent of Fugazi Labs, LLC.
+            </p>
+          </div>
+          
+          <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #666;">
+            <p>Fugazi Labs, LLC. 125 S. King Street, Suite 2A, Jackson, WY 83001-2922.</p>
+          </div>
+        </div>
+      `,
+    };
+
+    if (templateBase64) {
+      msg.attachments = [
+        {
+          content: templateBase64,
+          filename: "template.png",
+          type: "image/png",
+          disposition: "inline",
+          content_id: "templateImage",
+        },
+      ];
+    }
+
+    await sgMail.send(msg);
+
+    return NextResponse.json({
+      success: true,
+      message: "OTP sent successfully"
     });
   } catch (error) {
     console.error("Error sending OTP:", error);
