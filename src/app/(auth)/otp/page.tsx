@@ -15,6 +15,8 @@ function OTPForm() {
   const [loading, setLoading] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
   const [checkingLegalNotice, setCheckingLegalNotice] = useState(false);
+  const [otpValue, setOtpValue] = useState("");
+  const [legalNoticeAccepting, setLegalNoticeAccepting] = useState(false);
 
   // Check if user has already accepted legal notice after OTP verification
   const checkLegalNoticeStatus = async () => {
@@ -43,19 +45,9 @@ function OTPForm() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const verifyOTPWithCode = async (otpCode: string) => {
     setError("");
     setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
-    const otp = formData.get("otp") as string;
-
-    if (!otp || otp.length !== 6) {
-      setError("Please enter a valid 6-digit OTP");
-      setLoading(false);
-      return;
-    }
 
     if (!email) {
       setError("Email address is missing");
@@ -69,7 +61,7 @@ function OTPForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, otp: otpCode }),
       });
 
       const data = await response.json();
@@ -89,8 +81,26 @@ function OTPForm() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (otpValue.length === 6) {
+      verifyOTPWithCode(otpValue);
+    } else {
+      setError("Please enter a valid 6-digit OTP");
+    }
+  };
+
+  const handleOTPChange = (val: string) => {
+    setOtpValue(val);
+    if (val.length === 6 && !loading && !checkingLegalNotice) {
+      verifyOTPWithCode(val);
+    }
+  };
+
   const handleAgree = async () => {
     if (!email) return;
+
+    setLegalNoticeAccepting(true);
 
     try {
       const response = await fetch("/api/accept-legal-notice", {
@@ -116,6 +126,8 @@ function OTPForm() {
       // Still redirect even if API call fails
       setShowLegalModal(false);
       router.push("/fugazi-overview");
+    } finally {
+      setLegalNoticeAccepting(false);
     }
   };
 
@@ -126,7 +138,12 @@ function OTPForm() {
         Enter your 6-digit passcode
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
-        <OTPInput maxLength={6} name="otp" />
+        <OTPInput
+          maxLength={6}
+          name="otp"
+          value={otpValue}
+          onChange={handleOTPChange}
+        />
         {error && (
           <p className="mt-4 text-start text-sm text-red-600 dark:text-red-400">
             {error}
@@ -143,7 +160,11 @@ function OTPForm() {
       >
         Request a new passcode
       </Button>
-      <LegalNoticeModal open={showLegalModal} onAgree={handleAgree} />
+      <LegalNoticeModal
+        open={showLegalModal}
+        onAgree={handleAgree}
+        loading={legalNoticeAccepting}
+      />
     </>
   );
 }

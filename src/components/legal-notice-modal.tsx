@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 interface LegalNoticeModalProps {
   open: boolean;
   onAgree: () => void;
+  loading?: boolean;
 }
 
-export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
+export function LegalNoticeModal({ open, onAgree, loading }: LegalNoticeModalProps) {
   const router = useRouter();
 
   const handleExit = () => {
@@ -16,7 +17,7 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
   };
 
   return (
-    <Dialog open={open} onClose={() => {}} className="relative z-50">
+    <Dialog open={open} onClose={() => { }} className="relative z-50">
       <DialogBackdrop className="fixed inset-0 bg-gray-950/50 backdrop-blur-sm" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="mx-auto max-w-lg rounded-lg bg-gray-950 dark:bg-gray-950 p-6 shadow-xl">
@@ -44,9 +45,10 @@ export function LegalNoticeModal({ open, onAgree }: LegalNoticeModalProps) {
             </button>
             <button
               onClick={onAgree}
-              className="rounded-md bg-[#3CC383] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#3CC383] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+              disabled={loading}
+              className="rounded-md bg-[#3CC383] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#3CC383] focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 disabled:opacity-50 disabled:cursor-not-allowed min-w-[80px]"
             >
-              I agree
+              {loading ? "..." : "I agree"}
             </button>
           </div>
         </DialogPanel>

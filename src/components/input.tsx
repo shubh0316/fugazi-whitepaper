@@ -55,10 +55,14 @@ export function OTPInput({
   className,
   maxLength,
   name,
+  value,
+  onChange,
 }: {
   className?: string;
   maxLength: number;
   name?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <BaseOTPInput
@@ -66,6 +70,8 @@ export function OTPInput({
       name={name}
       containerClassName={className}
       maxLength={maxLength}
+      value={value}
+      onChange={onChange}
       spellCheck={false}
       pattern={REGEXP_ONLY_DIGITS}
       render={({ slots }) => (
