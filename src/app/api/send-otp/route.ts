@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     otpStore.set(normalizedEmail, { code: otp, expiresAt });
 
     const apiKey = process.env.SENDGRID_API_KEY;
-    const fromEmail = process.env.SENDGRID_FROM_EMAIL || "support@fugazi.fun";
+    const fromEmail = process.env.SENDGRID_FROM_EMAIL || "support@augle.com";
 
     if (!apiKey) {
       console.error("SendGrid credentials not configured");
@@ -66,19 +66,19 @@ export async function POST(request: NextRequest) {
     sgMail.setApiKey(apiKey);
 
     let templateBase64 = "";
-    let fugaziBase64 = "";
+    let augleBase64 = "";
     try {
       // On Vercel, files in the /public folder are guaranteed to be available in the serverless bundle
       const templateImagePath = path.join(process.cwd(), "public", "template.png");
-      const fugaziImagePath = path.join(process.cwd(), "public", "fugazi.png");
+      const augleImagePath = path.join(process.cwd(), "public", "augle.png");
 
-      const [templateBuffer, fugaziBuffer] = await Promise.all([
+      const [templateBuffer, augleBuffer] = await Promise.all([
         fs.readFile(templateImagePath),
-        fs.readFile(fugaziImagePath)
+        fs.readFile(augleImagePath)
       ]);
 
       templateBase64 = templateBuffer.toString("base64");
-      fugaziBase64 = fugaziBuffer.toString("base64");
+      augleBase64 = augleBuffer.toString("base64");
     } catch (imgError) {
       console.error("Error reading template images:", imgError);
     }
@@ -86,31 +86,31 @@ export async function POST(request: NextRequest) {
     const msg: any = {
       to: normalizedEmail,
       from: fromEmail,
-      subject: "Your Fugazi Whitepaper Access Passcode",
+      subject: "Your Augle Whitepaper Access Passcode",
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
           <div style="width: 100%; margin-bottom: 24px;">
-            <img src="cid:templateImage" alt="Fugazi" style="width: 100%; height: auto; display: block;" />
+            <img src="cid:templateImage" alt="Augle" style="width: 100%; height: auto; display: block;" />
           </div>
           
           <div style="padding: 0 0 20px 0;">
-            <p style="font-size: 14px; margin: 0 0 24px 0;">Please enter the following passcode to access the Fugazi whitepaper.</p>
+            <p style="font-size: 14px; margin: 0 0 24px 0;">Please enter the following passcode to access the Augle whitepaper.</p>
             
             <p style="font-size: 16px; font-weight: 700; margin: 0 0 24px 0;">${otp}</p>
             
             <p style="font-size: 14px; line-height: 1.6; margin: 0 0 24px 0;">
-              The materials available through https://whitepaper.fugazi.fun are
+              The materials available through https://whitepaper.augle.com are
               confidential and are provided solely for informational and evaluation
               purposes. Do not share your passcode with anyone without the
-              expressed written consent of Fugazi Labs, LLC.
+              expressed written consent of Augle Labs, LLC.
             </p>
           </div>
           
          
           
           <div style="text-align: center; font-size: 11px; color: #555; padding-top: 20px;">
-            <p style="margin: 0 0 8px 0;">Fugazi Labs, LLC. 125 S. King Street, Suite 2A, Jackson, WY 83001-2922.</p>
-            <p style="margin: 0;">If you have any questions regarding this message, please contact support@fugazi.fun.</p>
+            <p style="margin: 0 0 8px 0;">Augle Labs, LLC. 125 S. King Street, Suite 2A, Jackson, WY 83001-2922.</p>
+            <p style="margin: 0;">If you have any questions regarding this message, please contact support@augle.com.</p>
           </div>
         </div>
       `,

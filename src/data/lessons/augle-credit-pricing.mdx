@@ -1,0 +1,65 @@
+# 12. Credit System and Pricing
+
+*Credits are the core unit. No subscription plans in v1. Buy what you need, use it at your pace, never pay for capacity you are not using.*
+
+## 12.1 Credit Bundles
+
+| Bundle | Price | Per-Credit Rate |
+|--------|-------|-----------------|
+| 10 credits | $2.00 | $0.20 per credit |
+| 30 credits (Best Value) | $5.40 | $0.18 per credit |
+| 50 credits | $8.00 | $0.16 per credit |
+
+Credits never expire. Unused credits carry over indefinitely. We do not believe in artificial urgency mechanics.
+
+## 12.2 Session Tier Pricing
+
+| Depth | Credits | What you get |
+|-------|---------|--------------|
+| Rapid | 1 | Cartographer + Synthesizer only. Approximately 3-minute runtime. Fast signal check on a contract or question. |
+| Standard | 3 | Full three-phase deliberation with the complete seven-agent ensemble. Approximately 15-minute runtime. The core Augle experience. |
+| Deep | 6 | Full deliberation plus async expert interjection. Contrarian runs on Opus 4.6. Approximately 45-minute runtime. Maximum depth for complex, high-stakes questions. |
+
+Most users will find Standard sessions sufficient for most prediction market questions. Deep sessions are designed for complex multi-variable questions, high-stakes research, and cases where the evidence landscape warrants the additional adversarial pressure that an Opus-driven Contrarian provides.
+
+## 12.3 Cost Economics
+
+Augle's per-session API costs are tracked carefully. Margins on every tier are designed to be sustainable through Phase 1 with cushion for the Phase 2 build.
+
+| Tier | API cost (approx) | Credits charged | User price | Margin |
+|------|-------------------|-----------------|------------|--------|
+| Rapid | ~$0.02 | 1 | $0.20 | ~90% |
+| Standard | ~$0.11 | 3 | $0.60 | ~82% |
+| Deep | ~$0.13–0.15 (with Opus on Contrarian) | 6 | $1.20 | ~88% |
+
+Cost figures reflect the v2.0 model assignments: Gemini 3.1 Pro on the Cartographer (modest input cost increase from 2.5 Pro), Opus 4.6 on the Contrarian for Deep sessions only (approximately $0.02 to $0.04 added per Deep session), and DeepSeek V4 on the Synthesizer at temperature zero. The Source Verification Service adds approximately $0.001 to $0.005 per session in network and resolver costs depending on node count.
+
+## 12.4 Cost Controls
+
+Three controls keep per-session costs predictable and within the margin envelope:
+
+- **Prompt caching on all seven system prompts.** Non-negotiable from day one. The system prompts are large and stable. Caching them across sessions reduces input token costs substantially.
+- **Output token caps per agent.** Approximately 250 to 350 words per discourse turn. Prevents runaway output costs without compromising deliberation quality.
+- **Batch API for Rapid sessions.** Approximately 50% cost reduction on the Round 1 dispatch. Rapid sessions are time-flexible enough to batch.
+
+## 12.5 Reserve and Refund Logic
+
+Credits are reserved at session launch, not charged on submission. The reserved amount is only deducted when the session completes successfully with a full output. This means three things in practice:
+
+- **Insufficient evidence finding.** Credits partially refunded — Augle did not deliver a high-confidence output, and you should not pay full price for one.
+- **Provider failure.** All credits returned in full automatically. The session state is preserved so you can resume on the same question without paying again.
+- **User abort.** If you abort mid-session, you are charged for the work completed up to the abort point. The abort confirmation popup shows the exact credit count before you confirm.
+
+This policy is non-negotiable. We believe you should only pay for value delivered.
+
+## 12.6 No Subscription
+
+Augle does not offer a subscription tier at launch. Credits give full flexibility: buy what you need, use at your pace, never pay for capacity you are not using. Heavy users come out ahead on the 30 and 50 credit bundles. Light users do not subsidize anyone.
+
+An enterprise tier with higher-frequency usage and API access is on the Phase 2 roadmap (see Section 15). It will not displace credit purchasing for individual users — it will sit alongside it.
+
+## 12.7 Free Demo
+
+Every guest gets one free session at Standard depth. Full seven-agent ensemble, full three-round deliberation, full structured output — the same product paid users get. The free demo runs real API calls (no simulation) with a server-side is_demo flag for accounting. Guest abuse prevention layers cap daily cost exposure to approximately $0.11 per abuser.
+
+The reasoning is straightforward: the product is the demonstration. A truncated demo is a truncated product. The free Standard session shows what Augle does, in full, before any payment is requested.

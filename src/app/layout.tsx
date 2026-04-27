@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "fugazi: Whitepaper",
-  description: "Fugazi:whitepaper",
+  title: "Augle: Whitepaper",
+  description: "Augle:whitepaper",
   icons: {
     icon: "/fav.png",
   },

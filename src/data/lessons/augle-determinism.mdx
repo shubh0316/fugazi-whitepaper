@@ -1,0 +1,56 @@
+# 9. Determinism and Confidence
+
+*The deliberation can vary. The verdict cannot. Same question plus same evidence base must always produce the same confidence verdict and same core finding direction.*
+
+## 9.1 Why Determinism Is a Hard Requirement
+
+A product that returns different verdicts on the same question within minutes destroys user trust and makes every result suspect. If a user re-runs a session and gets a different probability, the natural conclusion is that the answer is arbitrary — that Augle is a sophisticated random number generator dressed up in deliberative language.
+
+This conclusion would be wrong, but it would be the correct response to the observed behavior. The fix is not to argue that the variance is meaningful. The fix is to eliminate the variance.
+
+## 9.2 Two Enforcement Layers
+
+Synthesizer determinism is enforced through two complementary mechanisms:
+
+### Layer 1 — Temperature = 0 on the Synthesizer
+
+Hard requirement on every API call, every session, no exceptions. All other deliberation agents run at higher temperatures — the Cartographer at 0.8, the Contrarian at 1.0 — which gives the discourse variety, energy, and creative pressure. Only the Synthesizer is locked to zero.
+
+### Layer 2 — Evidence Node Registry as the Synthesis Anchor
+
+The Synthesizer's verdict must be grounded in the evidence_nodes array, not the free-form conversation thread. The confidence verdict is computed deterministically from node grades by a server-side function before the Synthesizer is dispatched. The Synthesizer receives the verdict as a hard constraint it cannot override — it can only write the finding that explains it.
+
+## 9.3 Temperature Settings Across the Ensemble
+
+| Agent | Temperature | Why |
+|-------|-------------|-----|
+| Topic Architect | 0.2 | Low variation for consistent initialization and parameter setting. |
+| Cartographer | 0.8 | Higher variation gives landscape mapping energy and thoroughness. |
+| Methodologist | 0.5 | Moderate — structured assessment but not robotic. |
+| Guardian | 0.1 | Near-deterministic for consistent integrity evaluation and flag classification. |
+| Contrarian | 1.0 | Maximum variation — adversarial reasoning benefits from creative challenge angles. |
+| Synthesizer | **0.0** | **HARD REQUIREMENT.** Same evidence must always produce same verdict. Never change. |
+| Pragmatist | 0.3 | Low variation — recommendations should be consistent given same synthesis. |
+
+## 9.4 Confidence Grades
+
+Augle uses four confidence grades, applied at the evidence node level by the Methodologist:
+
+- **Established.** Methodologically validated, independently sourced, replicated. The strongest grade in the system. Cannot be assigned to a Guardian-routed user contribution.
+- **Probable.** Substantively supported by available evidence with some methodological caveats. Most evidence nodes in a typical session land here.
+- **Contested.** Disputed between agents, between sources, or downgraded by an unresolved Strong Contrarian objection. The grade itself signals contested status — not a soft Probable.
+- **Insufficient.** Evidence base too thin, too new, or too unreliable to support a grade. The session may still complete with an Insufficient core finding — this is honest output, not a failure.
+
+## 9.5 Confidence Flow Rules
+
+Three rules govern how confidence propagates through the deliberation:
+
+- **Methodologist bounds constrain Synthesizer claim grades.** The Synthesizer cannot grade a claim higher than the Methodologist's confidence bound on the underlying evidence.
+- **Synthesizer confidence constrains Pragmatist recommendations.** The Pragmatist cannot deliver a recommendation more confident than the synthesis it is translating.
+- **Confidence cannot be upgraded downstream.** No agent can raise the grade of a claim that an upstream agent has bounded. Confidence flows one direction.
+
+## 9.6 Unresolved Objections Travel to Delivery
+
+An Unresolved Strong Contrarian objection at Round 3 completion must surface verbatim in the Synthesizer's Contested Terrain section and in the Topic Architect's final delivery. It cannot be smoothed over or absorbed into a general uncertainty note. The user sees the strongest version of the objection, in the exact language the Contrarian raised it, with the resolution condition attached.
+
+*Honest uncertainty is a first-class output. A synthesis that concludes Insufficient evidence is not a failed session. The Pragmatist is explicitly prohibited from converting an Insufficient finding into a low-confidence recommendation.*

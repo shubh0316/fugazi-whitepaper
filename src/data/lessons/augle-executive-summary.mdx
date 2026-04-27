@@ -1,0 +1,29 @@
+# Executive Summary
+
+*Augle is a multi-agent AI deliberation platform. We deploy a coordinated ensemble of seven specialized AI agents — each powered by a distinct frontier model from a different provider — to reason through high-stakes questions together, gathering evidence, challenging assumptions, maintaining integrity, and producing structured, auditable, reality-graded outputs.*
+
+This whitepaper describes the architecture, methodology, and product surface of the Augle platform as it exists in April 2026 — three weeks post-launch on Polymarket and Kalshi prediction market questions, with v2 (Letters and Science) waitlisting for academic and research use cases.
+
+## What Augle Delivers
+
+- **Structured multi-agent deliberation.** Seven agents across five providers (Anthropic, Google, OpenAI, DeepSeek, xAI), each assigned a specific reasoning role. No single model's biases dominate the output.
+- **Reality-graded confidence.** Every claim is graded Established, Probable, Contested, or Insufficient — bounded by the methodologist agent's evidence quality assessment, not the synthesizer's assertiveness.
+- **Adversarial pressure as a default.** A dedicated Contrarian agent steelmans opposing positions every round. Unresolved Strong objections surface verbatim in the final output — never softened.
+- **Source verification, not just citation.** Every cited source is verified against live URLs, DOI resolution, and (in v2) academic retraction databases before downstream agents process it. Hallucinated citations are caught at the source.
+- **Deterministic verdicts.** The same question with the same evidence base always produces the same confidence verdict and core finding direction. The deliberation can vary. The verdict cannot.
+- **Full audit trail.** Every session produces a structured document — claims, contested terrain, knowledge gaps, unresolved objections, application notes, and a complete session log of agent interactions and Guardian flags.
+
+## The Architecture in One Paragraph
+
+Six reasoning agents run a three-round deliberation: an exploration round that maps the evidence landscape, a deliberation round that pressure-tests it, and a synthesis round that produces a structured conclusion. A seventh agent — the Guardian — operates at every phase boundary to evaluate user-contributed context for relevance, epistemic quality, and safety before routing accepted contributions into the deliberation. A dedicated Source Verification Service runs between the Cartographer and Methodologist, catching unresolvable URLs and DOIs before they enter the evidence base. The verdict is computed deterministically from a structured evidence node registry, not the free-form conversation thread.
+
+## What's New in v2.0 of This Whitepaper
+
+- **Source Verification Service.** First-class architectural component. Section 7.
+- **Updated model assignments.** Cartographer: Gemini 2.5 Pro → Gemini 3.1 Pro. Contrarian on Deep sessions: Claude Sonnet 4.6 → Claude Opus 4.6. Section 5 and Section 8.
+- **Updated cost economics.** Per-session API costs and per-credit margins reflect Opus on Deep and the SVS overhead. Section 12.
+- **Letters and Science — V2 deep dive.** Substantial new section on the v2 academic mode — output framing, evidence model, Topic Architect neutrality check, retraction handling, and what's already built into v1 to make the v2 ship clean. Section 13.
+- **The reasoning corpus thesis.** Why every completed session is an asset, what it accumulates into, and why this matters for the next 24 months. Section 16.
+- **Glossary.** Defined terms across the architecture. Section 19.
+
+*Augle is not a chatbot. It is not a single AI giving you its best guess. It is not a search engine dressed up with a confidence score. It is a deliberative reasoning system — one that treats every question as a structured problem deserving a structured process.*

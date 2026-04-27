@@ -89,8 +89,8 @@ export default function TableOfContents({ contentId }: { contentId: string }) {
             key={heading.id}
             className={clsx(
               "-ml-px border-l border-transparent pl-4",
-              "hover:text-[#3CC383] hover:not-has-aria-[current=location]:border-[#3CC383]",
-              "has-aria-[current=location]:border-[#3CC383]",
+              "hover:text-[#C15F3C] hover:not-has-aria-[current=location]:border-[#C15F3C]",
+              "has-aria-[current=location]:border-[#C15F3C]",
             )}
           >
             <a
@@ -98,7 +98,7 @@ export default function TableOfContents({ contentId }: { contentId: string }) {
               aria-current={heading.active ? "location" : undefined}
               className={clsx(
                 heading.level === 3 && "pl-4",
-                "block aria-[current=location]:font-medium aria-[current=location]:text-[#3CC383]",
+                "block aria-[current=location]:font-medium aria-[current=location]:text-[#C15F3C]",
               )}
             >
               {heading.text}

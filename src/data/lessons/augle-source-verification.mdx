@@ -1,0 +1,47 @@
+# 7. Source Verification Service
+
+*New in v2.0. Every cited source is verified against live network resources before downstream agents process it. Hallucinated citations are caught at the source.*
+
+## 7.1 The Citation Hallucination Problem
+
+LLMs that cite sources hallucinate citations. This is not a quirk to be patched — it is a structural feature of the architecture. A model trained to produce plausible language will produce plausible-looking citations, complete with author names, journal titles, page numbers, and DOIs that resemble real citations but do not correspond to any existing document.
+
+In a deliberative system, a hallucinated citation is worse than a hallucinated claim. A hallucinated claim can be challenged on its merits. A hallucinated citation provides false provenance — it makes a claim look more credible than it actually is, and it propagates that false credibility through every downstream agent that treats the citation as evidentiary backing.
+
+The Source Verification Service (SVS) addresses this directly. It runs after the Cartographer parses its output into evidence nodes and before the Methodologist receives the nodes for quality assessment.
+
+## 7.2 What the SVS Verifies
+
+Every evidence node in Augle now carries a source_reference field — a URL, a DOI, a document name, or the explicit value NO_REFERENCE. The SVS attempts to resolve every non-NO_REFERENCE source:
+
+- **URL verification.** HEAD request followed by lightweight GET if necessary. Resolves redirects. Tolerates rate limiting and transient errors with a single retry.
+- **DOI resolution.** Resolves through the official DOI proxy. Confirms the DOI exists and points to a real document. Captures the resolved metadata for the audit trail.
+- **Retraction database cross-reference.** In Letters and Science (v2), every academic citation is cross-referenced against retraction databases. Retracted papers do not silently flow through to the evidence base — they are flagged with the retraction notice attached.
+
+## 7.3 Verification Outcomes
+
+Every node receives a verification_status of one of three values:
+
+| Status | Meaning | Downstream Effect |
+|--------|---------|-------------------|
+| verified | Source resolved successfully. URL/DOI returned a 200 or canonical redirect. | Node passes through to Methodologist with confidence bounds intact. |
+| unverified | Source resolved but with caveats — paywalled, rate-limited, or returned a non-200 we cannot interpret. | Methodologist auto-caps the node at Probable. Logged in Session Log with SOURCE_UNVERIFIED flag (Informational severity). |
+| not_found | Source did not resolve. URL returned 404. DOI failed to resolve. Document does not exist on file. | Methodologist auto-downgrades the node to Contested. SOURCE_NOT_FOUND flag (Moderate severity) raised. The node is not removed — its grade is lowered and the failure is documented. |
+
+## 7.4 Why Not Just Strip Hallucinated Sources?
+
+A natural reaction to citation hallucination is to filter unverified citations out of the output entirely. Augle does not do this. Three reasons:
+
+First, downgrading is more honest than removing. A claim with a failed citation may still be substantively correct — the agent may have produced a real fact with a hallucinated source. Stripping the source silently misrepresents both the original output and the integrity check we ran against it. Downgrading the node and logging the failure preserves the audit trail.
+
+Second, the failure itself is signal. A pattern of source-not-found flags concentrated on a particular topic tells the user something about the topic — sources are sparse, contested, or unstable. That signal is valuable. Erasing the failures erases the signal.
+
+Third, deterministic transparency is a product principle. Augle does not silently fix things. Every integrity decision the system makes is logged, surfaced, and explainable. The Source Verification Service follows that principle.
+
+## 7.5 Implementation Notes
+
+The SVS is implemented as a backend service that runs between the evidence extraction layer and the Methodologist dispatch. It receives the evidence_nodes array, runs verification on every node with a source_reference field, and writes back the verification_status, verification_note, and any auto-downgrade signals before returning control to the session controller.
+
+Verification is parallelized across nodes. Total SVS overhead per Standard session is approximately 200ms to 800ms depending on node count and source response times. Verification results are cached for 24 hours by source identifier — repeat citations within a 24-hour window are not re-verified.
+
+*The SVS is the architectural commitment that closes the loop on hallucination at the citation layer. The Methodologist evaluates evidence quality. The Contrarian challenges evidence interpretation. The SVS verifies that the evidence cited actually exists. All three layers are required.*

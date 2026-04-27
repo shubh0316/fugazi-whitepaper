@@ -1,0 +1,90 @@
+# 13. Letters and Science — V2 Deep Dive
+
+*Letters and Science is Augle's research and academic mode. It ships in v2 — currently waitlisted at launch. This section describes what it is, why the architecture supports it cleanly, and what specifically changes between Markets and Letters and Science.*
+
+## 13.1 What Letters and Science Is
+
+Letters and Science targets a different user with a different question shape. The v1 user is a prediction market participant evaluating a binary contract: will the US enter recession by Q4 2026? The v2 user is a researcher, academic, or analyst evaluating a contested empirical question with no clean binary resolution: do the long-term effects of germline gene editing outweigh its therapeutic benefits?
+
+These question types diverge in three meaningful ways:
+
+- **Resolution shape.** Markets questions resolve. Research questions do not, or resolve only on timescales much longer than the deliberation. Augle's calibration tracking — matching verdicts against ground-truth resolution — does not apply to research questions.
+- **Question source.** Markets questions are sourced from structured contract APIs. Research questions are free-form text input. The Topic Architect runs a neutrality check on the input before initialization, reformulating slanted phrasings into neutral research questions where appropriate.
+- **Output framing.** Markets output is probability-oriented (YES/NO with a probability). Research output is evidence-oriented (Strong/Moderate/Weak/Insufficient evidence weight). The framing change is not cosmetic — it reflects what users in each context actually need.
+
+## 13.2 The Topic Architect Neutrality Check
+
+Research questions arrive with framing baked in. "Should we ban germline gene editing?" is not a neutral question — it has a normative valence and presupposes a particular framing. Augle's Topic Architect runs every Letters and Science question through a neutrality check before session initialization.
+
+If the question is judged to be slanted, the Topic Architect produces a neutral reformulation and presents both versions to the user. The user can accept the reformulation, edit it, or proceed with the original. Both the original and reformulated versions are stored in the session metadata for audit purposes. The Topic Architect's neutrality check is itself a Cartographer-graded operation — reformulations are graded for neutrality, not for editorial preference.
+
+This is not censorship. The user retains full control over the question they ask. The neutrality check is a transparency layer — it surfaces the framing of the original question and gives the user the option to deliberate on a reformulated version.
+
+## 13.3 Output Framing — Evidence Weight
+
+Letters and Science output replaces probability framing with evidence weight framing. The badges and section headers shift accordingly:
+
+| Element | Markets framing | Letters and Science framing |
+|---------|----------------|------------------------------|
+| Verdict label | Probability | Evidence Weight |
+| Verdict values | YES / NO with probability | Strong / Moderate / Weak / Insufficient |
+| Confidence label | Confidence | Confidence (unchanged) |
+| Search placeholder | Find a Polymarket or Kalshi contract | Enter a research question or hypothesis |
+| Tier names | Rapid / Standard / Deep | Quick Review / Full Analysis / Comprehensive Review |
+| Pragmatist orientation | Decision framing for the contract | Application notes for the research context |
+
+The shift is implemented through a mode-driven UI text config, not hardcoded strings. Every component that displays mode-specific text reads from the config based on the active product mode. This means the Markets/Letters and Science split is one config object away from extending to additional verticals — legal, venture, enterprise — in Phase 3.
+
+## 13.4 Evidence Model — Academic Citations
+
+Letters and Science evidence nodes reference academic papers rather than economic data. The EvidenceNode schema is flexible enough to accommodate both — the source_type field is generic — but the parsers that extract structured data from agent discourse are mode-specific. The evidence extraction layer dispatches to a markets parser or an academic parser based on session_type.
+
+Academic citations include DOIs, journal names, publication dates, citation counts, and retraction status. The Source Verification Service in Letters and Science cross-references retraction databases — retracted papers do not silently flow through to the evidence base. They are flagged with the retraction notice attached, and the affected node is auto-downgraded to Contested with the retraction reason recorded.
+
+## 13.5 Guardian — Academic Integrity Mode
+
+The Guardian's safety criteria switch on product mode. In Markets, the primary safety vector is financial regulatory framing — preventing the output from being construed as investment advice, surfacing platform-specific resolution mechanics, flagging contract-specific risk factors. In Letters and Science, the primary safety vector is academic integrity — citation accuracy, methodological transparency, retraction handling, and the prohibition on user contributions that would constitute fabricated source claims.
+
+Academic integrity in this context is narrower than the broad sense of the term. The Guardian is not evaluating the user's research conduct outside Augle. It is evaluating whether the user's contributions to an Augle session, if accepted, would compromise the deliberation's epistemic integrity — specifically by inserting fabricated citations, falsified data, or directional framing into the evidence base.
+
+## 13.6 Session Type and the Calibration Pipeline
+
+Augle's data infrastructure tracks two qualitatively different things: calibration data (verdicts matched against ground truth resolution) and reasoning data (the structured deliberation artifact regardless of resolution). Markets sessions produce both. Letters and Science sessions produce only the second.
+
+The architecture handles this through a session_type field on every session: prediction_market or research. The resolution tracking background job processes only prediction_market sessions, leaving Letters and Science sessions out of the calibration tables entirely. This prevents Letters and Science verdicts from polluting the calibration record with null resolutions and preserves the calibration accuracy statistics as a clean signal on Markets-mode performance.
+
+Letters and Science sessions still contribute to the broader reasoning corpus — see Section 16. They simply do not contribute to the calibration record.
+
+## 13.7 What's Already Built for V2
+
+Five implementation decisions in v1 were made specifically to ensure Letters and Science ships clean. Each was a small investment now to prevent significant refactoring later:
+
+**Session type field** — session_type: 'prediction_market' | 'research' is a field on every session as of v1. The resolution tracking background job already conditions on it. When Letters and Science ships, no migration is required — the field is already there, the routing is already in place.
+
+**Question input abstraction** — The session initialization flow reads from a common QuestionInput interface that supports both structured API input (Markets) and free-form text input (Letters and Science) behind the same downstream interface. The Markets path is built. The Letters and Science path plugs into the same interface — adding a parallel implementation, not a rewrite.
+
+**Modular evidence extraction** — The evidence extraction parser is dispatched by product mode. Markets mode uses parseMarketEvidenceNodes today. The dispatcher pattern means the academic parser plugs in as parseAcademicEvidenceNodes when Letters and Science ships — without touching the core extraction logic or the session controller.
+
+**Waitlist email collection** — Tapping Letters and Science on the home screen opens a waitlist modal. Email addresses are written to a waitlist table from day one — a marketing asset that has been accumulating since launch. This is the v2 launch list. Every email that came in during v1 is a self-selected user with explicit interest in the research-oriented product.
+
+**Mode-driven UI text** — Every component that displays mode-specific text reads from the MODE_LABELS config, not hardcoded strings. The Letters and Science values are placeholders today — the product team will refine them before launch — but the components are already wired to consume them. When the values change, every UI surface updates automatically.
+
+## 13.8 What Ships With V2
+
+Five components are explicitly held back for the v2 release rather than built in v1:
+
+- **Topic Architect neutrality check.** Prompt-level work. Ships with the Letters and Science TA prompt revision.
+- **Light theme CSS.** Design tokens are defined in v1's color system. Implementation is a styling pass, not an architecture decision.
+- **Academic citation parser.** Plugs into the modular evidence extraction dispatcher built in v1.
+- **DOI lookup and retraction database integration.** Letters and Science-specific data enrichment. No v1 dependency.
+- **Letters and Science Guardian safety criteria.** Ships with the Letters and Science Guardian prompt. The prompt loading mechanism is already mode-dispatched.
+
+*The architecture cost of supporting Letters and Science cleanly was approximately half a day of v1 engineering investment. The cost of not supporting it cleanly would have been weeks of refactoring at the v2 build, with risk of breaking the live Markets path. The investment was made.*
+
+## 13.9 Why Letters and Science Matters Strategically
+
+Letters and Science is not just a second mode. It is the proof of architectural generality.
+
+If Augle's deliberative engine is genuinely mode-agnostic — if the same seven-agent architecture, the same three-round deliberation, the same Guardian integrity layer, and the same Source Verification Service work for both prediction markets and academic research — then the path to additional verticals (legal, venture, enterprise) is a configuration exercise rather than a rebuild. The same engine, with mode-specific prompts, mode-specific UI text, and mode-specific Guardian safety criteria, serves any deliberation context.
+
+Letters and Science is the test of that thesis. Markets ships. Letters and Science ships. The third vertical ships faster than the second. The fourth ships faster still. That is what the architecture is designed to enable.

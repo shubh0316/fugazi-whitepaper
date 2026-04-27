@@ -1,0 +1,41 @@
+# 4. How It Works
+
+An Augle session is a fixed three-round deliberative arc. The same arc applies to every session, regardless of platform mode or session depth — what changes is which agents fire, how many rounds the Contrarian runs, and whether the Guardian is active at phase boundaries.
+
+## 4.1 The Three Phases
+
+### Phase 1 — Exploration
+
+The Cartographer maps the evidence landscape for the research question. It surveys what is settled, what is contested, what is unknown, and where the strongest sources sit. It produces an initial set of evidence nodes — discrete factual claims that downstream agents will evaluate, challenge, and integrate. The Methodologist runs in parallel, evaluating the validity of each node and assigning a confidence bound. The Contrarian fires at the end of Phase 1 to challenge the Cartographer's framing and scope.
+
+### Phase 2 — Deliberation
+
+The full ensemble engages with the evidence base. The Methodologist evaluates internal validity, external validity, and methodology-claim match for every node. The Contrarian targets the evidence base directly — selection bias, validity gaps, suppressed base rates, alternative causal explanations. Every objection includes a steelman and a resolution condition. The Cartographer responds to challenges, surfaces additional evidence where needed, and updates node statuses. The Guardian evaluates user-contributed context at the round boundary if the session is Standard or Deep depth.
+
+### Phase 3 — Synthesis
+
+The Synthesizer integrates everything: the evidence node registry, the resolved and unresolved objections, the contested terrain, the knowledge gaps. It produces a structured conclusion bounded by the deterministically computed confidence verdict. The Contrarian runs one final round targeting the Synthesizer's draft — challenging inferential leaps, temporal generalization gaps, and missing alternative explanations. The Pragmatist closes the session by translating the Synthesizer's verdict into application notes — recommendations whose confidence cannot exceed the Synthesizer's.
+
+## 4.2 Session Depth Tiers
+
+Three depths, each with a defined ensemble subset and credit cost:
+
+| Depth | Markets Name | Letters and Science Name | Credits | Rounds | Ensemble |
+|-------|-------------|--------------------------|---------|--------|----------|
+| Rapid | Rapid | Quick Review | 1 | 1 | Cartographer + Synthesizer |
+| Standard | Standard | Full Analysis | 3 | 3 | Full seven-agent ensemble |
+| Deep | Deep | Comprehensive Review | 6 | 3 + async expert | Full ensemble + expert interjection (Opus 4.6 Contrarian) |
+
+All tiers are available to any authenticated user with sufficient credits. There are no plan gates on any tier. Guests get one free Standard-depth session at signup as a demo of the full deliberative experience. If a session returns Insufficient evidence or the user aborts, the credit reservation is partially or fully refunded.
+
+## 4.3 Round Transitions and the Guardian
+
+In Standard and Deep sessions, the Guardian fires at every round boundary. It pauses the session and offers the user an opportunity to contribute domain knowledge — a fact the agents may not have surfaced, a methodological consideration, a piece of context that bears on interpretation. The Guardian evaluates the contribution against three criteria in strict order: scope (is it relevant to this question), epistemic type (is it factual context rather than directional persuasion), and safety (does it cross a hard-block category). Accepted contributions are transformed into neutral language and routed into the deliberation. Rejected contributions surface a flag the user can interject on. Hard-blocked contributions are silently absorbed and logged.
+
+## 4.4 Evidence Extraction Layer
+
+Agent outputs are free-form discourse. The Ledger, the confidence verdict computation, and the Results screen all depend on structured arrays in the session state. The evidence extraction layer bridges the two — running structured parsing after each agent's discourse turn to update the evidence_nodes, objections, and flags arrays in real time. The structured arrays drive every downstream computation. The discourse is preserved as the audit trail.
+
+## 4.5 Provider Failure Handling
+
+Every model dispatch goes through a retry-once-then-pause policy. A single transient failure retries automatically. A second failure pauses the session and surfaces a clear error to the user with an automatic full credit refund. The session state is preserved — the user can resume on the same question without paying again. No partial output is ever delivered when a provider failure prevents the full deliberation from completing.

@@ -27,8 +27,8 @@ export function FullscreenImageModal({
         <Image
           src={src}
           alt={alt}
-          width={width}
-          height={height}
+          width={width ?? 1920}
+          height={height ?? 1080}
           className="w-full h-auto rounded-none"
           style={{ borderRadius: 0, border: "none" }}
         />

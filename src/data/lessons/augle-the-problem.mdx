@@ -1,0 +1,31 @@
+# 2. The Problem
+
+*AI is producing more output than ever. Output is not the same as reasoning.*
+
+The dominant pattern in AI today is the chat interface — one model, one user, a turn-by-turn exchange optimized for fluency and confidence. That pattern works for a remarkable range of tasks. It is also the wrong pattern for any question where the cost of a wrong answer is meaningful.
+
+## 2.1 Hallucination Is a Structural Problem
+
+Frontier models hallucinate confidently because they are trained to produce plausible language, not to mark the boundary between what they know and what they are inferring. This is not a quirk to be patched. It is a structural feature of the architecture, and no prompt engineering technique fixes it on its own.
+
+The traditional response to hallucination is retrieval: ground the model in source documents, cite the sources, and trust the citations. But this only works if the citations themselves are real. A model that hallucinates a paragraph will hallucinate a citation to support it just as readily — sometimes more readily, because plausible-sounding citations get less scrutiny.
+
+## 2.2 Confidence Without Calibration
+
+The standard chat interface gives users no way to distinguish a high-confidence answer from a low-confidence one. Both are delivered with the same fluency. The result is that users either over-trust the output (because it sounds authoritative) or under-trust it (because they have learned not to). Neither is a basis for consequential decisions.
+
+Real reasoning under uncertainty requires explicit confidence calibration — claims graded for evidentiary support, knowledge gaps named, and unresolved objections preserved in the final output. None of this happens by default in a chat interface.
+
+## 2.3 Monoculture Bias
+
+A single AI model has a single training distribution, a single set of inductive biases, and a single class of failure modes. Whatever blindspots that model has, every output it produces inherits. Stacking the same model against itself — even with elaborate prompting — does not produce real adversarial pressure. It produces the same model arguing with a slightly differently worded version of itself.
+
+Genuine adversarial reasoning requires genuinely different reasoners. That is an architectural problem, not a prompt problem.
+
+## 2.4 The Cost of Getting It Wrong
+
+In low-stakes contexts, AI hallucination is annoying. In high-stakes contexts, it is dangerous. A trader making a $50,000 prediction market position based on a hallucinated economic statistic. A VC building an investment thesis on a fabricated industry report. A researcher citing a paper that does not exist. A lawyer relying on a precedent that was never decided. These are not hypotheticals — they are documented incidents from the past 24 months.
+
+The market is not waiting for AI to get smarter. The market is waiting for AI that can be trusted with consequential decisions. That is a different bar.
+
+*Augle exists because the gap between what AI tools currently offer and what rigorous reasoning actually requires is large, persistent, and not closing on its own.*

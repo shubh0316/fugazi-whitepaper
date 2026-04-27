@@ -46,114 +46,149 @@ export async function getLessonContent(slug: string) {
 
 const lessons = [
   {
-    id: "fugazi",
-    title: "Fugazi: Whitepaper",
+    id: "augle",
+    title: "Augle: Platform Whitepaper",
     description:
-      "A new category of skill-based competition built directly on real crypto market data, where volatility becomes the playing field.",
+      "Multi-agent AI deliberation for high-stakes questions. Version 2.0 · April 2026.",
     lessons: [
       {
-        id: "fugazi-overview",
-        title: "Overview & Important Terms",
+        id: "augle-executive-summary",
+        title: "Executive Summary",
         description:
-          "Introduction to Fugazi and key terminology. Understanding what Fugazi is and what it is not.",
+          "What Augle delivers, the architecture in one paragraph, and what's new in v2.0.",
         video: null,
       },
       {
-        id: "fugazi-competitive-formats",
-        title: "Competitive Format Structure",
+        id: "augle-overview",
+        title: "1. Overview",
         description:
-          "Explore the three-tier competition structure: Blitz, Standard, and Championship matches.",
+          "Augmented deliberation — what Augle is, what it is not, and where it starts.",
         video: null,
       },
       {
-        id: "fugazi-core-insight",
-        title: "The Core Insight",
+        id: "augle-the-problem",
+        title: "2. The Problem",
         description:
-          "The fundamental principle behind Fugazi: skill becomes measurable when the environment is controlled.",
+          "Hallucination, confidence without calibration, and monoculture bias in AI today.",
         video: null,
       },
       {
-        id: "fugazi-game-loop",
-        title: "The Fugazi Game Loop",
+        id: "augle-the-solution",
+        title: "3. The Solution",
         description:
-          "How matches work from challenge creation through post-match review.",
+          "Structured multi-agent deliberation, cross-provider diversity, and deterministic verdicts.",
         video: null,
       },
       {
-        id: "fugazi-competition-mechanics",
-        title: "Competition Mechanics",
+        id: "augle-how-it-works",
+        title: "4. How It Works",
         description:
-          "Understanding how competitions work without financial stakes using simulated portfolios.",
+          "The three-phase deliberative arc, session depth tiers, and the Guardian at round boundaries.",
         video: null,
       },
       {
-        id: "fugazi-skill-rating",
-        title: "Skill Rating & Matchmaking",
+        id: "augle-agent-ensemble",
+        title: "5. The Agent Ensemble",
         description:
-          "How Fugazi evaluates player performance and matches opponents using Elo-style rating systems.",
+          "Seven agents, each with a specific role and model — Topic Architect through Pragmatist.",
         video: null,
       },
       {
-        id: "fugazi-progression",
-        title: "Progression, Status, and Incentives",
+        id: "augle-the-guardian",
+        title: "6. The Guardian",
         description:
-          "How players progress through skill ratings, leaderboards, and competitive tiers.",
+          "The integrity gate: how user domain knowledge enters the deliberation safely.",
         video: null,
       },
       {
-        id: "fugazi-ai-coach",
-        title: "AI Coach",
+        id: "augle-source-verification",
+        title: "7. Source Verification Service",
         description:
-          "Post-match analysis system designed to help players understand their performance.",
+          "New in v2.0. Catching hallucinated citations at the source before they propagate.",
         video: null,
       },
       {
-        id: "fugazi-monetization",
-        title: "Monetization",
+        id: "augle-multi-provider",
+        title: "8. Multi-Provider Architecture",
         description:
-          "Social competition monetization model using Fugazi Tokens and optional enhancements.",
+          "Why five providers, model selection rationale, and the Synthesizer contingency.",
         video: null,
       },
       {
-        id: "fugazi-trust-integrity",
-        title: "Trust, Fairness, and Integrity",
+        id: "augle-determinism",
+        title: "9. Determinism and Confidence",
         description:
-          "How Fugazi ensures transparent, repeatable, and manipulation-resistant outcomes.",
+          "Temperature settings, confidence grades, and how uncertainty flows to delivery.",
         video: null,
       },
       {
-        id: "fugazi-launch-strategy",
-        title: "Launch Strategy & Jurisdiction Awareness",
+        id: "augle-platform-modes",
+        title: "10. Platform Modes",
         description:
-          "Geo-aware feature gating and jurisdiction-based platform capabilities.",
+          "Prediction Markets (v1, live) and Letters and Science (v2, waitlist).",
         video: null,
       },
       {
-        id: "fugazi-growth-strategy",
-        title: "Growth Strategy and Competitive Distribution",
+        id: "augle-results-output",
+        title: "11. Results and Output",
         description:
-          "How Fugazi drives user acquisition, solves marketplace liquidity, and compounds growth.",
+          "The six output sections, the Results hero card, PDF export, and follow-on sessions.",
         video: null,
       },
       {
-        id: "fugazi-long-term-vision",
-        title: "Long-Term Vision and Scaled Growth Strategy",
+        id: "augle-credit-pricing",
+        title: "12. Credit System and Pricing",
         description:
-          "Fugazi's approach to scaling as a standalone platform and optional Phase 2 expansion.",
+          "Credit bundles, session tier pricing, cost economics, and the refund policy.",
         video: null,
       },
       {
-        id: "fugazi-risk-analysis",
-        title: "Risk Analysis and Mitigation Strategy",
+        id: "augle-letters-science",
+        title: "13. Letters and Science — V2 Deep Dive",
         description:
-          "Key risks facing competitive marketplaces and how Fugazi addresses them.",
+          "The academic mode: neutrality check, evidence weight framing, and what's already built.",
         video: null,
       },
       {
-        id: "fugazi-faq",
-        title: "Frequently Asked Questions",
+        id: "augle-use-cases",
+        title: "14. Use Cases",
         description:
-          "Common questions about Fugazi, its mechanics, and long-term vision.",
+          "Prediction markets, venture capital, legal research, academic research, and enterprise strategy.",
+        video: null,
+      },
+      {
+        id: "augle-roadmap",
+        title: "15. Roadmap",
+        description:
+          "Phase 1 (live), Phase 2 (Letters and Science + enterprise), and Phase 3 (platform expansion).",
+        video: null,
+      },
+      {
+        id: "augle-reasoning-corpus",
+        title: "16. The Long-Term Asset — Reasoning Corpus",
+        description:
+          "Why every completed session is an asset and the three strategic paths for the corpus.",
+        video: null,
+      },
+      {
+        id: "augle-team",
+        title: "17. Team",
+        description:
+          "Cory Kelly (CEO) and Shubhanker Saxena (CTO) — built on conviction.",
+        video: null,
+      },
+      {
+        id: "augle-faq",
+        title: "18. FAQ",
+        description:
+          "Common questions about Augle's architecture, pricing, accuracy claims, and data ownership.",
+        video: null,
+      },
+      {
+        id: "augle-glossary",
+        title: "19. Glossary",
+        description:
+          "Defined terms across the architecture — from Augmented deliberation to Unresolved Strong objection.",
         video: null,
       },
     ],

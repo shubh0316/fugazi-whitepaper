@@ -52,7 +52,7 @@ function MobileNavigation({
               <CloseButton
                 as={Link}
                 href="/login"
-                className="rounded-md px-4 py-1 text-sm/7 font-semibold text-gray-950 hover:bg-[#3CC383]/20 hover:text-[#3CC383] dark:text-white dark:hover:bg-[#3CC383]/20 dark:hover:text-[#3CC383]"
+                className="rounded-md px-4 py-1 text-sm/7 font-semibold text-gray-950 hover:bg-[#C15F3C]/20 hover:text-[#C15F3C] dark:text-white dark:hover:bg-[#C15F3C]/20 dark:hover:text-[#C15F3C]"
               >
                 Sign out
               </CloseButton>
@@ -77,7 +77,7 @@ function SiteNavigation() {
         onClose={() => setMobileMenuOpen(false)}
       />
       <div className="flex gap-x-6 items-center text-sm/6 text-gray-950 max-lg:hidden dark:text-white">
-        <Link href="/login" className="font-semibold hover:text-[#3CC383] transition-colors">Sign out</Link>
+        <Link href="/login" className="font-semibold hover:text-[#C15F3C] transition-colors">Sign out</Link>
       </div>
     </nav>
   );

@@ -1,0 +1,48 @@
+# 16. The Long-Term Asset — Reasoning Corpus
+
+*The credit revenue is real. It is not the asset. The asset is what every completed session accumulates into.*
+
+## 16.1 What Augle Produces
+
+Every completed Augle session is a structured reasoning artifact. Agent outputs across three rounds. Evidence nodes with confidence bounds and source verification status. Objection chains with steelmans and resolution conditions. Contested claims with the agents in dispute named. Knowledge gaps with resolution conditions and close dates. Guardian flags with severity, classification, and verbatim user contributions. Methodologist downgrades with reasons attached.
+
+In Markets mode, every one of those artifacts is mapped, where applicable, against ground-truth resolution. A Polymarket contract resolves YES or NO. The Augle session that researched it produced a verdict with a confidence grade. The match between verdict and resolution is the calibration signal.
+
+## 16.2 Why This Is Different From Existing Datasets
+
+The current generation of AI is trained on human text — books, articles, web pages, conversations, code repositories. That data is abundant, well-structured, and increasingly exhausted as a frontier training resource.
+
+Augle is producing something qualitatively different: structured multi-agent deliberation mapped to ground-truth outcomes. Each session contains:
+
+- **Multi-agent reasoning traces.** Not a single model's output, but the structured discourse between agents from five different providers, with explicit roles and bounded mandates.
+- **Adversarial pressure transcripts.** Every claim that survived to the synthesis survived a Contrarian challenge. Every objection includes a steelman and a resolution condition. The dataset captures not just the conclusion but the structured reasoning that earned it.
+- **Confidence calibration data.** Every claim is graded. Every grade is bounded by methodological assessment. Every Markets verdict is checkable against resolution. This is calibration data of a kind that does not exist at scale anywhere.
+- **Integrity metadata.** Guardian evaluations, source verification outcomes, automatic downgrades. The dataset captures the integrity decisions that produced the output, not just the output itself.
+
+This combination — structured, multi-agent, calibrated, integrity-evaluated, and ground-truth-mapped — is not produced anywhere else. Not at the major AI labs. Not at research institutions. Not in any public dataset.
+
+## 16.3 Three Strategic Paths
+
+Three paths to scale exist for the corpus, each with different capital requirements and different time horizons:
+
+### Path 1 — License the corpus to AI labs
+
+The deliberation dataset — structured reasoning mapped to outcomes — is commercially valuable to any lab training next-generation reasoning models. The path requires volume (probably 100,000+ sessions) before the dataset is interesting to buyers. The business model is data licensing; Augle as a product is the collection mechanism.
+
+### Path 2 — Build the proprietary reasoning layer
+
+Use the corpus to train a reasoning model fine-tuned on structured deliberation. Sell that model as an API to companies building AI products that need auditable reasoning. This is the bigger prize and the bigger lift — it requires raising to build out model training infrastructure. The corpus is the moat: any competitor without it is starting from a worse position.
+
+### Path 3 — Own the compliance certification layer
+
+As AI regulation tightens — the EU AI Act, sectoral US regulations, enterprise procurement standards — organizations need documented, auditable AI decisions. Augle's session output is exactly that: a structured artifact with full audit trail, integrity evaluations, and confidence grading. The path is compliance certification: enterprises pay Augle to produce auditable AI deliberation for decisions that need to be defended later.
+
+## 16.4 Why This Matters for the Architecture
+
+Every architectural decision in Augle is shaped by the corpus thesis. Three examples:
+
+- **Persistence-first data model.** Every field that could be useful in the corpus is persisted. Free-form discourse is preserved alongside structured arrays. Deletions are soft, not hard. Sessions are immutable artifacts.
+- **Determinism guarantees.** Same evidence base produces the same verdict. Without that property, the corpus is noise. With it, the corpus is signal.
+- **Source verification.** Hallucinated citations would poison the corpus. The Source Verification Service exists not just to make individual sessions more honest, but to make the dataset they aggregate into trustworthy.
+
+*Every field persisted today is a row in a dataset that could be worth more than the credit revenue that funded it. The product needs to be great — the long-term value of the company is in what the product produces underneath.*

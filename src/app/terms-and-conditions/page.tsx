@@ -10,28 +10,28 @@ export default function TermsAndConditionsPage() {
         </div>
         <div className="prose prose-sm max-w-none dark:prose-invert">
           <h1 className="text-3xl font-bold text-gray-950 dark:text-white mb-2">
-            Fugazi Email Terms & Conditions
+            Augle Email Terms & Conditions
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-8">
             Last Updated: February 16, 2026
           </p>
 
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
-            These Email Terms & Conditions ("Email Terms") govern the delivery of emails sent by Fugazi Labs, LLC ("Fugazi," "we," "us") in connection with account authentication and security services.
+            These Email Terms & Conditions ("Email Terms") govern the delivery of emails sent by Augle Labs, LLC ("Augle," "we," "us") in connection with account authentication and security services.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Program Description
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Fugazi sends emails solely to deliver one-time passcodes used to control access to the Fugazi whitepaper. Messages are strictly transactional and non-marketing.
+            Augle sends emails solely to deliver one-time passcodes used to control access to the Augle whitepaper. Messages are strictly transactional and non-marketing.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Opt-In
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Access to email verification is limited to email addresses approved in advance by Fugazi. Approved users receive emails only after requesting a one-time passcode. By requesting a passcode code, approved users consent to receive transactional emails for identity verification and access control purposes.
+            Access to email verification is limited to email addresses approved in advance by Augle. Approved users receive emails only after requesting a one-time passcode. By requesting a passcode code, approved users consent to receive transactional emails for identity verification and access control purposes.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -45,7 +45,7 @@ export default function TermsAndConditionsPage() {
             Costs
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Fugazi does not charge for emails.
+            Augle does not charge for emails.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -59,7 +59,7 @@ export default function TermsAndConditionsPage() {
             Help
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            For help and assistance, contact us at <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>.
+            For help and assistance, contact us at <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>.
           </p>
 
 
@@ -71,17 +71,17 @@ export default function TermsAndConditionsPage() {
             Your use of email services is subject to our Privacy Policy, available at:
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            <a href="https://whitepaper.fugazi.fun/privacy-policy" className="text-[#3CC383] hover:underline">https://whitepaper.fugazi.fun/privacy-policy</a>
+            <a href="https://whitepaper.augle.com/privacy-policy" className="text-[#C15F3C] hover:underline">https://whitepaper.augle.com/privacy-policy</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Contact Information
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi Labs, LLC
+            Augle Labs, LLC
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Email: <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>
+            Email: <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>
           </p>
         </div>
       </div>

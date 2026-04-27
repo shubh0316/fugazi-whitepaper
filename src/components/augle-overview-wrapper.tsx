@@ -3,9 +3,9 @@
 import { LegalNoticeModal } from "@/components/legal-notice-modal";
 import { useEffect, useState } from "react";
 
-const LEGAL_AGREEMENT_KEY = "fugazi-legal-agreed";
+const LEGAL_AGREEMENT_KEY = "augle-legal-agreed";
 
-export function FugaziOverviewWrapper({
+export function AugleOverviewWrapper({
   children,
 }: {
   children: React.ReactNode;

@@ -1,0 +1,36 @@
+# 19. Glossary
+
+Defined terms used throughout this whitepaper. Where a term is technical, the definition reflects how Augle uses it — not necessarily how the term is used elsewhere.
+
+| Term | Definition |
+|------|------------|
+| Augmented deliberation | Augle's positioning statement. Reasoning that is not artificial but augmented — the user's question, judgment, and outcome extended by a structured ensemble designed to find what they might have missed. |
+| Cartographer | First agent in every session. Maps the evidence landscape — settled, contested, unknown. Runs on Gemini 3.1 Pro as of v2.0. |
+| Confidence verdict | The deterministic confidence grade computed from the evidence node registry before the Synthesizer is dispatched. Cannot be overridden by the Synthesizer. |
+| Contested | One of four confidence grades. Indicates a claim is disputed between agents or sources, or has been downgraded by an unresolved Strong Contrarian objection. |
+| Contrarian | Adversarial agent. Steelmans opposing positions and produces calibrated objections with resolution conditions. Sonnet 4.6 on Rapid and Standard. Opus 4.6 on Deep. |
+| Deep session | 6-credit session depth. Full ensemble, three rounds, plus async expert interjection. Contrarian runs on Opus 4.6. |
+| Established | Highest confidence grade. Methodologically validated, independently sourced, replicated. Cannot be assigned to a Guardian-routed user contribution. |
+| Evidence node | A discrete factual claim with attributes: confidence grade, source reference, source type, verification status, and the agent who produced it. Stored in SessionState.evidence_nodes. |
+| Evidence weight | Letters and Science verdict framing. Replaces Markets-mode probability framing. Values: Strong, Moderate, Weak, Insufficient. |
+| Exploration phase | Round 1 of the three-round deliberation. Cartographer maps the landscape; Methodologist evaluates initial validity; Contrarian challenges scope and framing. |
+| Guardian | Integrity agent. Evaluates user-contributed context at phase boundaries against scope, epistemic type, and safety criteria. Transforms accepted contributions into neutral language. Hidden model identity (Sonnet 4.6). |
+| Insufficient | Confidence grade indicating the evidence base is too thin, too new, or too unreliable to support a higher grade. An Insufficient finding is honest output, not a failed session. |
+| Knowledge gap | An identified question the ensemble could not answer. Surfaced in the Results screen with a resolution condition — what evidence would close the gap. |
+| Ledger | Sixth panel in the Signals view. Real-time frontend rendering of the evidence_nodes array. Not an agent — pure UI. |
+| Letters and Science | Augle's v2 mode for academic and research questions. Currently waitlisted. Light theme, evidence weight framing, Topic Architect neutrality check, retraction database integration. |
+| Markets mode | Augle's v1 launch mode. Prediction markets context (Polymarket, Kalshi). Dark theme, probability framing, structured contract API as question source. |
+| Methodologist | Evidence quality agent. Evaluates internal, external, construct, and methodology-claim validity. Assigns confidence bounds. GPT-4o. |
+| Objection | A Contrarian-raised challenge to a claim or framing. Includes a steelman, a confidence label (Strong, Moderate, Speculative), and a resolution condition. |
+| Pragmatist | Final agent in a session. Translates the Synthesizer's verdict into application notes. Recommendation confidence cannot exceed Synthesizer confidence. Grok 4.1 Fast. |
+| Probable | Second-highest confidence grade. Substantively supported by available evidence with some methodological caveats. The most common grade in a typical session. |
+| Rapid session | 1-credit session depth. Cartographer + Synthesizer only. Single-round. Approximately 3-minute runtime. |
+| Reasoning corpus | The aggregate dataset produced by completed Augle sessions. Structured multi-agent deliberation mapped (in Markets mode) to ground-truth resolution. Augle's long-term strategic asset. |
+| Resolution condition | Attached to every objection and every knowledge gap. Specifies what evidence would close the objection or fill the gap. Must be specific and actionable. |
+| SessionState | Canonical session data object. Holds research_question, evidence_nodes, objections, flags, confidence_verdict, and other structured arrays. |
+| Source Verification Service (SVS) | Backend layer that verifies every Cartographer-cited source against live URLs, DOI resolution, and (in Letters and Science) retraction databases. New in v2.0. |
+| Standard session | 3-credit session depth. Full seven-agent ensemble, three-round deliberation. The core Augle experience. |
+| Steelman | The strongest version of an opposing argument, presented in good faith before being challenged. A Contrarian requirement on every objection. |
+| Synthesizer | Conclusion-producing agent. Temperature locked at zero. Verdict computed from evidence_nodes, not the conversation thread. DeepSeek V4 primary, Mistral Large contingency. |
+| Topic Architect | Orchestration agent. Initializes sessions, manages round transitions, surfaces flags, delivers final output. Only agent with a direct user-facing interface. Claude Sonnet 4.6. |
+| Unresolved Strong objection | A Contrarian objection labeled Strong that was not closed by Round 3. Surfaces verbatim in the Results screen and PDF — never softened. |

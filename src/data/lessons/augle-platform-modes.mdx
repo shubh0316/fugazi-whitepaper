@@ -1,0 +1,23 @@
+# 10. Platform Modes
+
+Augle ships in two platform modes. The deliberative engine is identical across both. What differs is the question source, the output framing, the Guardian safety criteria, and the visual treatment.
+
+## 10.1 Prediction Markets (v1, live)
+
+Prediction Markets is Augle's launch mode. Questions are sourced from the Polymarket and Kalshi APIs — structured contract data with contract IDs, current implied probabilities, close dates, and resolution status. Output is probability-oriented: probability YES/NO, confidence high/moderate/low, evidence anchored to economic data, regulatory filings, and platform-specific signals.
+
+The visual mode is dark. The Guardian safety criteria emphasize financial regulatory boundaries — the Guardian and Synthesizer have explicit behavioral rules to ensure output is framed as analytical content, not investment advice. Every result page carries a legal disclaimer confirming Augle does not constitute investment advice.
+
+## 10.2 Letters and Science (v2, waitlist)
+
+Letters and Science is Augle's research and academic mode. Questions are free-form text input rather than API-sourced — a researcher posing a hypothesis, an academic working through contested literature, an analyst evaluating a contested empirical question. The Topic Architect runs a neutrality check on the question before initialization, reformulating slanted phrasings into neutral research questions.
+
+Output is evidence-oriented rather than probability-oriented. The verdict is graded on evidence weight — Strong, Moderate, Weak, Insufficient — rather than on probability YES/NO. The visual mode is light. The Guardian safety criteria emphasize academic integrity — citation accuracy, retraction handling, and methodological transparency.
+
+Letters and Science is described in detail in Section 13.
+
+## 10.3 Mode Toggle and Architectural Symmetry
+
+The mode toggle is a pill at the bottom center of the home screen. Prediction Markets is dark mode, active by default. Letters and Science is light mode, currently waitlisted — tapping it opens a waitlist modal that collects email addresses for the v2 launch.
+
+The architecture is mode-agnostic by design. The ProductMode schema, the tier_names config, the Guardian safety criteria switching, and the dual color system are all defined to carry over to v2 without rebuild. Five specific implementation decisions in v1 — session_type field, question input abstraction, modular evidence extraction, waitlist collection, and mode-driven UI text — were made to ensure v2 ships clean.

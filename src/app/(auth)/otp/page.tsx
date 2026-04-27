@@ -32,8 +32,8 @@ function OTPForm() {
         if (!data.accepted) {
           setShowLegalModal(true);
         } else {
-          // User has already accepted, redirect to fugazi-overview
-          router.push("/fugazi-overview");
+          // User has already accepted, redirect to augle-overview
+          router.push("/augle-overview");
         }
       }
     } catch (err) {
@@ -112,20 +112,20 @@ function OTPForm() {
       });
 
       if (response.ok) {
-        // Legal notice accepted, redirect to fugazi-overview
+        // Legal notice accepted, redirect to augle-overview
         setShowLegalModal(false);
-        router.push("/fugazi-overview");
+        router.push("/augle-overview");
       } else {
         console.error("Failed to accept legal notice");
         // Still redirect even if API call fails
         setShowLegalModal(false);
-        router.push("/fugazi-overview");
+        router.push("/augle-overview");
       }
     } catch (err) {
       console.error("Error accepting legal notice:", err);
       // Still redirect even if API call fails
       setShowLegalModal(false);
-      router.push("/fugazi-overview");
+      router.push("/augle-overview");
     } finally {
       setLegalNoticeAccepting(false);
     }
@@ -135,7 +135,7 @@ function OTPForm() {
     <>
       <h1 className="sr-only">Enter OTP</h1>
       <p className="text-start text-sm/7 text-gray-950 dark:text-white">
-        Enter your 6-digit passcode
+        Enter your email for your 6-digit passcode.
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
         <OTPInput
@@ -149,14 +149,14 @@ function OTPForm() {
             {error}
           </p>
         )}
-        <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading || checkingLegalNotice}>
+        {/* <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading || checkingLegalNotice}>
           {loading || checkingLegalNotice ? "Verifying..." : "Verify"}
-        </Button>
+        </Button> */}
       </form>
       <Button
         type="button"
         onClick={() => router.push("/login")}
-        className="mt-4 w-full  hover:text-black bg-[#3CC383]"
+        className="mt-4 w-full  hover:text-black bg-[#C15F3C]"
       >
         Request a new passcode
       </Button>

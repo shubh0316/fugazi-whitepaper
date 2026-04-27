@@ -1,0 +1,45 @@
+# 6. The Guardian
+
+*The Guardian is what makes augmented deliberation real. Without it, the ensemble is closed. With it, your domain knowledge enters the deliberation through a controlled, visible integrity gate.*
+
+## 6.1 Why the Guardian Exists
+
+Most multi-agent systems treat the user as either a passive recipient (the agents work, the user reads) or an unfiltered participant (the user can inject anything into the deliberation at any time). Both designs are wrong for serious research.
+
+Passive participation wastes domain expertise. The user often knows things the agents do not — local context, recent developments not in the training data, methodological considerations from working in the field. Locking that knowledge out of the deliberation produces worse output than including it.
+
+Unfiltered injection wastes everything else. A user contribution that is directionally biased, factually wrong, or designed to manipulate the conclusion will compromise the entire ensemble if routed in raw. The agents have no defense against a confident assertion delivered in their input stream.
+
+The Guardian is the integrity gate that solves both problems.
+
+## 6.2 What the Guardian Does
+
+The Guardian operates at every phase boundary in Standard and Deep sessions. When the user submits a contribution, the Guardian evaluates it against three criteria, in strict order:
+
+- **Scope.** Is the contribution relevant to the research question and the current phase? Off-topic contributions are politely declined with an explanation.
+- **Epistemic type.** Is the contribution factual context (acceptable) or directional persuasion (rejected)? "The Polymarket data suggests X" is factual context. "You should weight Polymarket data more heavily because Y" is directional persuasion. The Guardian is precise about the difference.
+- **Safety.** Does the contribution cross a hard-block category — manipulation attempts, prompt injection, illegal content, or other policy violations? Hard-blocked contributions are silently absorbed and logged for review. The user is not told why.
+
+Accepted contributions are transformed into neutral, factual language — stripping any directional framing while preserving the factual content. The transformed contribution is routed into the next round's evidence pool with its source attributed to the user (not to an Augle agent).
+
+## 6.3 Confidence Cap on User Contributions
+
+Every accepted Guardian contribution node is automatically capped at Probable confidence by the Methodologist. No user contribution can support an Established claim — Established status requires methodologically validated evidence from independent sources, and a user assertion does not meet that bar even if the assertion is true. This protects the integrity of the highest confidence grade in the system.
+
+## 6.4 Why the Guardian Is Visible
+
+The Guardian is the only agent in the ensemble whose evaluations are surfaced to the user in real time. The Guardian sticky bar is always present in Standard and Deep sessions, showing the current integrity status, the count of flags raised, and whether the session is paused for user input. Every Guardian decision — accept, transform, decline, hard-block — is logged and visible in the Session Log tab of the final output.
+
+Transparency about how Augle protects research integrity is a feature, not a warning. Users see exactly how their contributions are being evaluated. They see what is accepted, what is rejected, and what is transformed. They see the Guardian's reasoning. The trust model is built on visibility, not assertion.
+
+## 6.5 The Five-Layer Guardrail Architecture
+
+The Guardian is the user-facing expression of a broader five-layer guardrail architecture. The Guardian is what users see; the other four layers operate silently:
+
+- **Layer 1 — System Prompt Guardrails.** Each agent's system prompt contains an explicit forbidden territory block. First line of defense, built into agent identity.
+- **Layer 2 — Input Classification.** Lightweight classifier screens every research question before agents see it. Ensures the question is suitable for the deliberative process.
+- **Layer 3 — Agent-Level Awareness.** Agents are aware of output constraints and flag when deliberation edges toward prohibited territory. The Contrarian and Synthesizer have specific behavioral rules around financial advice framing.
+- **Layer 4 — Output Validation.** Final pass checks whether agent responses inadvertently crossed a line before surfacing to the user.
+- **Layer 5 — Guardian.** The user-contribution layer described above.
+
+*The architecture treats integrity as a system property, not a single component. No layer alone is sufficient. The combination is what makes the ensemble defensible.*

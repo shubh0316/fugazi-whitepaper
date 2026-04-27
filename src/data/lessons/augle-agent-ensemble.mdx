@@ -1,0 +1,83 @@
+# 5. The Agent Ensemble
+
+Seven agents, each with a specific role, each on a model selected for that role. The architecture is the result of months of design work, adversarial pressure-testing, and deliberate tradeoff decisions on every assignment.
+
+| Agent | Role | Model | Provider |
+|-------|------|-------|----------|
+| Topic Architect | Orchestration — fires once | Claude Sonnet 4.6 | Anthropic |
+| Cartographer | Evidence landscape mapping | Gemini 3.1 Pro | Google |
+| Methodologist | Evidence quality assessment | GPT-4o | OpenAI |
+| Guardian | Integrity, bias check | Claude Sonnet 4.6 (hidden) | Anthropic (hidden) |
+| **Contrarian** | Adversarial pressure | Sonnet 4.6 (Rapid/Standard) / **Opus 4.6 (Deep)** | Anthropic |
+| Synthesizer | Conclusion synthesis | DeepSeek V4 | DeepSeek |
+| Pragmatist | Application notes | Grok 4.1 Fast | xAI |
+
+*Note on the Ledger: The Augle UI exposes a sixth panel in the Signals view called the Ledger. It is not an agent. It has no model and no API cost — it is a real-time frontend rendering of the evidence_nodes array in the session state. The Cartographer, Methodologist, and Contrarian generate evidence nodes as a byproduct of their work; the Ledger classifies and displays them as Established, Probable, Contested, or Gap as they accumulate.*
+
+## 5.1 Topic Architect
+
+**Model:** Claude Sonnet 4.6 · **Role:** Session orchestration and governance
+
+The Topic Architect is the only agent with a direct user-facing interface. It initializes sessions from user input, defines and enforces session parameters, manages round transitions, surfaces flags to the user, triggers Guardian evaluation at round boundaries, and delivers the final synthesis. It does not research. It governs the session that produces research. Its job is faithful routing, not editorial management — it delivers what the ensemble produced, without softening or filtering.
+
+Claude Sonnet 4.6 is selected for instruction-following precision. The Topic Architect operates against a strict behavioral spec with no tolerance for deviation. Anthropic's constitutional AI training and rule-following consistency make Sonnet the right choice for the agent that must never editorialize.
+
+## 5.2 Cartographer
+
+**Model:** Gemini 3.1 Pro · **Role:** Evidence landscape mapping
+
+The Cartographer fires first in every session. It builds the evidentiary foundation — surveying settled ground, contested terrain, and unknown territory before any other reasoning agent speaks. It identifies the strongest available sources, generates initial evidence nodes, and produces a research scope that the rest of the ensemble navigates.
+
+Gemini 3.1 Pro replaces Gemini 2.5 Pro as of v2.0 of this whitepaper. The 3.1 Pro upgrade is a config-variable change with no rebuild required. Cost impact is roughly 1.5x on input tokens and approximately flat on output. The model improvement matters most at the Cartographer position because the Cartographer's output is the evidentiary terrain everything downstream navigates — modest gains here propagate through the entire deliberation. Cross-provider diversity is preserved: Google's training data and knowledge representation differ meaningfully from Anthropic's, reducing monoculture bias in the most influential output of every session.
+
+## 5.3 Methodologist
+
+**Model:** GPT-4o · **Role:** Evidence quality assessment
+
+The Methodologist evaluates every evidence node against four validity dimensions: internal validity, external validity, construct validity, and methodology-claim match. It assigns each node a confidence bound — Established, Probable, Contested, or Insufficient — that the rest of the ensemble cannot exceed. It is the constraint layer that prevents downstream confidence inflation.
+
+GPT-4o leads on structured analytical reasoning, statistical methodology, and methodology-claim matching. OpenAI's training emphasis on academic and scientific literature makes it the strongest choice for a role that is fundamentally about whether the methods behind a claim actually support the conclusion drawn from it. The Methodologist also enforces the Source Verification Service downgrades — see Section 7.
+
+## 5.4 Guardian
+
+**Model:** Claude Sonnet 4.6 (hidden) · **Role:** Contribution evaluation and session integrity
+
+The Guardian is described in detail in Section 6. It operates at every phase boundary, evaluating user-contributed context for relevance, epistemic quality, and safety before routing accepted contributions into the deliberation. It transforms raw user input into neutral, factual language — stripping directional framing while preserving the factual content. The Guardian's evaluations are visible in the session output and part of the audit trail. The model identity is hidden from users because the Guardian is an Augle brand layer, not a third-party AI disclosure.
+
+## 5.5 Contrarian
+
+**Model:** Claude Sonnet 4.6 (Rapid/Standard) — Claude Opus 4.6 (Deep) · **Role:** Adversarial pressure and counterargument
+
+The Contrarian's job is to find the strongest version of the opposing argument — not the cheapest objection, the best one. It surfaces counter-evidence, identifies motivated reasoning, challenges the Cartographer's framing, and forces the ensemble to defend its conclusions. Every objection includes a steelman of the position being challenged and a specific resolution condition. A deliberative process without adversarial pressure is not deliberation. The Contrarian ensures the ensemble earns its conclusions.
+
+### Why Opus on Deep
+
+The Contrarian is the only agent in the ensemble with a depth-conditional model. Rapid and Standard sessions run Claude Sonnet 4.6 — the strongest base model for calibrated adversarial reasoning at sustainable cost. Deep sessions run Claude Opus 4.6 instead.
+
+The reasoning: the Contrarian runs across all three rounds at temperature 1.0, performing the highest-complexity open-ended reasoning task in the ensemble. In Deep sessions specifically, it runs the full three-round adversarial arc plus async expert interjection extensions. The quality ceiling of adversarial reasoning is the one place in the architecture where individual model capability translates directly to user-perceptible output improvement — a sharper steelman, a more incisive objection, a more rigorous resolution condition.
+
+Cost delta: approximately $0.02 to $0.04 per Deep session. Absorbed into the existing 6-credit Deep tier without a price change. Users are not asked to make a model decision — Augle decides. The architecture stays consistent.
+
+## 5.6 Synthesizer
+
+**Model:** DeepSeek V4 (primary), Mistral Large (contingency) · **Role:** Conclusion synthesis and structured output
+
+After the deliberative phases conclude, the Synthesizer draws on all prior contributions to produce the structured output. It identifies the claims that survived adversarial pressure, maps the contested terrain, flags knowledge gaps, and assembles the final verdict with explicit confidence grading.
+
+Temperature is locked at zero. The same question with the same evidence base must always produce the same confidence verdict. This is a hard requirement, enforced on every API call. The verdict is computed deterministically from the evidence node registry by a server-side function before the Synthesizer is dispatched — the Synthesizer receives the verdict as a constraint it cannot override. It writes the finding that explains the verdict, not a verdict that justifies its preferred finding.
+
+DeepSeek V4 is the primary Synthesizer model. Mistral Large is the documented contingency — a single config-variable swap, with no rebuild required. The contingency exists for enterprise and regulatory contexts where Chinese AI infrastructure is a question. Mistral Large is EU-based, GDPR-native, and Apache 2.0 licensed. The Synthesizer is the only agent in the ensemble with a contingency provider documented at this level of detail because it is the agent under the strictest determinism requirement.
+
+## 5.7 Pragmatist
+
+**Model:** Grok 4.1 Fast · **Role:** Actionable translation and decision framing
+
+The Pragmatist closes every session. It takes the Synthesizer's structured output and translates it into the terms that matter for the user's actual decision. In Markets mode, that means decision framing relative to the prediction market contract. In Letters and Science (v2), that means application notes oriented to the research context — implications for further investigation, gaps a follow-on study could address, evidence weight relative to the user's hypothesis.
+
+Grok's real-time data grounding is the decisive factor for the Pragmatist position. Recommendations about prediction market contracts need current market data, not knowledge from a training cutoff. The Pragmatist's recommendation confidence can never exceed the Synthesizer's confidence — uncertainty travels all the way to delivery. The Pragmatist is explicitly prohibited from converting an Insufficient finding into a low-confidence recommendation.
+
+## 5.8 Why Seven Agents
+
+Seven is not an arbitrary number. The ensemble was designed to cover the complete deliberative arc: framing → evidence → methodology → adversarial pressure → integrity → synthesis → action. Remove any one role and the process has a structural gap.
+
+The faceted sphere in the Augle brand mark has six visible facets — each representing one of the six reasoning agents surrounding the Guardian at the center. The geometry is intentional: every facet is load-bearing.

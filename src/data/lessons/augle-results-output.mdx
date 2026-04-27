@@ -1,0 +1,30 @@
+# 11. Results and Output
+
+The Augle output is a structured document. It is not a paragraph of prose with a number at the end. Every component is load-bearing — designed for the user to scan, drill into, and audit.
+
+## 11.1 The Six Output Sections
+
+| Section | Contents |
+|---------|----------|
+| Supporting Claims | Every Established and Probable claim with confidence badge, evidence source, and the agent who produced it. The user can drill into any claim to see the underlying evidence node. |
+| Contested Terrain | Disputes named, agents in dispute identified, the Methodologist's resolution decision, and any retained-with-reduced-weighting notes. |
+| Knowledge Gaps | What the ensemble could not determine. Each gap includes a resolution condition — what evidence would close it — and an estimated close date if applicable. |
+| Unresolved Objections | Contrarian objections that did not resolve before Round 3 closure. Verbatim, italicized, with resolution conditions attached. Never softened. |
+| Application Notes | Pragmatist's recommendations with confidence badges. Recommendation confidence cannot exceed Synthesizer confidence. |
+| Session Log | Every flag raised, every Guardian evaluation, every model interaction, every API failure with full timestamps. The complete audit trail. |
+
+## 11.2 The Results Hero Card
+
+The Results screen leads with the hero card: the research question, the core finding in serif type, and a metadata row showing platform, agent count, session depth, runtime, evidence sourced timestamp, and credit usage. The confidence verdict badge sits above the card. Two action buttons sit alongside: Re-run (re-initiate the session with the same question) and Export PDF (server-rendered PDF download).
+
+Below the hero card, a tab navigation surfaces the six output sections. The tabs are designed to be scannable — every claim, dispute, gap, and objection is visible without expansion, with click-to-expand behavior on the underlying evidence and reasoning.
+
+## 11.3 PDF Export
+
+Every completed session is exportable as a PDF. The export is server-rendered via Puppeteer (headless Chrome) against a styled HTML template — fonts embedded via base64 to ensure consistent typography across systems. Generation takes 2 to 4 seconds and is cached for 24 hours by session ID.
+
+The PDF format mirrors the Results screen but adds a cover page (research question, confidence verdict, platform, date, depth) and a legal disclaimer on every page. Section structure follows the Results screen tabs: Supporting Claims, Contested Terrain, Knowledge Gaps, Unresolved Objections, Application Notes, Session Log.
+
+## 11.4 Follow-On Sessions
+
+At the bottom of every Results page, Augle suggests follow-on sessions generated from Knowledge Gaps and Unresolved Objections. Each follow-on card includes a proposed research question, the source gap or objection that motivated it, an estimated depth, and a one-click Start session link. Follow-on questions are designed to deepen the original investigation by closing specific gaps or pursuing specific objections — not to upsell.

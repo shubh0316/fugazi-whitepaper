@@ -18,7 +18,7 @@ export default function Page() {
     setLoading(true);
 
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("Please enter a valid email address");
+      setError("This email is not on our approved access list.");
       setLoading(false);
       return;
     }
@@ -58,8 +58,7 @@ export default function Page() {
             htmlFor="email"
             className="block w-full text-sm font-medium    text-gray-950 dark:text-white text-wrap leading-[26px]"
           >
-            Enter your email address to receive a verification code. Access is limited to approved users. If you do not yet have access, you can send a request to <Link href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</Link>
-          </label>
+             Enter your email to receive your passcode to access the Augle whitepaper.  Access is limited to approved users only.          </label>
           <TextInput
             id="email"
             name="email"
@@ -79,16 +78,16 @@ export default function Page() {
         <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading}>
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
-        <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[26px]">
+        <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[25px]">
           By continuing you are consenting to receive a one-time passcode via email and agree to the{" "}
-          <Link href="/privacy-policy" className="text-[#3CC383] hover:underline">
+          <Link href="/privacy-policy" className="text-[#C15F3C] hover:underline">
             Privacy Policy
           </Link>
           {" "}and{" "}
-          <Link href="/terms-and-conditions" className="text-[#3CC383] hover:underline">
+          <Link href="/terms-and-conditions" className="text-[#C15F3C] hover:underline">
             Terms & Conditions
           </Link>
-          . Fugazi will never send you marketing or promotional messages. Emails are used strictly for verification purposes only.
+          . Augle will never send you marketing or promotional messages. Emails are used strictly for verification purposes only.
         </p>
       </form>
     </>

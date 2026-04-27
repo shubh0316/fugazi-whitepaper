@@ -4,7 +4,7 @@ import {
   Breadcrumbs,
   BreadcrumbSeparator,
 } from "@/components/breadcrumbs";
-import { FugaziOverviewWrapper } from "@/components/fugazi-overview-wrapper";
+import { AugleOverviewWrapper } from "@/components/augle-overview-wrapper";
 import { NextPageLink } from "@/components/next-page-link";
 import { SidebarLayoutContent } from "@/components/sidebar-layout";
 import TableOfContents from "@/components/table-of-contents";
@@ -87,9 +87,9 @@ export default async function Page({
     </SidebarLayoutContent>
   );
 
-  // Only show modal for fugazi-overview
-  if (slug === "fugazi-overview") {
-    return <FugaziOverviewWrapper>{pageContent}</FugaziOverviewWrapper>;
+  // Only show modal for augle-overview
+  if (slug === "augle-overview") {
+    return <AugleOverviewWrapper>{pageContent}</AugleOverviewWrapper>;
   }
 
   return pageContent;

@@ -1,0 +1,33 @@
+# 3. The Solution
+
+Augle's core insight is that rigorous reasoning is a structural property — not a property of any individual model. You cannot prompt your way to it. You build it.
+
+## 3.1 Structured Multi-Agent Deliberation
+
+We separate the reasoning process into distinct roles, assign each role to a specialized agent, and run those agents through a fixed three-round deliberative arc with explicit handoffs and confidence flow rules. Each agent has a system prompt that defines its mandate, behavioral constraints, output contract, and forbidden territory. No agent is asked to do another agent's job.
+
+## 3.2 Cross-Provider Diversity
+
+Each agent runs on a different frontier model from a different company — Anthropic, Google, OpenAI, DeepSeek, and xAI. This is not a feature for marketing. It is an architectural commitment. Each provider has distinct training distributions, distinct biases, and distinct blindspots. Spreading the ensemble across providers means no single company's failure modes dominate the deliberation.
+
+## 3.3 Confidence Flows One Direction
+
+Confidence in Augle is bounded by evidence quality, not synthesizer assertiveness. The Methodologist evaluates every evidence node and assigns it a confidence bound. The Synthesizer cannot exceed those bounds — even if its draft conclusion would be more compelling at a higher grade. The Pragmatist's recommendation confidence cannot exceed the Synthesizer's. Uncertainty travels all the way to delivery.
+
+## 3.4 Adversarial Pressure as a Default
+
+The Contrarian agent runs across all three rounds at the highest temperature in the ensemble, with a mandate to find the strongest version of the opposing argument. Every objection must include a steelman of the position being challenged and a specific resolution condition — what evidence would close this objection. Unresolved Strong objections at Round 3 surface verbatim in the final output, never softened.
+
+## 3.5 Source Verification, Not Just Citation
+
+Every source the Cartographer cites — URLs, DOIs, document references — is verified against live network resources before downstream agents process it. URLs that 404 trigger flags. DOIs that fail to resolve trigger flags. In Letters and Science (v2), retraction databases are cross-referenced. Hallucinated citations are caught at the source, before they propagate.
+
+## 3.6 Deterministic Verdicts
+
+The Synthesizer runs at temperature zero. Its verdict is computed deterministically from the structured evidence node registry — not from the free-form conversation thread. The same question with the same evidence base always produces the same confidence verdict and core finding direction. This is not a preference. It is a hard product integrity requirement, enforced on every API call without exception.
+
+## 3.7 Full Audit Trail
+
+Every session produces a structured document: a core finding, supporting claims with confidence grades, contested terrain (where the agents disagreed), knowledge gaps (what the ensemble could not determine), unresolved objections (verbatim), application notes from the Pragmatist, and a complete session log including every Guardian flag and every model interaction. The output is exportable as a PDF with embedded fonts and a legal disclaimer on every page.
+
+*These are not features added to a chatbot. They are the architecture. Removing any one of them would not make Augle a slightly less safe Augle. It would make it a different product.*

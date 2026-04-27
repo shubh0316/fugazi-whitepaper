@@ -16,7 +16,7 @@ export function Breadcrumbs(props: React.ComponentProps<"nav">) {
 
 export function BreadcrumbHome() {
   return (
-    <Link href="/" className="min-w-0 shrink-0 flex items-center gap-x-2 text-gray-950 dark:text-white hover:text-[#3CC383] transition-colors">
+    <Link href="/" className="min-w-0 shrink-0 flex items-center gap-x-2 text-gray-950 dark:text-white hover:text-[#C15F3C] transition-colors">
       <Image 
         src={logo} 
         alt="Logo" 
@@ -24,7 +24,7 @@ export function BreadcrumbHome() {
         height={20} 
         className="shrink-0"
       />
-      Fugazi
+      Augle
     </Link>
   );
 }
@@ -44,7 +44,7 @@ export function Breadcrumb({
         href={href}
         className={clsx(
           className,
-          "min-w-0 truncate text-gray-950 dark:text-white hover:text-[#3CC383] transition-colors",
+          "min-w-0 truncate text-gray-950 dark:text-white hover:text-[#C15F3C] transition-colors",
         )}
       >
         {children}

@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
           </p>
 
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Fugazi Labs, LLC ("Fugazi," "we," "us," or "our") values your privacy. This Privacy Policy explains how we collect, use, and protect personal information when you access or use the Fugazi platform, including our website, applications, and related services (collectively, the "Services").
+            Augle Labs, LLC ("Augle," "we," "us," or "our") values your privacy. This Privacy Policy explains how we collect, use, and protect personal information when you access or use the Augle platform, including our website, applications, and related services (collectively, the "Services").
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
             2. How We Use Information
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi uses personal information solely for operational and security purposes, including to:
+            Augle uses personal information solely for operational and security purposes, including to:
           </p>
           <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mb-6 ml-4 space-y-2">
             <li>Verify user identity via one-time passcodes (OTP)</li>
@@ -62,29 +62,29 @@ export default function PrivacyPolicyPage() {
             3. Email Usage
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi collects email addresses solely to control access to the Fugazi whitepaper and to perform account authentication and security verification. Email addresses are used only to deliver one-time passcodes to users whose addresses have been approved in advance.
+            Augle collects email addresses solely to control access to the Augle whitepaper and to perform account authentication and security verification. Email addresses are used only to deliver one-time passcodes to users whose addresses have been approved in advance.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Access to the Fugazi whitepaper is limited to an approved list of email addresses maintained by Fugazi. Only approved addresses are permitted to receive passcodes. Submission of an email address alone does not guarantee access.
+            Access to the Augle whitepaper is limited to an approved list of email addresses maintained by Augle. Only approved addresses are permitted to receive passcodes. Submission of an email address alone does not guarantee access.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
             By requesting a one-time passcode, approved users consent to receive transactional emails strictly for identity verification and access control purposes.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi does not send marketing or promotional emails and does not sell, rent, or share email addresses with third parties for marketing purposes.
+            Augle does not send marketing or promotional emails and does not sell, rent, or share email addresses with third parties for marketing purposes.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
             Users may opt out of emails at any time by clicking the unsubscribe link in any message.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Users may request help or assistance with their account, by emailing <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>
+            Users may request help or assistance with their account, by emailing <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             4. Information Sharing
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi does not sell or share personal information for advertising or marketing.
+            Augle does not sell or share personal information for advertising or marketing.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
             We may share limited information only with:
@@ -142,10 +142,10 @@ export default function PrivacyPolicyPage() {
             If you have questions about this Privacy Policy or our data practices, contact:
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-            Fugazi Labs, LLC
+            Augle Labs, LLC
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Email: <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>
+            Email: <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
@@ -158,15 +158,15 @@ export default function PrivacyPolicyPage() {
             If you are a California resident, you have the right to:
           </p>
           <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mb-4 ml-4 space-y-2">
-            <li>Request disclosure of the personal information Fugazi collects, uses, or discloses</li>
+            <li>Request disclosure of the personal information Augle collects, uses, or discloses</li>
             <li>Request deletion of your personal information, subject to legal and operational requirements</li>
-            <li>Opt out of the sale or sharing of personal information (note: Fugazi does not sell personal information)</li>
+            <li>Opt out of the sale or sharing of personal information (note: Augle does not sell personal information)</li>
           </ul>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi does not sell or share personal information for cross-context behavioral advertising.
+            Augle does not sell or share personal information for cross-context behavioral advertising.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
-            Requests may be submitted by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>. We may verify your identity before processing requests.
+            Requests may be submitted by contacting us at <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>. We may verify your identity before processing requests.
           </p>
 
           <h3 className="text-lg font-medium text-gray-950 dark:text-white mt-6 mb-3">
@@ -183,23 +183,23 @@ export default function PrivacyPolicyPage() {
             <li>Request data portability, where applicable</li>
           </ul>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi processes personal data only where a lawful basis exists, including user consent, contractual necessity, or compliance with legal obligations.
+            Augle processes personal data only where a lawful basis exists, including user consent, contractual necessity, or compliance with legal obligations.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
-            Requests may be submitted to <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>.
+            Requests may be submitted to <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-950 dark:text-white mt-8 mb-4">
             Do Not Sell or Share My Personal Information
           </h2>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            Fugazi does not sell or share personal information, including for cross-context behavioral advertising, as those terms are defined under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA).
+            Augle does not sell or share personal information, including for cross-context behavioral advertising, as those terms are defined under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA).
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-            As a result, Fugazi does not offer an opt-out mechanism for the sale or sharing of personal information, because no such activity occurs.
+            As a result, Augle does not offer an opt-out mechanism for the sale or sharing of personal information, because no such activity occurs.
           </p>
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">
-            California residents may still exercise their other privacy rights, including the right to access or delete personal information, by contacting us at <a href="mailto:support@fugazi.fun" className="text-[#3CC383] hover:underline">support@fugazi.fun</a>
+            California residents may still exercise their other privacy rights, including the right to access or delete personal information, by contacting us at <a href="mailto:support@augle.com" className="text-[#C15F3C] hover:underline">support@augle.com</a>
           </p>
         </div>
       </div>
