@@ -178,15 +178,22 @@ const lessons = [
         video: null,
       },
       {
+        id: "augle-demo",
+        title: "18. Demo",
+        description:
+          "A full walkthrough of Augle — from first touch to final report, every screen in sequence.",
+        video: null,
+      },
+      {
         id: "augle-faq",
-        title: "18. FAQ",
+        title: "19. FAQ",
         description:
           "Common questions about Augle's architecture, pricing, accuracy claims, and data ownership.",
         video: null,
       },
       {
         id: "augle-glossary",
-        title: "19. Glossary",
+        title: "20. Glossary",
         description:
           "Defined terms across the architecture — from Augmented deliberation to Unresolved Strong objection.",
         video: null,

@@ -56,7 +56,7 @@ export default function Page() {
         <div>
           <label
             htmlFor="email"
-            className="block w-full text-sm font-medium    text-gray-950 dark:text-white text-wrap leading-[26px]"
+            className="block w-full text-sm font-medium    text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[26px]"
           >
              Enter your email to receive your passcode to access the Augle whitepaper.  Access is limited to approved users only.          </label>
           <TextInput
@@ -66,7 +66,9 @@ export default function Page() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-2"
+            className="mt-2 bg-[#524C48] font-IBM-Plex-Sans"
+            placeholder="Email"
+            
           />
           {error && (
             <p className="mt-2 text-start text-sm text-red-600 dark:text-red-400">
@@ -78,7 +80,7 @@ export default function Page() {
         <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading}>
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
-        <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-white text-wrap leading-[25px]">
+        <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[25px]">
           By continuing you are consenting to receive a one-time passcode via email and agree to the{" "}
           <Link href="/privacy-policy" className="text-[#C15F3C] hover:underline">
             Privacy Policy

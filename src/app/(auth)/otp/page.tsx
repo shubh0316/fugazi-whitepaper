@@ -134,7 +134,7 @@ function OTPForm() {
   return (
     <>
       <h1 className="sr-only">Enter OTP</h1>
-      <p className="text-start text-sm/7 text-gray-950 dark:text-white">
+      <p className="text-start text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
         Enter your email for your 6-digit passcode.
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
@@ -172,7 +172,7 @@ function OTPForm() {
 export default function Page() {
   return (
     <Suspense fallback={
-      <div className="text-center text-sm/7 text-gray-950 dark:text-white">
+      <div className="text-center text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
         Loading...
       </div>
     }>

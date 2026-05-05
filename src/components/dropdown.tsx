@@ -25,7 +25,7 @@ export function DropdownMenu({
   return (
     <MenuItems
       anchor={anchor}
-      className="min-w-38 rounded-lg bg-white/75 p-0.5 shadow-sm outline outline-gray-950/5 backdrop-blur-sm [--anchor-gap:--spacing(1)] [--anchor-offset:--spacing(1)] dark:bg-gray-950/75 dark:outline-white/10"
+      className="min-w-38 rounded-lg bg-white/75 p-0.5 shadow-sm outline outline-gray-950/5 backdrop-blur-sm [--anchor-gap:--spacing(1)] [--anchor-offset:--spacing(1)] dark:bg-[#171613]/75 dark:outline-white/10"
       {...props}
     />
   );
@@ -42,7 +42,7 @@ export function DropdownItem({
     <MenuItem>
       <Link
         href={href}
-        className="block rounded-md px-3 py-0.5 text-sm/7 text-gray-950 focus:outline-none data-hover:bg-[#C15F3C]/20 data-focus:bg-[#C15F3C] data-focus:text-white dark:text-white dark:data-hover:bg-[#C15F3C]/20"
+        className="block rounded-md px-3 py-0.5 text-sm/7 text-gray-950 focus:outline-none data-hover:bg-[#C15F3C]/20 data-focus:bg-[#C15F3C] data-focus:text-[#F7F6F2] dark:text-[#F7F6F2] dark:data-hover:bg-[#C15F3C]/20"
       >
         {children}
       </Link>

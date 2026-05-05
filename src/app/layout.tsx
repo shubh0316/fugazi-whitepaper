@@ -32,7 +32,7 @@ export default function RootLayout({
       className={clsx(
         GeistMono.variable,
         InterVariable.variable,
-        "scroll-pt-16 font-sans antialiased dark:bg-gray-950",
+        "scroll-pt-16 font-sans antialiased dark:bg-[#171613]",
       )}
     >
       <body>

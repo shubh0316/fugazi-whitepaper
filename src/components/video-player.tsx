@@ -45,7 +45,7 @@ export function Video({ className, ...props }: React.ComponentProps<"video">) {
       ref={videoContainerRef}
       className={clsx(
         className,
-        "group aspect-video w-full rounded-2xl bg-gray-950 dark:bg-gray-900",
+        "group aspect-video w-full rounded-2xl bg-[#171613] dark:bg-[#171613]",
       )}
     >
       <video

@@ -93,7 +93,7 @@ export function PhoneInput({
 
   return (
     <div className="relative">
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base/6 text-gray-950 dark:text-white sm:text-sm/6 pointer-events-none z-10 leading-none">
+      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base/6 text-gray-950 dark:text-[#F7F6F2] sm:text-sm/6 pointer-events-none z-10 leading-none">
         +1
       </span>
       <input
@@ -103,7 +103,7 @@ export function PhoneInput({
         className={clsx(
           className,
           "block w-full rounded-lg bg-white pl-10 pr-3 py-1.5",
-          "text-base/6 text-gray-950 sm:text-sm/6 dark:text-white",
+          "text-base/6 text-gray-950 sm:text-sm/6 dark:text-[#F7F6F2]",
           "outline -outline-offset-1 outline-gray-950/15 focus:outline-2 focus:outline-blue-500 dark:bg-white/10 dark:outline-white/15",
           "placeholder:text-[#444954]",
         )}

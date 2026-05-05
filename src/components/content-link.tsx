@@ -42,12 +42,12 @@ export function ContentLink({
         </div>
         <div>
           <div>
-            <span className="font-semibold text-gray-950 dark:text-white">
+            <span className="font-semibold text-gray-950 dark:text-[#F7F6F2]">
               {title}
             </span>
             {duration && (
               <>
-                <span className="mx-2 hidden text-gray-950/25 sm:inline dark:text-white/25">
+                <span className="mx-2 hidden text-gray-950/25 sm:inline dark:text-[#F7F6F2]/25">
                   &middot;
                 </span>
                 <span className="hidden text-gray-500 sm:inline">

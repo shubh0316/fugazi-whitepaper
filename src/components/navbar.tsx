@@ -18,7 +18,7 @@ export function Navbar({ children, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={clsx(
-        "sticky top-0 z-10 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90",
+        "sticky top-0 z-10 bg-white/90 backdrop-blur-sm dark:bg-[#171613]/90",
         "flex items-center justify-between gap-x-8 px-4 py-4 sm:px-6",
       )}
       {...props}
@@ -38,9 +38,9 @@ function MobileNavigation({
 }) {
   return (
     <Dialog open={open} onClose={onClose} className="lg:hidden">
-      <DialogBackdrop className="fixed inset-0 bg-gray-950/25" />
+      <DialogBackdrop className="fixed inset-0 bg-[#171613]/25" />
       <div className="fixed inset-0 flex justify-end pl-11">
-        <DialogPanel className="w-full max-w-2xs bg-white px-4 py-5 ring ring-gray-950/10 sm:px-6 dark:bg-gray-950 dark:ring-white/10">
+        <DialogPanel className="w-full max-w-2xs bg-white px-4 py-5 ring ring-gray-950/10 sm:px-6 dark:bg-[#171613] dark:ring-white/10">
           <div className="flex justify-end">
             <CloseButton as={IconButton} onClick={onClose}>
               <CloseIcon className="stroke-gray-950 dark:stroke-white" />
@@ -52,7 +52,7 @@ function MobileNavigation({
               <CloseButton
                 as={Link}
                 href="/login"
-                className="rounded-md px-4 py-1 text-sm/7 font-semibold text-gray-950 hover:bg-[#C15F3C]/20 hover:text-[#C15F3C] dark:text-white dark:hover:bg-[#C15F3C]/20 dark:hover:text-[#C15F3C]"
+                className="rounded-md px-4 py-1 text-sm/7 font-semibold text-gray-950 hover:bg-[#C15F3C]/20 hover:text-[#C15F3C] dark:text-[#F7F6F2] dark:hover:bg-[#C15F3C]/20 dark:hover:text-[#C15F3C]"
               >
                 Sign out
               </CloseButton>
@@ -76,7 +76,7 @@ function SiteNavigation() {
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       />
-      <div className="flex gap-x-6 items-center text-sm/6 text-gray-950 max-lg:hidden dark:text-white">
+      <div className="flex gap-x-6 items-center text-sm/6 text-gray-950 max-lg:hidden dark:text-[#F7F6F2]">
         <Link href="/login" className="font-semibold hover:text-[#C15F3C] transition-colors">Sign out</Link>
       </div>
     </nav>

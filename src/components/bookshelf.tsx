@@ -50,7 +50,7 @@ export function Book({
         />
       </div>
       <div>
-        <p className="text-sm/6 font-semibold text-gray-950 dark:text-white">
+        <p className="text-sm/6 font-semibold text-gray-950 dark:text-[#F7F6F2]">
           {title}
         </p>
         <p className="text-sm/6 text-gray-700 dark:text-gray-400">{author}</p>

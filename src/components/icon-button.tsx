@@ -13,7 +13,7 @@ export function IconButton({
         className,
         "relative *:relative",
         "before:absolute before:top-1/2 before:left-1/2 before:size-8 before:-translate-1/2 before:rounded-md",
-        "before:bg-white/75 before:backdrop-blur-sm dark:before:bg-gray-950/75",
+        "before:bg-white/75 before:backdrop-blur-sm dark:before:bg-[#171613]/75",
         "data-hover:before:bg-[#C15F3C]/20 dark:data-hover:before:bg-[#C15F3C]/20",
         "data-active:before:bg-[#C15F3C]/30 dark:data-active:before:bg-[#C15F3C]/30",
         "data-selected:before:bg-[#C15F3C]/30 dark:data-selected:before:bg-[#C15F3C]/30",

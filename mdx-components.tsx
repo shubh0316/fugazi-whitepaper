@@ -93,56 +93,40 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         [width, height] = alt.split("|")[1].split("x").map(Number);
         alt = alt.split("|")[0];
       }
-      
-      // Use fullscreen modal for fugazi.png image
-      if (props.src === "/fugazi.png" || props.src?.includes("fugazi.png")) {
+
+      if (props.src?.includes("fugazi.png") || !props.src?.includes(schemePlaceholder)) {
         return (
-          <div className="w-full my-6">
-            <FullscreenImageModal
-              src={props.src}
-              alt={alt}
-              width={width}
-              height={height}
-            />
-          </div>
+          <FullscreenImageModal
+            src={props.src}
+            alt={alt}
+            width={width}
+            height={height}
+          />
         );
       }
-      
-      if (props.src.includes(schemePlaceholder)) {
-        return (
-          <>
-            <Image
-              {...props}
-              alt={alt}
-              width={width}
-              height={height}
-              src={props.src.replace(schemePlaceholder, "light")}
-              className="dark:hidden rounded-none"
-              style={{ borderRadius: 0 }}
-            />
-            <Image
-              {...props}
-              alt={alt}
-              width={width}
-              height={height}
-              src={props.src.replace(schemePlaceholder, "dark")}
-              className="not-dark:hidden rounded-none"
-              style={{ borderRadius: 0 }}
-            />
-          </>
-        );
-      } else {
-        return (
+
+      return (
+        <>
           <Image
             {...props}
             alt={alt}
             width={width}
             height={height}
-            className="rounded-none"
+            src={props.src.replace(schemePlaceholder, "light")}
+            className="dark:hidden rounded-none"
             style={{ borderRadius: 0 }}
           />
-        );
-      }
+          <Image
+            {...props}
+            alt={alt}
+            width={width}
+            height={height}
+            src={props.src.replace(schemePlaceholder, "dark")}
+            className="not-dark:hidden rounded-none"
+            style={{ borderRadius: 0 }}
+          />
+        </>
+      );
     },
     async pre(props) {
       let child = React.Children.only(props.children);

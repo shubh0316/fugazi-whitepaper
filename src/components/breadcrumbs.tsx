@@ -16,7 +16,7 @@ export function Breadcrumbs(props: React.ComponentProps<"nav">) {
 
 export function BreadcrumbHome() {
   return (
-    <Link href="/" className="min-w-0 shrink-0 flex items-center gap-x-2 text-gray-950 dark:text-white hover:text-[#C15F3C] transition-colors">
+    <Link href="/" className="min-w-0 shrink-0 flex items-center gap-x-2 text-gray-950 dark:text-[#F7F6F2] hover:text-[#C15F3C] transition-colors">
       <Image 
         src={logo} 
         alt="Logo" 
@@ -44,7 +44,7 @@ export function Breadcrumb({
         href={href}
         className={clsx(
           className,
-          "min-w-0 truncate text-gray-950 dark:text-white hover:text-[#C15F3C] transition-colors",
+          "min-w-0 truncate text-gray-950 dark:text-[#F7F6F2] hover:text-[#C15F3C] transition-colors",
         )}
       >
         {children}
@@ -66,7 +66,7 @@ export function Breadcrumb({
 
 export function BreadcrumbSeparator({ className }: { className?: string }) {
   return (
-    <span className={clsx(className, "text-gray-950/25 dark:text-white/25")}>
+    <span className={clsx(className, "text-gray-950/25 dark:text-[#F7F6F2]/25")}>
       /
     </span>
   );

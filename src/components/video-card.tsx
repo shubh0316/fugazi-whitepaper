@@ -47,7 +47,7 @@ export function VideoCard({
             width={400}
             height={225}
             alt=""
-            className="aspect-video w-full rounded-lg bg-gray-950 object-cover group-hover:hidden dark:bg-gray-900"
+            className="aspect-video w-full rounded-lg bg-[#171613] object-cover group-hover:hidden dark:bg-[#171613]"
           />
           <video
             ref={videoRef}
@@ -57,9 +57,9 @@ export function VideoCard({
             playsInline
             autoPlay
             preload="auto"
-            className="hidden aspect-video w-full rounded-lg bg-gray-950 object-cover group-hover:block dark:bg-gray-900"
+            className="hidden aspect-video w-full rounded-lg bg-[#171613] object-cover group-hover:block dark:bg-[#171613]"
           />
-          <div className="absolute right-3 bottom-3 rounded-sm bg-gray-950/50 p-1 text-xs/3 font-semibold text-white">
+          <div className="absolute right-3 bottom-3 rounded-sm bg-gray-950/50 p-1 text-xs/3 font-semibold text-[#F7F6F2]">
             {formatDuration(duration)}
           </div>
         </div>
@@ -70,14 +70,14 @@ export function VideoCard({
             width={400}
             height={225}
             alt=""
-            className="aspect-video w-full rounded-lg bg-gray-950 object-cover group-hover:hidden dark:bg-gray-900"
+            className="aspect-video w-full rounded-lg bg-[#171613] object-cover group-hover:hidden dark:bg-[#171613]"
           />
-          <div className="absolute right-3 bottom-3 rounded-sm bg-gray-950/50 p-1 text-xs/3 font-semibold text-white">
+          <div className="absolute right-3 bottom-3 rounded-sm bg-gray-950/50 p-1 text-xs/3 font-semibold text-[#F7F6F2]">
             {formatDuration(duration)}
           </div>
         </div>
       )}
-      <p className="mt-4 text-sm/6 font-semibold text-gray-950 dark:text-white">
+      <p className="mt-4 text-sm/6 font-semibold text-gray-950 dark:text-[#F7F6F2]">
         {title}
       </p>
       <p className="text-sm/6 text-gray-600 dark:text-gray-400">{subtitle}</p>

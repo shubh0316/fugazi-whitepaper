@@ -43,7 +43,7 @@ function CourseNavigation({
     <div className={clsx(className, "space-y-8")}>
       {modules.map((module) => (
         <div key={module.id}>
-          <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-white">
+          <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-[#F7F6F2]">
             {module.title}
           </h2>
           <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
@@ -86,8 +86,8 @@ function MobileNavigation({
 }) {
   return (
     <Dialog open={open} onClose={onClose} className="xl:hidden">
-      <DialogBackdrop className="fixed inset-0 bg-gray-950/25" />
-      <DialogPanel className="fixed inset-y-0 left-0 isolate w-sm max-w-[calc(100%-(--spacing(11)))] overflow-y-auto bg-white ring ring-gray-950/10 sm:w-xs dark:bg-gray-950 dark:ring-white/10">
+      <DialogBackdrop className="fixed inset-0 bg-[#171613]/25" />
+      <DialogPanel className="fixed inset-y-0 left-0 isolate w-sm max-w-[calc(100%-(--spacing(11)))] overflow-y-auto bg-white ring ring-gray-950/10 sm:w-xs dark:bg-[#171613] dark:ring-white/10">
         <div className="sticky top-0 z-10 px-4 py-4 sm:px-6">
           <div className="flex h-6 shrink-0">
             <CloseButton as={IconButton}>
