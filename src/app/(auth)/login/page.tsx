@@ -2,26 +2,24 @@
 
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/input";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 
 export default function Page() {
   const router = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [phone, setPhone] = useState<string>("+1 ");
+  const [email, setEmail] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    // US E.164: +1 followed by 10 digits, area code can't start with 0 or 1
-    const usPhoneRegex = /^\+1[2-9]\d{2}[2-9]\d{6}$/;
-    const cleaned = phone.replace(/\s+/g, "");
-    if (!usPhoneRegex.test(cleaned)) {
-      setError("Please enter a valid US phone number (e.g. +1 212 555 1234).");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError("Please enter a valid email address.");
       setLoading(false);
       return;
     }
@@ -29,10 +27,8 @@ export default function Page() {
     try {
       const response = await fetch("/api/send-otp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
 
       const data = await response.json();
@@ -43,8 +39,8 @@ export default function Page() {
         return;
       }
 
-      router.push(`/otp?phone=${encodeURIComponent(phone)}`);
-    } catch (err) {
+      router.push(`/otp?email=${encodeURIComponent(email.trim().toLowerCase())}`);
+    } catch {
       setError("Failed to send OTP. Please try again.");
       setLoading(false);
     }
@@ -56,20 +52,20 @@ export default function Page() {
       <form onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="phone"
-            className="block w-full text-sm font-medium    text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[26px]"
+            htmlFor="email"
+            className="block w-full text-sm font-medium text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[26px]"
           >
-            Enter your phone number to receive your passcode to access the Augle whitepaper. Access is limited to approved users only.
+            Enter your email address to receive your passcode to access the Augle whitepaper. Access is limited to approved users only.
           </label>
           <TextInput
-            id="phone"
-            name="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            id="email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             className="mt-2 bg-[#524C48] font-IBM-Plex-Sans"
-            placeholder="XXX XXX XXXX"
+            placeholder="you@example.com"
           />
           {error && (
             <p className="mt-2 text-start text-sm text-red-600 dark:text-red-400">
@@ -81,7 +77,7 @@ export default function Page() {
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
         <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[25px]">
-          By continuing you are consenting to receive a one-time passcode via SMS and agree to the{" "}
+          By continuing you agree to the{" "}
           <Link href="/privacy-policy" className="text-[#C15F3C] hover:underline">
             Privacy Policy
           </Link>
@@ -89,7 +85,7 @@ export default function Page() {
           <Link href="/terms-and-conditions" className="text-[#C15F3C] hover:underline">
             Terms & Conditions
           </Link>
-          . Augle will never send you marketing or promotional messages. Phone numbers are used strictly for verification purposes only.
+          . Email addresses are used strictly for verification purposes only.
         </p>
       </form>
     </>

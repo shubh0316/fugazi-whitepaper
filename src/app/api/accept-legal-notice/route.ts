@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
+import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
 const DATA_FILE = path.join(process.cwd(), "src/data/legal-notice-acceptances.json");
 
 interface LegalNoticeAcceptance {
-  phone: string;
+  email: string;
   acceptedAt: string;
   ipAddress?: string;
 }
@@ -16,11 +16,10 @@ async function readAcceptances(): Promise<LegalNoticeAcceptance[]> {
   if (process.env.VERCEL) {
     return memoryStore;
   }
-
   try {
     const fileContents = await fs.readFile(DATA_FILE, "utf-8");
     return JSON.parse(fileContents);
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -30,40 +29,47 @@ async function writeAcceptances(acceptances: LegalNoticeAcceptance[]): Promise<v
     memoryStore = acceptances;
     return;
   }
-
   await fs.writeFile(DATA_FILE, JSON.stringify(acceptances, null, 2), "utf-8");
+}
+
+function cookieOptions() {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  };
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone } = await request.json();
+    const { email } = await request.json();
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    const normalizedPhone = phone.trim();
-    const ipAddress = request.headers.get("x-forwarded-for") ||
+    const normalizedEmail = email.trim().toLowerCase();
+    const ipAddress =
+      request.headers.get("x-forwarded-for") ||
       request.headers.get("x-real-ip") ||
       "unknown";
 
     const acceptances = await readAcceptances();
+    const existing = acceptances.find((a) => a.email === normalizedEmail);
 
-    const existingAcceptance = acceptances.find(
-      (acc) => acc.phone === normalizedPhone
-    );
-
-    if (existingAcceptance) {
-      existingAcceptance.acceptedAt = new Date().toISOString();
-      existingAcceptance.ipAddress = ipAddress;
+    if (existing) {
+      existing.acceptedAt = new Date().toISOString();
+      existing.ipAddress = ipAddress;
     } else {
       acceptances.push({
-        phone: normalizedPhone,
+        email: normalizedEmail,
         acceptedAt: new Date().toISOString(),
-        ipAddress: ipAddress,
+        ipAddress,
       });
     }
 
@@ -74,13 +80,7 @@ export async function POST(request: NextRequest) {
       message: "Legal notice accepted successfully",
     });
 
-    res.cookies.set("auth_session", normalizedPhone, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    res.cookies.set("auth_session", normalizedEmail, cookieOptions());
 
     return res;
   } catch (error) {
@@ -95,36 +95,27 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const phone = searchParams.get("phone");
+    const email = searchParams.get("email");
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    const normalizedPhone = phone.trim();
+    const normalizedEmail = email.trim().toLowerCase();
     const acceptances = await readAcceptances();
-
-    const acceptance = acceptances.find(
-      (acc) => acc.phone === normalizedPhone
-    );
+    const acceptance = acceptances.find((a) => a.email === normalizedEmail);
 
     const res = NextResponse.json({
       accepted: !!acceptance,
       acceptedAt: acceptance?.acceptedAt || null,
     });
 
-    // Refresh the session cookie for returning users who already accepted
+    // Refresh session cookie for returning users
     if (acceptance) {
-      res.cookies.set("auth_session", normalizedPhone, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-      });
+      res.cookies.set("auth_session", normalizedEmail, cookieOptions());
     }
 
     return res;

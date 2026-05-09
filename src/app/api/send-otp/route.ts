@@ -1,10 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import twilio from "twilio";
 import { otpStore } from "@/lib/otp-store";
-
-const ALLOWED_PHONES: string[] = [
-  // Add allowed phone numbers here, e.g. "+11234567890"
-];
+import sgMail from "@sendgrid/mail";
+import { NextRequest, NextResponse } from "next/server";
 
 function generateOTP(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -12,63 +8,56 @@ function generateOTP(): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone } = await request.json();
+    const { email } = await request.json();
 
-    if (!phone) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Phone number is required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
-    let normalizedPhone = phone.trim().replace(/\s+/g, "");
-    // Convert to E.164 format if not already
-    if (!normalizedPhone.startsWith("+")) {
-      // Strip leading zeros then prepend +91 for India
-      normalizedPhone = "+1" + normalizedPhone.replace(/^0+/, "");
-    }
-
-    // Check if phone is allowed (Optional: uncomment to enforce allowlist)
-    /*
-    if (!ALLOWED_PHONES.includes(normalizedPhone)) {
-      return NextResponse.json(
-        { error: "The phone number you entered is not on our approved access list." },
-        { status: 403 }
-      );
-    }
-    */
+    const normalizedEmail = email.trim().toLowerCase();
 
     const otp = generateOTP();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    otpStore.set(normalizedPhone, { code: otp, expiresAt });
+    otpStore.set(normalizedEmail, { code: otp, expiresAt });
 
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const fromPhone = process.env.TWILIO_PHONE_NUMBER;
+    const apiKey = process.env.SENDGRID_API_KEY;
+    const fromEmail = process.env.SENDGRID_FROM_EMAIL;
 
-    if (!accountSid || !authToken || !fromPhone) {
-      console.error("Twilio credentials not configured");
+    if (!apiKey || !fromEmail) {
+      console.error("SendGrid credentials not configured");
       if (process.env.NODE_ENV === "development") {
-        console.log(`OTP for ${normalizedPhone}: ${otp}`);
+        console.log(`OTP for ${normalizedEmail}: ${otp}`);
         return NextResponse.json({
           success: true,
           message: "OTP sent (check console in development)",
-          otp: otp,
+          otp,
         });
       }
       return NextResponse.json(
-        { error: "SMS service not configured" },
+        { error: "Email service not configured" },
         { status: 500 }
       );
     }
 
-    const client = twilio(accountSid, authToken);
+    sgMail.setApiKey(apiKey);
 
-    await client.messages.create({
-      body: `Your Augle whitepaper access passcode is: ${otp}. Valid for 10 minutes. Do not share this code.`,
-      from: fromPhone,
-      to: normalizedPhone,
+    await sgMail.send({
+      to: normalizedEmail,
+      from: fromEmail,
+      subject: "Your Augle Whitepaper Access Passcode",
+      text: `Your Augle whitepaper access passcode is: ${otp}\n\nValid for 10 minutes. Do not share this code.`,
+      html: `
+        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#1c1917;border-radius:12px;color:#F7F6F2;">
+          <p style="font-size:14px;color:#a8a29e;margin:0 0 24px;">Augle Whitepaper Access</p>
+          <p style="font-size:16px;margin:0 0 16px;">Your one-time passcode is:</p>
+          <p style="font-size:40px;font-weight:700;letter-spacing:8px;color:#C15F3C;margin:0 0 24px;">${otp}</p>
+          <p style="font-size:13px;color:#a8a29e;margin:0;">Valid for 10 minutes. Do not share this code.</p>
+        </div>
+      `,
     });
 
     return NextResponse.json({

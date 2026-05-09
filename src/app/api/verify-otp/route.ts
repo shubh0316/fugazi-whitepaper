@@ -1,22 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
 import { otpStore } from "@/lib/otp-store";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone, otp } = await request.json();
+    const { email, otp } = await request.json();
 
-    if (!phone || !otp) {
+    if (!email || !otp) {
       return NextResponse.json(
-        { error: "Phone number and OTP are required" },
+        { error: "Email address and OTP are required" },
         { status: 400 }
       );
     }
 
-    let normalizedPhone = phone.trim().replace(/\s+/g, "");
-    if (!normalizedPhone.startsWith("+")) {
-      normalizedPhone = "+1" + normalizedPhone.replace(/^0+/, "");
-    }
-    const storedOtp = otpStore.get(normalizedPhone);
+    const normalizedEmail = email.trim().toLowerCase();
+    const storedOtp = otpStore.get(normalizedEmail);
 
     if (!storedOtp) {
       return NextResponse.json(
@@ -26,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (Date.now() > storedOtp.expiresAt) {
-      otpStore.delete(normalizedPhone);
+      otpStore.delete(normalizedEmail);
       return NextResponse.json(
         { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 400 }
@@ -40,7 +37,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    otpStore.delete(normalizedPhone);
+    otpStore.delete(normalizedEmail);
 
     return NextResponse.json({
       success: true,

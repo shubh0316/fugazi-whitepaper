@@ -9,7 +9,7 @@ import { Suspense, useState } from "react";
 function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const phone = searchParams.get("phone") || "";
+  const email = searchParams.get("email") || "";
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
@@ -18,11 +18,11 @@ function OTPForm() {
   const [legalNoticeAccepting, setLegalNoticeAccepting] = useState(false);
 
   const checkLegalNoticeStatus = async () => {
-    if (!phone) return;
+    if (!email) return;
 
     setCheckingLegalNotice(true);
     try {
-      const response = await fetch(`/api/accept-legal-notice?phone=${encodeURIComponent(phone)}`);
+      const response = await fetch(`/api/accept-legal-notice?email=${encodeURIComponent(email)}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -32,8 +32,7 @@ function OTPForm() {
           router.push("/augle-overview");
         }
       }
-    } catch (err) {
-      console.error("Error checking legal notice status:", err);
+    } catch {
       setShowLegalModal(true);
     } finally {
       setCheckingLegalNotice(false);
@@ -44,8 +43,8 @@ function OTPForm() {
     setError("");
     setLoading(true);
 
-    if (!phone) {
-      setError("Phone number is missing");
+    if (!email) {
+      setError("Email address is missing");
       setLoading(false);
       return;
     }
@@ -53,10 +52,8 @@ function OTPForm() {
     try {
       const response = await fetch("/api/verify-otp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone, otp: otpCode }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: otpCode }),
       });
 
       const data = await response.json();
@@ -69,7 +66,7 @@ function OTPForm() {
 
       await checkLegalNoticeStatus();
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError("Failed to verify OTP. Please try again.");
       setLoading(false);
     }
@@ -92,29 +89,24 @@ function OTPForm() {
   };
 
   const handleAgree = async () => {
-    if (!phone) return;
+    if (!email) return;
 
     setLegalNoticeAccepting(true);
-
     try {
       const response = await fetch("/api/accept-legal-notice", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
         setShowLegalModal(false);
         router.push("/augle-overview");
       } else {
-        console.error("Failed to accept legal notice");
         setShowLegalModal(false);
         router.push("/augle-overview");
       }
-    } catch (err) {
-      console.error("Error accepting legal notice:", err);
+    } catch {
       setShowLegalModal(false);
       router.push("/augle-overview");
     } finally {
@@ -126,7 +118,7 @@ function OTPForm() {
     <>
       <h1 className="sr-only">Enter OTP</h1>
       <p className="text-start text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
-        Enter the 6-digit passcode sent to your phone.
+        Enter the 6-digit passcode sent to {email || "your email"}.
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
         <OTPInput
