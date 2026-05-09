@@ -179,7 +179,7 @@ const lessons = [
       },
       {
         id: "augle-demo",
-        title: "18. Demo",
+        title: "18. Screenshots",
         description:
           "A full walkthrough of Augle — from first touch to final report, every screen in sequence.",
         video: null,

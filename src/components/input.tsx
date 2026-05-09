@@ -16,9 +16,9 @@ export function TextInput({
     <input
       className={clsx(
         className,
-        "block w-full rounded-lg bg-white px-3 py-1.5",
+        "block w-full rounded-lg bg-[#524C48] px-3 py-1.5",
         "text-base/6 text-gray-950 sm:text-sm/6 dark:text-[#F7F6F2]",
-        "outline -outline-offset-1 outline-gray-950/15 focus:outline-2 focus:outline-blue-500 dark:bg-white/10 dark:outline-white/15",
+        "outline -outline-offset-1 outline-gray-950/15 focus:outline-2  dark:bg-white/10 dark:outline-white/15",
       )}
       {...props}
     />
@@ -31,12 +31,12 @@ function OTPSlot({ isActive, char, hasFakeCaret }: BaseOTPSlotProps) {
       data-active={isActive ? "" : undefined}
       className={clsx(
         "relative flex h-[47px] w-[46px] items-center justify-center",
-        "bg-gray-700 dark:bg-gray-700",
+        "bg-[#524C48]",
         "text-2xl/7 text-[#F7F6F2]",
         "rounded-md",
-        "border border-gray-600 dark:border-gray-600",
+        "border border-transparent",
         "shadow-sm",
-        "data-active:z-10 data-active:outline-2 data-active:outline-blue-500 data-active:outline-offset-2",
+        "data-active:z-10 data-active:border-[#C15F3C] data-active:outline-none",
       )}
     >
       {hasFakeCaret ? (

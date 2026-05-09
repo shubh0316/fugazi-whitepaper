@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { createHighlighter, Highlighter } from "shiki";
 import theme from "./src/app/syntax-theme.json";
 import { FullscreenImageModal } from "./src/components/fullscreen-image-modal";
+import { SectionHeading } from "./src/components/section-heading";
 
 function getTextContent(node: ReactNode): string {
   if (typeof node === "string") return node;
@@ -174,6 +175,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </td>
     ),
+    SectionHeading,
     ...components,
   };
 }

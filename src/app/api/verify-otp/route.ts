@@ -3,17 +3,20 @@ import { otpStore } from "@/lib/otp-store";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, otp } = await request.json();
+    const { phone, otp } = await request.json();
 
-    if (!email || !otp) {
+    if (!phone || !otp) {
       return NextResponse.json(
-        { error: "Email address and OTP are required" },
+        { error: "Phone number and OTP are required" },
         { status: 400 }
       );
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
-    const storedOtp = otpStore.get(normalizedEmail);
+    let normalizedPhone = phone.trim().replace(/\s+/g, "");
+    if (!normalizedPhone.startsWith("+")) {
+      normalizedPhone = "+1" + normalizedPhone.replace(/^0+/, "");
+    }
+    const storedOtp = otpStore.get(normalizedPhone);
 
     if (!storedOtp) {
       return NextResponse.json(
@@ -22,16 +25,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if OTP expired
     if (Date.now() > storedOtp.expiresAt) {
-      otpStore.delete(normalizedEmail);
+      otpStore.delete(normalizedPhone);
       return NextResponse.json(
         { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 400 }
       );
     }
 
-    // Verify OTP
     if (storedOtp.code !== otp) {
       return NextResponse.json(
         { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
@@ -39,12 +40,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // OTP is valid, remove it from store
-    otpStore.delete(normalizedEmail);
+    otpStore.delete(normalizedPhone);
 
     return NextResponse.json({
       success: true,
-      message: "OTP verified successfully"
+      message: "OTP verified successfully",
     });
   } catch (error) {
     console.error("Error verifying OTP:", error);

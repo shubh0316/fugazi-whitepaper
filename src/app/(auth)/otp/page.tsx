@@ -3,14 +3,13 @@
 import { Button } from "@/components/button";
 import { OTPInput } from "@/components/input";
 import { LegalNoticeModal } from "@/components/legal-notice-modal";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
 function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
+  const phone = searchParams.get("phone") || "";
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
@@ -18,27 +17,23 @@ function OTPForm() {
   const [otpValue, setOtpValue] = useState("");
   const [legalNoticeAccepting, setLegalNoticeAccepting] = useState(false);
 
-  // Check if user has already accepted legal notice after OTP verification
   const checkLegalNoticeStatus = async () => {
-    if (!email) return;
+    if (!phone) return;
 
     setCheckingLegalNotice(true);
     try {
-      const response = await fetch(`/api/accept-legal-notice?email=${encodeURIComponent(email)}`);
+      const response = await fetch(`/api/accept-legal-notice?phone=${encodeURIComponent(phone)}`);
       const data = await response.json();
 
       if (response.ok) {
-        // If user hasn't accepted, show modal
         if (!data.accepted) {
           setShowLegalModal(true);
         } else {
-          // User has already accepted, redirect to augle-overview
           router.push("/augle-overview");
         }
       }
     } catch (err) {
       console.error("Error checking legal notice status:", err);
-      // On error, show modal to be safe
       setShowLegalModal(true);
     } finally {
       setCheckingLegalNotice(false);
@@ -49,8 +44,8 @@ function OTPForm() {
     setError("");
     setLoading(true);
 
-    if (!email) {
-      setError("Email address is missing");
+    if (!phone) {
+      setError("Phone number is missing");
       setLoading(false);
       return;
     }
@@ -61,7 +56,7 @@ function OTPForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, otp: otpCode }),
+        body: JSON.stringify({ phone, otp: otpCode }),
       });
 
       const data = await response.json();
@@ -72,7 +67,6 @@ function OTPForm() {
         return;
       }
 
-      // OTP verified successfully, check legal notice status
       await checkLegalNoticeStatus();
       setLoading(false);
     } catch (err) {
@@ -98,7 +92,7 @@ function OTPForm() {
   };
 
   const handleAgree = async () => {
-    if (!email) return;
+    if (!phone) return;
 
     setLegalNoticeAccepting(true);
 
@@ -108,22 +102,19 @@ function OTPForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ phone }),
       });
 
       if (response.ok) {
-        // Legal notice accepted, redirect to augle-overview
         setShowLegalModal(false);
         router.push("/augle-overview");
       } else {
         console.error("Failed to accept legal notice");
-        // Still redirect even if API call fails
         setShowLegalModal(false);
         router.push("/augle-overview");
       }
     } catch (err) {
       console.error("Error accepting legal notice:", err);
-      // Still redirect even if API call fails
       setShowLegalModal(false);
       router.push("/augle-overview");
     } finally {
@@ -135,7 +126,7 @@ function OTPForm() {
     <>
       <h1 className="sr-only">Enter OTP</h1>
       <p className="text-start text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
-        Enter your email for your 6-digit passcode.
+        Enter the 6-digit passcode sent to your phone.
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
         <OTPInput
@@ -149,14 +140,11 @@ function OTPForm() {
             {error}
           </p>
         )}
-        {/* <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading || checkingLegalNotice}>
-          {loading || checkingLegalNotice ? "Verifying..." : "Verify"}
-        </Button> */}
       </form>
       <Button
         type="button"
         onClick={() => router.push("/login")}
-        className="mt-4 w-full  hover:text-black bg-[#C15F3C]"
+        className="mt-4 w-full bg-[#C15F3C] text-[#F7F6F2] cursor-pointer"
       >
         Request a new passcode
       </Button>

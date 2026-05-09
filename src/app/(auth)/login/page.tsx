@@ -10,27 +10,29 @@ export default function Page() {
   const router = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("+1 ");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("This email is not on our approved access list.");
+    // US E.164: +1 followed by 10 digits, area code can't start with 0 or 1
+    const usPhoneRegex = /^\+1[2-9]\d{2}[2-9]\d{6}$/;
+    const cleaned = phone.replace(/\s+/g, "");
+    if (!usPhoneRegex.test(cleaned)) {
+      setError("Please enter a valid US phone number (e.g. +1 212 555 1234).");
       setLoading(false);
       return;
     }
 
     try {
-      // Send OTP
       const response = await fetch("/api/send-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ phone }),
       });
 
       const data = await response.json();
@@ -41,8 +43,7 @@ export default function Page() {
         return;
       }
 
-      // OTP sent successfully, redirect to OTP page
-      router.push(`/otp?email=${encodeURIComponent(email)}`);
+      router.push(`/otp?phone=${encodeURIComponent(phone)}`);
     } catch (err) {
       setError("Failed to send OTP. Please try again.");
       setLoading(false);
@@ -55,33 +56,32 @@ export default function Page() {
       <form onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="email"
+            htmlFor="phone"
             className="block w-full text-sm font-medium    text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[26px]"
           >
-             Enter your email to receive your passcode to access the Augle whitepaper.  Access is limited to approved users only.          </label>
+            Enter your phone number to receive your passcode to access the Augle whitepaper. Access is limited to approved users only.
+          </label>
           <TextInput
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="phone"
+            name="phone"
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
             className="mt-2 bg-[#524C48] font-IBM-Plex-Sans"
-            placeholder="Email"
-            
+            placeholder="XXX XXX XXXX"
           />
           {error && (
             <p className="mt-2 text-start text-sm text-red-600 dark:text-red-400">
               {error}
             </p>
           )}
-       
         </div>
-        <Button type="submit" className="mt-6 w-full hover:text-black" disabled={loading}>
+        <Button type="submit" className="mt-6 w-full cursor-pointer" disabled={loading}>
           {loading ? "Sending OTP..." : "Continue"}
         </Button>
         <p className="mt-4 block w-full text-sm font-medium text-gray-950 dark:text-[#F7F6F2] text-wrap leading-[25px]">
-          By continuing you are consenting to receive a one-time passcode via email and agree to the{" "}
+          By continuing you are consenting to receive a one-time passcode via SMS and agree to the{" "}
           <Link href="/privacy-policy" className="text-[#C15F3C] hover:underline">
             Privacy Policy
           </Link>
@@ -89,7 +89,7 @@ export default function Page() {
           <Link href="/terms-and-conditions" className="text-[#C15F3C] hover:underline">
             Terms & Conditions
           </Link>
-          . Augle will never send you marketing or promotional messages. Emails are used strictly for verification purposes only.
+          . Augle will never send you marketing or promotional messages. Phone numbers are used strictly for verification purposes only.
         </p>
       </form>
     </>
