@@ -8,9 +8,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Augle: Whitepaper",
   description: "Augle:whitepaper",
-  icons: {
-    icon: "/fav.png",
-  },
 };
 
 const InterVariable = localFont({
