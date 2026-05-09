@@ -2,7 +2,7 @@
 
 A walkthrough of Augle from first touch to final report — every screen, in sequence.
 
-<SectionHeading url="https://example.com/inquiry">Inquiry – First Touch</SectionHeading>
+<SectionHeading url="https://app.augle.com/" newTab>Inquiry – First Touch</SectionHeading>
 
 Augle doesn't ask you to learn the product before you can use it. It asks you one question: what do you want to know? Just the Augle logo, a tagline, and a single search bar that says exactly what it does: Find a Polymarket or Kalshi contract. The Letters & Science offers the same simplicity with the same clear directive, but without the API guardrails — what do you want to deliberate?
 
@@ -12,25 +12,25 @@ This is a deliberate design choice that reflects how the product thinks about it
 
 ![Inquiry – First Touch](/inquiry.png)
 
-<SectionHeading url="https://example.com/user-login">User Login</SectionHeading>
+<SectionHeading url="https://app.augle.com/auth" newTab>User Login</SectionHeading>
 
 Augle's authentication is frictionless by design. Google SSO or email and password — one tap or two fields. The login modal surfaces over the home screen rather than redirecting away from it, because the question the user came in with stays visible the entire time. They never lose their thread. This is a small detail that reflects a bigger product philosophy: the user's inquiry is the center of the experience, and everything else — including account management — is peripheral to it.
 
 ![User Login](/user-login.png)
 
-<SectionHeading url="https://example.com/create-account">Create Account</SectionHeading>
+<SectionHeading url="https://app.augle.com/auth" newTab>Create Account</SectionHeading>
 
 A new user is one screen away from their first session. Display name, email, password — or bypass it entirely with Google. The account isn't just an access credential. From the first session forward, it's the beginning of a personal calibration record: a documented history of questions asked, findings delivered, and — as contracts resolve — verdicts verified against ground truth. The user who creates an account today is building something that compounds over time. Augle gets more useful the more you use it, because your history tells you how your questions have resolved and whether your intuitions were right.
 
 ![Create Account](/create-account.png)
 
-<SectionHeading url="https://example.com/user-authorization">User Authorization</SectionHeading>
+<SectionHeading url="https://app.augle.com/auth/otp" newTab>User Authorization</SectionHeading>
 
 Two-factor verification is a single, clean step. A 6-digit code, a countdown, and one input field. No friction theater, no multiple screens. Security done in the background so the user stays focused on what brought them here. The design principle is consistent throughout Augle: every step between the user and their session should be as short as possible, because the session itself is where the value is.
 
 ![User Authorization](/user-authorization.png)
 
-<SectionHeading url="https://example.com/session-setup">Session Setup</SectionHeading>
+<SectionHeading url="https://app.augle.com/session/setup" newTab>Session Setup</SectionHeading>
 
 The question is confirmed. The market is live. Now the user makes one decision: how deep do they want to go.
 
@@ -44,49 +44,49 @@ This screen is where Augle makes its pricing philosophy explicit: you pay for de
 
 ![Session Setup](/session-setup.png)
 
-<SectionHeading url="https://example.com/session-conversation">Session Conversation</SectionHeading>
+<SectionHeading url="https://app.augle.com/session/running" newTab>Session Conversation</SectionHeading>
 
 This is Augle working. The session is live, the agents are in sequence, and the deliberation is unfolding in real time in the conversation feed. The Cartographer has mapped the evidence landscape — macro indicators, labor signals, policy environment — and the Methodologist has locked the research parameters. What you're watching is not a single model generating a response. It's a structured ensemble, each agent with a distinct role and a distinct AI model, working through a question in a way that mirrors how rigorous human research teams operate. The Guardian watches the entire session from the sticky bar above the feed. The phase tabs below show exactly where the session is in its deliberation arc. Nothing is hidden and nothing is summarized prematurely. The user sees the work.
 
 ![Session Conversation](/session-conversation.png)
 
-<SectionHeading url="https://example.com/session-signals">Session Signals</SectionHeading>
+<SectionHeading url="https://app.augle.com/session/running" newTab>Session Signals</SectionHeading>
 
 The Signals view is for users who want to see inside the machine while it runs. Every agent gets a card. The Cartographer is streaming its evidence clusters in real time — Fed minutes, GDP data, labor market signals, yield spread. The Methodologist, Contrarian, Synthesizer, Pragmatist, and Ledger are waiting their turns. Below the agent grid, the evidence nodes panel is already classifying claims as they emerge: Established, Probable, Contested, or Gap. This isn't a loading screen with a spinner. The user can watch the epistemic structure of the finding being built claim by claim, in real time, with the model powering each agent visible on every card. Augle is transparent about what it knows, what it doesn't, and exactly which AI made which call.
 
 ![Session Signals](/session-signals.png)
 
-<SectionHeading url="https://example.com/guardian-flag">Guardian Flag</SectionHeading>
+<SectionHeading url="https://www.app.augle.com/session/running/guardian" newTab>Guardian Flag</SectionHeading>
 
 Midway through Exploration, the Guardian catches something. The session soft-pauses. A Moderate flag card surfaces inline in the conversation feed — attached directly to the Methodologist's message that triggered it — and the Guardian bar at the top now reads "1 Flag." The user sees exactly where the issue was caught, in context, with two clear choices: Interject with additional information, or Ignore and let the session continue. This is the integrity layer working as designed. No other AI research tool on the market catches evidence asymmetry mid-session, pauses the deliberation, and asks the user what they know. Augle does. The finding doesn't proceed until the flag is resolved. That's not a limitation — it's the product.
 
 ![Guardian Flag](/guardian-flag.png)
 
-<SectionHeading url="https://example.com/guardian-flag-details">Guardian Flag Details</SectionHeading>
+<SectionHeading url="https://www.app.augle.com/session/running/guardian/details" newTab>Guardian Flag Details</SectionHeading>
 
 The user opens the flag. The Guardian speaks in plain language: the evidence assembled so far draws exclusively from recessionary indicators, and no countervailing evidence has been incorporated. The Methodologist's flagged message is shown in full, in its own contained card. Below it, a text field invites the user to contribute — a source, a data point, direct domain knowledge. The hint text is precise: providing a source strengthens approval with the Guardian. The user isn't just a passive recipient of the session. They're a participant in the integrity of the finding. When they submit, the Guardian evaluates the input, transforms it into a structured packet, and routes it to the appropriate agents before the session resumes. This is augmented deliberation — the human and the ensemble working together.
 
 ![Guardian Flag Details](/guardian-flag-details.png)
 
-<SectionHeading url="https://example.com/phase-boundary">Phase Boundary</SectionHeading>
+<SectionHeading url="https://app.augle.com/session/running/guardian/deliberation" newTab>Phase Boundary</SectionHeading>
 
 Exploration is complete. Before Deliberation begins, the Phase Boundary overlay gives the user a structured account of what each agent produced — and what fires next. The Cartographer mapped 8 evidence nodes. The Methodologist locked the confidence ceiling at Probable. The Contrarian raised one strong objection that has already been accepted into the scope. Three agents are queued for Deliberation. And before that phase launches, the user has one optional window: contribute domain knowledge directly to the Guardian, who will evaluate it and route it appropriately. This is the pause between movements. It's where the user can lean in or stand back. Either way, they know exactly what the session has built and exactly where it's going.
 
 ![Phase Boundary](/phase-boundary.png)
 
-<SectionHeading url="https://example.com/building-report">Building Report</SectionHeading>
+<SectionHeading url="https://www.app.augle.com/session/running" newTab>Building Report</SectionHeading>
 
 The deliberation is done. Six agents across three phases have mapped the evidence, challenged the claims, stress-tested the objections, and assembled a synthesis. Now Augle is compiling the output — structuring the finding, grading the evidence nodes, logging the unresolved objections, and preparing the application notes. While the user waits, a "Did you know?" card surfaces a relevant real-world data point: 70% of Polymarket traders lost money as the top 0.04% captured most profit. It's not decorative. It's a reminder of exactly why this product exists — and what's at stake when analysis is shallow.
 
 ![Building Report](/building-report.png)
 
-<SectionHeading url="https://example.com/session-report">Session Report</SectionHeading>
+<SectionHeading url="https://www.app.augle.com/session/report" newTab>Session Report</SectionHeading>
 
 This is the deliverable. At the top: the probability direction, the confidence grade, and a plain-language core finding the user can act on immediately. Below it, every layer of the analysis is accessible — supporting claims graded by evidence quality, contested terrain where the signal was genuinely ambiguous, knowledge gaps the evidence base couldn't fill, unresolved objections from the Contrarian that traveled all the way to delivery, and application notes for turning the finding into a decision. Session metadata runs across the bottom: platform, runtime, agents deployed, credits used, evidence sourced timestamp. Every claim is traceable to a source. Every grade is defensible. The report is exportable as a PDF. It's not a summary. It's a structured research document — one that tells you not just what Augle thinks, but exactly how confident it is and why.
 
 ![Session Report](/session-report.png)
 
-<SectionHeading url="https://example.com/session-history">Session History</SectionHeading>
+<SectionHeading url="https://app.augle.com/chat" newTab>Session History</SectionHeading>
 
 Every session a user runs becomes part of a permanent, searchable record — accessible from the sidebar at any time, even while a session is actively running.
 
