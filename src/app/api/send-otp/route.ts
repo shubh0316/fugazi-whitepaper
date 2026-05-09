@@ -38,7 +38,7 @@ function buildEmailHtml(otp: string, ipAddress: string): string {
           <tr>
             <td style="background:#e8e4d9;padding:0;">
               <img
-                src="https://whitepaper.augle.com/augle-template-email.png"
+                src="https://res.cloudinary.com/dtef9iz1l/image/upload/v1778353664/augle-template-email_py7j3n.png"
                 alt="Augle"
                 width="560"
                 style="display:block;width:100%;max-width:560px;height:auto;"
