@@ -111,10 +111,23 @@ export async function GET(request: NextRequest) {
       (acc) => acc.phone === normalizedPhone
     );
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       accepted: !!acceptance,
       acceptedAt: acceptance?.acceptedAt || null,
     });
+
+    // Refresh the session cookie for returning users who already accepted
+    if (acceptance) {
+      res.cookies.set("auth_session", normalizedPhone, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+      });
+    }
+
+    return res;
   } catch (error) {
     console.error("Error checking legal notice acceptance:", error);
     return NextResponse.json(
