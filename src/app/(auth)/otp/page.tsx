@@ -118,7 +118,7 @@ function OTPForm() {
     <>
       <h1 className="sr-only">Enter OTP</h1>
       <p className="text-start text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
-        Enter the 6-digit passcode sent to {email || "your email"}.
+        Enter the 6-digit passcode sent to your email.
       </p>
       <form onSubmit={handleSubmit} className="mt-2">
         <OTPInput
