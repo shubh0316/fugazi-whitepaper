@@ -16,14 +16,14 @@ export function NextPageLink({
         href={href}
         className="-mx-3 -my-2 block rounded-xl px-3 py-2 hover:bg-gray-950/4 dark:hover:bg-white/5"
       >
-        <p className="flex items-center gap-3 text-sm/7 text-gray-500">
+        <p className="flex items-center gap-3 text-sm/7 text-[#F7F6F2]">
           Up next
           <ChevronRightIcon className="stroke-current" />
         </p>
-        <p className="mt-3 text-base/7 font-medium text-gray-950 dark:text-[#F7F6F2]">
+        <p className="mt-3 text-base/7 font-medium text-[#F7F6F2]">
           {title}
         </p>
-        <p className="text-sm/7 text-gray-700 dark:text-gray-400">
+        <p className="text-sm/7 text-[#F7F6F2]">
           {description}
         </p>
       </Link>

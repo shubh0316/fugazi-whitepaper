@@ -19,7 +19,6 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   outputFileTracingRoot: __dirname,
   images: {
-    unoptimized: true,
     remotePatterns: [
       new URL("https://assets.tailwindcss.com/templates/compass/**"),
     ],

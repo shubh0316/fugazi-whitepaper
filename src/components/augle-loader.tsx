@@ -31,7 +31,9 @@ export function FullscreenLoader({ visible, message }: FullscreenLoaderProps) {
         visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >
-      <AugleLoader size={120} />
+      <div className="w-[35vmin] min-w-[120px] aspect-square">
+        <Lottie animationData={animationData} loop autoplay />
+      </div>
       {message && (
         <p className="mt-4 text-sm font-medium tracking-wide text-[#F7F6F2]/70">
           {message}

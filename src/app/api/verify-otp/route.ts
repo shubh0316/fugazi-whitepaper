@@ -1,4 +1,4 @@
-import { otpStore } from "@/lib/otp-store";
+import { verifyOTPToken } from "@/lib/otp-token";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -13,37 +13,45 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = email.trim().toLowerCase();
-    const storedOtp = otpStore.get(normalizedEmail);
+    const token = request.cookies.get("otp_token")?.value;
 
-    if (!storedOtp) {
+    if (!token) {
       return NextResponse.json(
         { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 404 }
       );
     }
 
-    if (Date.now() > storedOtp.expiresAt) {
-      otpStore.delete(normalizedEmail);
-      return NextResponse.json(
-        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
-        { status: 400 }
-      );
-    }
+    const payload = verifyOTPToken(token);
 
-    if (storedOtp.code !== otp) {
+    if (!payload) {
       return NextResponse.json(
         { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
         { status: 401 }
       );
     }
 
-    otpStore.delete(normalizedEmail);
+    if (Date.now() > payload.expiresAt) {
+      return NextResponse.json(
+        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
+        { status: 400 }
+      );
+    }
+
+    if (payload.email !== normalizedEmail || payload.otp !== otp) {
+      return NextResponse.json(
+        { error: "The code you entered is invalid or has expired. Please re-enter your passcode or request a new passcode." },
+        { status: 401 }
+      );
+    }
 
     const res = NextResponse.json({
       success: true,
       message: "OTP verified successfully",
     });
 
+    // Clear the OTP token cookie and set auth session
+    res.cookies.set("otp_token", "", { maxAge: 0, path: "/" });
     res.cookies.set("auth_session", normalizedEmail, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

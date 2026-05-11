@@ -106,7 +106,7 @@
         color: var(--color-gray-300);
 
         @variant dark {
-          color: var(--color-gray-700);
+          color: #F7F6F2;
         }
       }
     }

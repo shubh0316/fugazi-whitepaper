@@ -3,7 +3,7 @@
 import { AugleLoader } from "@/components/augle-loader";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 export function FullscreenImageModal({
   src,
@@ -18,12 +18,15 @@ export function FullscreenImageModal({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [modalImageReady, setModalImageReady] = useState(false);
+  const preloadRef = useRef<HTMLImageElement | null>(null);
 
-  // Preload so the browser has it cached before user clicks
-  useEffect(() => {
+  // Start preloading on hover — gives a head start before the click
+  const handleMouseEnter = () => {
+    if (preloadRef.current) return;
     const img = new window.Image();
     img.src = src;
-  }, [src]);
+    preloadRef.current = img;
+  };
 
   const handleOpen = () => {
     setModalImageReady(false);
@@ -34,6 +37,7 @@ export function FullscreenImageModal({
     <>
       <button
         onClick={handleOpen}
+        onMouseEnter={handleMouseEnter}
         className="w-full cursor-pointer block -mx-2 sm:-mx-4"
         type="button"
       >
@@ -56,14 +60,13 @@ export function FullscreenImageModal({
             transition
             className="relative max-w-full max-h-full transition duration-300 ease-out data-closed:opacity-0 data-closed:scale-95"
           >
-            {/* Loader shown until image is ready */}
             {!modalImageReady && (
               <div className="flex items-center justify-center w-[60vw] h-[60vh]">
                 <AugleLoader size={100} />
               </div>
             )}
 
-            {/* Image always renders so it starts loading immediately; hidden until ready */}
+            {/* Always rendered so loading starts immediately on open */}
             <div
               className={`relative max-w-[90vw] max-h-[90vh] transition-opacity duration-300 ${
                 modalImageReady ? "opacity-100" : "opacity-0 absolute inset-0"

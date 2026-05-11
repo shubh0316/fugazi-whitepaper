@@ -1,4 +1,4 @@
-import { otpStore } from "@/lib/otp-store";
+import { signOTP } from "@/lib/otp-token";
 import sgMail from "@sendgrid/mail";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -120,8 +120,15 @@ export async function POST(request: NextRequest) {
 
     const otp = generateOTP();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+    const token = signOTP(normalizedEmail, otp, expiresAt);
 
-    otpStore.set(normalizedEmail, { code: otp, expiresAt });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax" as const,
+      path: "/",
+      maxAge: 10 * 60, // 10 minutes
+    };
 
     const apiKey = process.env.SENDGRID_API_KEY;
     const fromEmail = process.env.SENDGRID_FROM_EMAIL;
@@ -130,11 +137,13 @@ export async function POST(request: NextRequest) {
       console.error("SendGrid credentials not configured");
       if (process.env.NODE_ENV === "development") {
         console.log(`OTP for ${normalizedEmail}: ${otp}`);
-        return NextResponse.json({
+        const devRes = NextResponse.json({
           success: true,
           message: "OTP sent (check console in development)",
           otp,
         });
+        devRes.cookies.set("otp_token", token, cookieOptions);
+        return devRes;
       }
       return NextResponse.json(
         { error: "Email service not configured" },
@@ -154,10 +163,12 @@ export async function POST(request: NextRequest) {
       html: buildEmailHtml(otp, ipAddress),
     });
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       message: "OTP sent successfully",
     });
+    res.cookies.set("otp_token", token, cookieOptions);
+    return res;
   } catch (error) {
     console.error("Error sending OTP:", error);
     return NextResponse.json(

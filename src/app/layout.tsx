@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Augle: Whitepaper",
-  description: "Augle:whitepaper",
+  title: "Augle Whitepaper",
+  description: "Augmented deliberation",
 };
 
 const InterVariable = localFont({
