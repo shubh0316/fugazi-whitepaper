@@ -17,16 +17,16 @@ export function FullscreenImageModal({
   height?: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [modalImageReady, setModalImageReady] = useState(false);
 
-  // Preload the full-res image so it's cached before the user clicks
+  // Preload so the browser has it cached before user clicks
   useEffect(() => {
     const img = new window.Image();
     img.src = src;
-    img.onload = () => setImageLoaded(true);
   }, [src]);
 
   const handleOpen = () => {
+    setModalImageReady(false);
     setIsOpen(true);
   };
 
@@ -56,22 +56,29 @@ export function FullscreenImageModal({
             transition
             className="relative max-w-full max-h-full transition duration-300 ease-out data-closed:opacity-0 data-closed:scale-95"
           >
-            {!imageLoaded ? (
+            {/* Loader shown until image is ready */}
+            {!modalImageReady && (
               <div className="flex items-center justify-center w-[60vw] h-[60vh]">
                 <AugleLoader size={100} />
               </div>
-            ) : (
-              <div className="relative max-w-[90vw] max-h-[90vh]">
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={width || 9600}
-                  height={height || 5400}
-                  className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-none"
-                  style={{ borderRadius: 0, border: "none" }}
-                />
-              </div>
             )}
+
+            {/* Image always renders so it starts loading immediately; hidden until ready */}
+            <div
+              className={`relative max-w-[90vw] max-h-[90vh] transition-opacity duration-300 ${
+                modalImageReady ? "opacity-100" : "opacity-0 absolute inset-0"
+              }`}
+            >
+              <Image
+                src={src}
+                alt={alt}
+                width={width || 9600}
+                height={height || 5400}
+                className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-none"
+                style={{ borderRadius: 0, border: "none" }}
+                onLoad={() => setModalImageReady(true)}
+              />
+            </div>
           </DialogPanel>
         </div>
       </Dialog>
