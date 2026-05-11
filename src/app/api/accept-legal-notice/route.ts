@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       message: "Legal notice accepted successfully",
     });
 
-    res.cookies.set("auth_session", normalizedEmail, cookieOptions());
+    res.cookies.set("legal_accepted", "true", cookieOptions());
 
     return res;
   } catch (error) {
@@ -113,9 +113,9 @@ export async function GET(request: NextRequest) {
       acceptedAt: acceptance?.acceptedAt || null,
     });
 
-    // Refresh session cookie for returning users
+    // Refresh legal cookie for returning users
     if (acceptance) {
-      res.cookies.set("auth_session", normalizedEmail, cookieOptions());
+      res.cookies.set("legal_accepted", "true", cookieOptions());
     }
 
     return res;

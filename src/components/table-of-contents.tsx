@@ -83,7 +83,7 @@ export default function TableOfContents({ contentId }: { contentId: string }) {
       <h2 className="text-sm/6 font-semibold text-gray-950 dark:text-[#F7F6F2]">
         On this page
       </h2>
-      <ul className="mt-3 flex flex-col gap-3 border-l border-gray-950/10 text-sm/6 text-gray-700 dark:border-white/10 dark:text-gray-400">
+      <ul className="mt-3 flex flex-col gap-3 border-l border-gray-950/10 text-sm/6 text-gray-700 dark:border-white/10 dark:text-[#F7F6F2]">
         {headings.map((heading) => (
           <li
             key={heading.id}

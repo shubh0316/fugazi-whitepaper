@@ -1,9 +1,3 @@
-import {
-  Breadcrumb,
-  BreadcrumbHome,
-  Breadcrumbs,
-  BreadcrumbSeparator,
-} from "@/components/breadcrumbs";
 import { AugleOverviewWrapper } from "@/components/augle-overview-wrapper";
 import { NextPageLink } from "@/components/next-page-link";
 import { SidebarLayoutContent } from "@/components/sidebar-layout";
@@ -11,6 +5,7 @@ import TableOfContents from "@/components/table-of-contents";
 import { Video } from "@/components/video-player";
 import { getLesson, getLessonContent } from "@/data/lessons";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -42,17 +37,7 @@ export default async function Page({
 
   const pageContent = (
     <SidebarLayoutContent
-      breadcrumbs={
-        <Breadcrumbs>
-          <BreadcrumbHome />
-          <BreadcrumbSeparator className="max-md:hidden" />
-          <Breadcrumb href={`/#${lesson.module.id}`} className="max-md:hidden">
-            {lesson.module.title}
-          </Breadcrumb>
-          <BreadcrumbSeparator />
-          <Breadcrumb>{lesson.title}</Breadcrumb>
-        </Breadcrumbs>
-      }
+      breadcrumbs={null}
     >
       <div className="mx-auto max-w-7xl">
         <div className="-mx-2 sm:-mx-4">
@@ -89,7 +74,9 @@ export default async function Page({
 
   // Only show modal for augle-overview
   if (slug === "augle-overview") {
-    return <AugleOverviewWrapper>{pageContent}</AugleOverviewWrapper>;
+    const cookieStore = await cookies();
+    const hasAccepted = !!cookieStore.get("legal_accepted");
+    return <AugleOverviewWrapper hasAccepted={hasAccepted}>{pageContent}</AugleOverviewWrapper>;
   }
 
   return pageContent;

@@ -9,7 +9,9 @@ import {
   DialogBackdrop,
   DialogPanel,
 } from "@headlessui/react";
+import logo from "@/assets/logo.png";
 import { clsx } from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -43,10 +45,11 @@ function CourseNavigation({
     <div className={clsx(className, "space-y-8")}>
       {modules.map((module) => (
         <div key={module.id}>
-          <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-[#F7F6F2]">
-            {module.title}
+          <h2 className="flex items-center gap-x-2 text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-[#F7F6F2]">
+            <Image src={logo} alt="Augle" width={18} height={18} className="shrink-0" />
+            Augle Whitepaper
           </h2>
-          <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
+          <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-[#F7F6F2]">
             {module.lessons.map((lesson) => (
               <li
                 key={lesson.id}
@@ -91,7 +94,7 @@ function MobileNavigation({
         <div className="sticky top-0 z-10 px-4 py-4 sm:px-6">
           <div className="flex h-6 shrink-0">
             <CloseButton as={IconButton}>
-              <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
+              <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-[#C15F3C]" />
             </CloseButton>
           </div>
         </div>
@@ -132,7 +135,7 @@ export function SidebarLayout({
           <nav aria-label="Course" className="px-6 py-4">
             <div className="sticky top-4 flex h-6">
               <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
+                <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-[#C15F3C]" />
               </IconButton>
               <MobileNavigation
                 open={isMobileDialogOpen}
@@ -157,7 +160,7 @@ export function SidebarLayoutContent({
   breadcrumbs,
   children,
 }: {
-  breadcrumbs: React.ReactNode;
+  breadcrumbs: React.ReactNode | null;
   children: React.ReactNode;
 }) {
   let {
@@ -175,14 +178,14 @@ export function SidebarLayoutContent({
             onClick={() => setIsMobileDialogOpen(!isMobileDialogOpen)}
             className="xl:hidden"
           >
-            <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
+            <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-[#C15F3C]" />
           </IconButton>
           {!isSidebarOpen && (
             <IconButton
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="max-xl:hidden"
             >
-              <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
+              <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-[#C15F3C]" />
             </IconButton>
           )}
           <div className="min-w-0">{breadcrumbs}</div>

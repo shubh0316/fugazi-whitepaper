@@ -6,6 +6,15 @@ const ALLOWED_EMAILS = [
   "cory@augle.com",
   "steve@ptsi.com",
   "shubhankersaxena5@gmail.com",
+  "shubhankersaxena5+test@gmail.com",
+  "shubhankersaxena5+test3@gmail.com",
+  "shubhankersaxena5+test4@gmail.com",
+  "shubhankersaxena5+test5@gmail.com",
+  "shubhankersaxena5+test6@gmail.com",
+  "shubhankersaxena5+test7@gmail.com",
+  "shubhankersaxena5+test8@gmail.com",
+  "shubhankersaxena5+test9@gmail.com",
+  "shubhankersaxena5+test10@gmail.com",
 ];
 
 function generateOTP(): string {

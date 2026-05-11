@@ -6,7 +6,7 @@ This whitepaper describes the architecture, methodology, and product surface of 
 
 ## What Augle Delivers
 
-- **Structured multi-agent deliberation.** Seven agents across five providers (Anthropic, Google, OpenAI, DeepSeek, xAI), each assigned a specific reasoning role. No single model's biases dominate the output.
+- **Structured multi-agent deliberation.** Seven agents across four providers (Anthropic, Google, OpenAI, xAI), each assigned a specific reasoning role. No single model's biases dominate the output.
 - **Reality-graded confidence.** Every claim is graded Established, Probable, Contested, or Insufficient — bounded by the methodologist agent's evidence quality assessment, not the synthesizer's assertiveness.
 - **Adversarial pressure as a default.** A dedicated Contrarian agent steelmans opposing positions every round. Unresolved Strong objections surface verbatim in the final output — never softened.
 - **Source verification, not just citation.** Every cited source is verified against live URLs, DOI resolution, and (in v2) academic retraction databases before downstream agents process it. Hallucinated citations are caught at the source.
@@ -20,7 +20,7 @@ Six reasoning agents run a three-round deliberation: an exploration round that m
 ## What's New in v2.0 of This Whitepaper
 
 - **Source Verification Service.** First-class architectural component. Section 7.
-- **Updated model assignments.** Cartographer: Gemini 2.5 Pro → Gemini 3.1 Pro. Contrarian on Deep sessions: Claude Sonnet 4.6 → Claude Opus 4.6. Section 5 and Section 8.
+- **Updated model assignments.** Cartographer: Gemini 3.1 Pro. Synthesizer: GPT-4o (contingency: Claude Sonnet 4.6). Contrarian on Deep sessions: Claude Opus 4.6. Section 5 and Section 8.
 - **Updated cost economics.** Per-session API costs and per-credit margins reflect Opus on Deep and the SVS overhead. Section 12.
 - **Letters and Science — V2 deep dive.** Substantial new section on the v2 academic mode — output framing, evidence model, Topic Architect neutrality check, retraction handling, and what's already built into v1 to make the v2 ship clean. Section 13.
 - **The reasoning corpus thesis.** Why every completed session is an asset, what it accumulates into, and why this matters for the next 24 months. Section 16.

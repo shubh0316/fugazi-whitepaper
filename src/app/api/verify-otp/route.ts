@@ -39,10 +39,20 @@ export async function POST(request: NextRequest) {
 
     otpStore.delete(normalizedEmail);
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       message: "OTP verified successfully",
     });
+
+    res.cookies.set("auth_session", normalizedEmail, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    return res;
   } catch (error) {
     console.error("Error verifying OTP:", error);
     return NextResponse.json(

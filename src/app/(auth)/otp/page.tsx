@@ -2,50 +2,27 @@
 
 import { Button } from "@/components/button";
 import { OTPInput } from "@/components/input";
-import { LegalNoticeModal } from "@/components/legal-notice-modal";
+import { FullscreenLoader } from "@/components/augle-loader";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 
 function OTPForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
   const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [showLegalModal, setShowLegalModal] = useState(false);
-  const [checkingLegalNotice, setCheckingLegalNotice] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const [otpValue, setOtpValue] = useState("");
-  const [legalNoticeAccepting, setLegalNoticeAccepting] = useState(false);
-
-  const checkLegalNoticeStatus = async () => {
-    if (!email) return;
-
-    setCheckingLegalNotice(true);
-    try {
-      const response = await fetch(`/api/accept-legal-notice?email=${encodeURIComponent(email)}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        if (!data.accepted) {
-          setShowLegalModal(true);
-        } else {
-          router.push("/augle-overview");
-        }
-      }
-    } catch {
-      setShowLegalModal(true);
-    } finally {
-      setCheckingLegalNotice(false);
-    }
-  };
+  const verifyingRef = useRef(false);
 
   const verifyOTPWithCode = async (otpCode: string) => {
+    if (verifyingRef.current) return;
+    verifyingRef.current = true;
     setError("");
-    setLoading(true);
 
     if (!email) {
       setError("Email address is missing");
-      setLoading(false);
+      verifyingRef.current = false;
       return;
     }
 
@@ -60,15 +37,19 @@ function OTPForm() {
 
       if (!response.ok) {
         setError(data.error || "Failed to verify OTP");
-        setLoading(false);
+        verifyingRef.current = false;
         return;
       }
 
-      await checkLegalNoticeStatus();
-      setLoading(false);
+      // Store email so AugleOverviewWrapper can record legal acceptance server-side
+      sessionStorage.setItem("pending-legal-email", email);
+      setShowLoader(true);
+      await new Promise((r) => setTimeout(r, 800));
+      router.push("/augle-overview");
     } catch {
       setError("Failed to verify OTP. Please try again.");
-      setLoading(false);
+      setShowLoader(false);
+      verifyingRef.current = false;
     }
   };
 
@@ -83,39 +64,14 @@ function OTPForm() {
 
   const handleOTPChange = (val: string) => {
     setOtpValue(val);
-    if (val.length === 6 && !loading && !checkingLegalNotice) {
+    if (val.length === 6 && !verifyingRef.current) {
       verifyOTPWithCode(val);
-    }
-  };
-
-  const handleAgree = async () => {
-    if (!email) return;
-
-    setLegalNoticeAccepting(true);
-    try {
-      const response = await fetch("/api/accept-legal-notice", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (response.ok) {
-        setShowLegalModal(false);
-        router.push("/augle-overview");
-      } else {
-        setShowLegalModal(false);
-        router.push("/augle-overview");
-      }
-    } catch {
-      setShowLegalModal(false);
-      router.push("/augle-overview");
-    } finally {
-      setLegalNoticeAccepting(false);
     }
   };
 
   return (
     <>
+      <FullscreenLoader visible={showLoader} message="Verifying…" />
       <h1 className="sr-only">Enter OTP</h1>
       <p className="text-start text-sm/7 text-gray-950 dark:text-[#F7F6F2]">
         Enter the 6-digit passcode sent to your email.
@@ -140,11 +96,6 @@ function OTPForm() {
       >
         Request a new passcode
       </Button>
-      <LegalNoticeModal
-        open={showLegalModal}
-        onAgree={handleAgree}
-        loading={legalNoticeAccepting}
-      />
     </>
   );
 }

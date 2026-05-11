@@ -6,21 +6,32 @@ import { useRouter } from "next/navigation";
 interface LegalNoticeModalProps {
   open: boolean;
   onAgree: () => void;
+  onExit?: () => void;
   loading?: boolean;
 }
 
-export function LegalNoticeModal({ open, onAgree, loading }: LegalNoticeModalProps) {
+export function LegalNoticeModal({ open, onAgree, onExit, loading }: LegalNoticeModalProps) {
   const router = useRouter();
 
   const handleExit = () => {
-    router.push("/login");
+    if (onExit) {
+      onExit();
+    } else {
+      router.push("/login");
+    }
   };
 
   return (
     <Dialog open={open} onClose={() => {}} className="relative z-50">
-      <DialogBackdrop className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition duration-300 ease-out data-closed:opacity-0"
+      />
       <div className="fixed inset-0 flex items-center justify-center p-6">
-        <DialogPanel className="mx-auto w-full max-w-2xl rounded-2xl bg-[#2a2520] p-10 shadow-2xl">
+        <DialogPanel
+          transition
+          className="mx-auto w-full max-w-2xl rounded-2xl bg-[#2a2520] p-10 shadow-2xl transition duration-300 ease-out data-closed:opacity-0 data-closed:scale-90 data-closed:translate-y-4"
+        >
           <h2 className="text-left text-2xl font-extrabold uppercase tracking-wide text-[#C15F3C] mb-8">
             Legal Notice
           </h2>
