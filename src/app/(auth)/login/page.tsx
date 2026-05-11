@@ -29,11 +29,14 @@ export default function Page() {
     setShowLoader(true);
 
     try {
-      const response = await fetch("/api/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      const [response] = await Promise.all([
+        fetch("/api/send-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
 
       const data = await response.json();
 

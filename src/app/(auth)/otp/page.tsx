@@ -44,7 +44,7 @@ function OTPForm() {
       // Store email so AugleOverviewWrapper can record legal acceptance server-side
       sessionStorage.setItem("pending-legal-email", email);
       setShowLoader(true);
-      await new Promise((r) => setTimeout(r, 800));
+      await new Promise((r) => setTimeout(r, 3000));
       router.push("/augle-overview");
     } catch {
       setError("Failed to verify OTP. Please try again.");

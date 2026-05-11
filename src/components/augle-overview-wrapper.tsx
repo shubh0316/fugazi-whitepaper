@@ -19,34 +19,31 @@ export function AugleOverviewWrapper({
   const [legalLoading, setLegalLoading] = useState(false);
 
   useEffect(() => {
+    const minTimer = new Promise<void>((r) => setTimeout(r, 3000));
+
     const images = Array.from(document.querySelectorAll("img")) as HTMLImageElement[];
     const unloaded = images.filter((img) => !img.complete);
 
-    if (unloaded.length === 0) {
-      setTimeout(() => setPageLoading(false), 800);
-      return;
-    }
-
-    let loaded = 0;
-    const onLoad = () => {
-      loaded += 1;
-      if (loaded >= unloaded.length) {
-        setTimeout(() => setPageLoading(false), 400);
-      }
-    };
-
-    unloaded.forEach((img) => {
-      img.addEventListener("load", onLoad, { once: true });
-      img.addEventListener("error", onLoad, { once: true });
+    const imagesLoaded = new Promise<void>((resolve) => {
+      if (unloaded.length === 0) { resolve(); return; }
+      let loaded = 0;
+      const onLoad = () => {
+        loaded += 1;
+        if (loaded >= unloaded.length) resolve();
+      };
+      unloaded.forEach((img) => {
+        img.addEventListener("load", onLoad, { once: true });
+        img.addEventListener("error", onLoad, { once: true });
+      });
+      setTimeout(resolve, 4000); // safety fallback
     });
 
-    const fallback = setTimeout(() => setPageLoading(false), 4000);
+    Promise.all([minTimer, imagesLoaded]).then(() => setPageLoading(false));
 
     return () => {
-      clearTimeout(fallback);
       unloaded.forEach((img) => {
-        img.removeEventListener("load", onLoad);
-        img.removeEventListener("error", onLoad);
+        img.removeEventListener("load", () => {});
+        img.removeEventListener("error", () => {});
       });
     };
   }, []);
@@ -72,7 +69,7 @@ export function AugleOverviewWrapper({
     setShowModal(false);
     setIsBlurred(false);
 
-    await new Promise((r) => setTimeout(r, 700));
+    await new Promise((r) => setTimeout(r, 3000));
     setPageLoading(false);
     setLegalLoading(false);
   };
@@ -80,7 +77,7 @@ export function AugleOverviewWrapper({
   const handleExit = () => {
     setPageLoading(true);
     setShowModal(false);
-    setTimeout(() => router.push("/login"), 300);
+    setTimeout(() => router.push("/login"), 3000);
   };
 
   return (
