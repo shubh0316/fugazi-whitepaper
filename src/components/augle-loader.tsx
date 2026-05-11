@@ -2,6 +2,9 @@
 
 import Lottie from "lottie-react";
 import animationData from "@/assets/augle-loader.json";
+import { useEffect, useRef, useState } from "react";
+
+const MIN_VISIBLE_MS = 3000;
 
 interface AugleLoaderProps {
   className?: string;
@@ -25,10 +28,31 @@ interface FullscreenLoaderProps {
 }
 
 export function FullscreenLoader({ visible, message }: FullscreenLoaderProps) {
+  const [show, setShow] = useState(visible);
+  const shownAtRef = useRef<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (visible) {
+      shownAtRef.current = Date.now();
+      setShow(true);
+    } else {
+      const elapsed = shownAtRef.current ? Date.now() - shownAtRef.current : MIN_VISIBLE_MS;
+      const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+      timerRef.current = setTimeout(() => setShow(false), remaining);
+    }
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [visible]);
+
   return (
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a1612] transition-opacity duration-300 ${
-        visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        show ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >
       <div className="w-[20vmin] min-w-[80px] aspect-square">
