@@ -56,7 +56,7 @@ export function FullscreenLoader({ visible, message }: FullscreenLoaderProps) {
       }`}
     >
       <div className="w-[18vmin] min-w-[80px] aspect-square">
-        <Lottie animationData={animationData2} loop autoplay />
+        <Lottie animationData={animationData} loop autoplay />
       </div>
       {message && (
         <p className="mt-4 text-sm font-medium tracking-wide text-[#F7F6F2]/70">
