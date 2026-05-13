@@ -1,9 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import animationData from "@/assets/augle-loader.json";
-import animationData2 from "@/assets/augle-2.json";
-import 
+import animationData from "@/assets/augle-final-loader.json";
 import { useEffect, useRef, useState } from "react";
 
 const MIN_VISIBLE_MS = 3000;
