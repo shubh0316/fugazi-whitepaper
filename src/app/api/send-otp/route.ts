@@ -6,6 +6,8 @@ const ALLOWED_EMAILS = [
   "cory@augle.com",
   "steve@ptsi.com",
   "shubhankersaxena5@gmail.com",
+  "nikkidowdell@gmail.com",
+  "Nikkidowdell@gmail.com",
   "shubhankersaxena5+test@gmail.com",
   "shubhankersaxena5+test3@gmail.com",
   "shubhankersaxena5+test4@gmail.com",

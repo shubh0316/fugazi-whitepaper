@@ -2,6 +2,8 @@
 
 import Lottie from "lottie-react";
 import animationData from "@/assets/augle-loader.json";
+import animationData2 from "@/assets/augle-2.json";
+import 
 import { useEffect, useRef, useState } from "react";
 
 const MIN_VISIBLE_MS = 3000;
@@ -51,12 +53,12 @@ export function FullscreenLoader({ visible, message }: FullscreenLoaderProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a1612] transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a1612]   ${
         show ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >
       <div className="w-[18vmin] min-w-[80px] aspect-square">
-        <Lottie animationData={animationData} loop autoplay />
+        <Lottie animationData={animationData2} loop autoplay />
       </div>
       {message && (
         <p className="mt-4 text-sm font-medium tracking-wide text-[#F7F6F2]/70">
