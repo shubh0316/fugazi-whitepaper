@@ -2,7 +2,6 @@
 
 import { AugleLoader } from "@/components/augle-loader";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 export function FullscreenImageModal({
@@ -41,11 +40,10 @@ export function FullscreenImageModal({
         className="w-full cursor-pointer block -mx-2 sm:-mx-4"
         type="button"
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={src}
           alt={alt}
-          width={width ?? 1920}
-          height={height ?? 1080}
           className="w-full h-auto rounded-none"
           style={{ borderRadius: 0, border: "none" }}
         />
@@ -72,13 +70,11 @@ export function FullscreenImageModal({
                 modalImageReady ? "opacity-100" : "opacity-0 absolute inset-0"
               }`}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={src}
                 alt={alt}
-                width={width || 9600}
-                height={height || 5400}
                 className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-none"
-                style={{ borderRadius: 0, border: "none" }}
                 onLoad={() => setModalImageReady(true)}
               />
             </div>
