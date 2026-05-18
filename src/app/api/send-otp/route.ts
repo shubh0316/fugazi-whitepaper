@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_EMAILS = [
   "cory@augle.com",
+  "cory.kelly@fostertoys.org",
   "steve@ptsi.com",
   "shubhankersaxena5@gmail.com",
   "nikkidowdell@gmail.com",
