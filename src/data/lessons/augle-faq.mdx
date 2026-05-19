@@ -2,15 +2,15 @@
 
 ## 18.1 How is Augle different from a chatbot?
 
-A chatbot gives you one model's best guess in fluent prose. Augle runs seven specialized agents across four different providers through a structured three-round deliberation, with explicit confidence grading, source verification, and an integrity layer that monitors the process in real time. The output is a structured document with confidence-graded claims, contested terrain, knowledge gaps, and unresolved objections — not a paragraph of prose.
+A chatbot gives you one model's best guess in fluent prose. Augle runs seven specialized agents across five different providers through a structured three-round deliberation, with explicit confidence grading, source verification, and an integrity layer that monitors the process in real time. The output is a structured document with confidence-graded claims, contested terrain, knowledge gaps, and unresolved objections — not a paragraph of prose.
 
 ## 18.2 Why do you need seven agents? Wouldn't one really good model be simpler?
 
-Simpler — and worse. A single model has a single set of biases, a single training distribution, and a single class of failure modes. Stacking the same model against itself does not produce real adversarial pressure. Augle's seven agents have explicit role separation, run on four different provider models, and operate under confidence flow rules that prevent any one agent from inflating confidence beyond what the evidence supports. The structural diversity is the point.
+Simpler — and worse. A single model has a single set of biases, a single training distribution, and a single class of failure modes. Stacking the same model against itself does not produce real adversarial pressure. Augle's seven agents have explicit role separation, run on five different provider models, and operate under confidence flow rules that prevent any one agent from inflating confidence beyond what the evidence supports. The structural diversity is the point.
 
 ## 18.3 Why do different agents run on different providers?
 
-Each provider has distinct capabilities, biases, and blindspots. Locking the ensemble to one provider would inherit that provider's failure modes across every reasoning role. By spanning Anthropic, Google, OpenAI, and xAI, we distribute reasoning risk and concentrate complementary strengths — Claude's instruction-following on the Topic Architect and Guardian, Gemini's research synthesis on the Cartographer, GPT-4o's methodological reasoning on the Methodologist and deterministic synthesis on the Synthesizer, Grok's real-time data grounding on the Pragmatist.
+Each provider has distinct capabilities, biases, and blindspots. Locking the ensemble to one provider would inherit that provider's failure modes across every reasoning role. By spanning Anthropic, Google, OpenAI, DeepSeek, and xAI, we distribute reasoning risk and concentrate complementary strengths — Claude's instruction-following on the Topic Architect and Guardian, Gemini's research synthesis on the Cartographer, GPT-4o's methodological reasoning on the Methodologist, DeepSeek's deterministic synthesis on the Synthesizer, Grok's real-time data grounding on the Pragmatist.
 
 ## 18.4 Why is the Contrarian on Opus 4.6 for Deep but Sonnet for everything else?
 

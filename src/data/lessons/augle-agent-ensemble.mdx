@@ -9,7 +9,7 @@ Seven agents, each with a specific role, each on a model selected for that role.
 | Methodologist | Evidence quality assessment | GPT-4o | OpenAI |
 | Guardian | Integrity, bias check | Claude Sonnet 4.6 (hidden) | Anthropic (hidden) |
 | **Contrarian** | Adversarial pressure | Sonnet 4.6 (Rapid/Standard) / **Opus 4.6 (Deep)** | Anthropic |
-| Synthesizer | Conclusion synthesis | GPT-4o | OpenAI |
+| Synthesizer | Conclusion synthesis | DeepSeek V4 | DeepSeek |
 | Pragmatist | Application notes | Grok 4.1 Fast | xAI |
 
 *Note on the Ledger: The Augle UI exposes a sixth panel in the Signals view called the Ledger. It is not an agent. It has no model and no API cost — it is a real-time frontend rendering of the evidence_nodes array in the session state. The Cartographer, Methodologist, and Contrarian generate evidence nodes as a byproduct of their work; the Ledger classifies and displays them as Established, Probable, Contested, or Gap as they accumulate.*
@@ -60,13 +60,13 @@ Cost delta: approximately $0.02 to $0.04 per Deep session. Absorbed into the exi
 
 ## 5.6 Synthesizer
 
-**Model:** GPT-4o · **Role:** Conclusion synthesis and structured output
+**Model:** DeepSeek V4 (primary), Mistral Large (contingency) · **Role:** Conclusion synthesis and structured output
 
 After the deliberative phases conclude, the Synthesizer draws on all prior contributions to produce the structured output. It identifies the claims that survived adversarial pressure, maps the contested terrain, flags knowledge gaps, and assembles the final verdict with explicit confidence grading.
 
 Temperature is locked at zero. The same question with the same evidence base must always produce the same confidence verdict. This is a hard requirement, enforced on every API call. The verdict is computed deterministically from the evidence node registry by a server-side function before the Synthesizer is dispatched — the Synthesizer receives the verdict as a constraint it cannot override. It writes the finding that explains the verdict, not a verdict that justifies its preferred finding.
 
-GPT-4o is the primary Synthesizer model. Claude Sonnet 4.6 is the documented contingency — a single config-variable swap, with no rebuild required. The Synthesizer is the only agent in the ensemble with a contingency provider documented at this level of detail because it is the agent under the strictest determinism requirement.
+DeepSeek V4 is the primary Synthesizer model. Mistral Large is the documented contingency — a single config-variable swap, with no rebuild required. The contingency exists for enterprise and regulatory contexts where Chinese AI infrastructure is a question. Mistral Large is EU-based, GDPR-native, and Apache 2.0 licensed. The Synthesizer is the only agent in the ensemble with a contingency provider documented at this level of detail because it is the agent under the strictest determinism requirement.
 
 ## 5.7 Pragmatist
 

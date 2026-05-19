@@ -1,12 +1,12 @@
 # 8. Multi-Provider Architecture
 
-*Augle's ensemble deliberately spans four distinct AI companies. No single model's biases dominate the deliberation. Each agent is assigned the model best matched to its specific function.*
+*Augle's ensemble deliberately spans five distinct AI companies. No single model's biases dominate the deliberation. Each agent is assigned the model best matched to its specific function.*
 
-## 8.1 Why Four Providers
+## 8.1 Why Five Providers
 
 Each frontier model has distinct capabilities, biases, and blindspots. Locking a deliberative ensemble to a single provider means inheriting that provider's failure modes. Cross-provider diversity distributes reasoning risk, concentrates complementary strengths, and makes the ensemble more robust to any one model's limitations.
 
-Four providers — Anthropic, Google, OpenAI, and xAI — cover the complete deliberative arc with meaningfully distinct architectures and training emphases. Provider count is not the goal; reasoning diversity is. A five-provider ensemble with the wrong fifth provider is weaker than a four-provider ensemble where every model is the right choice for its role.
+The five providers in the current Augle stack are Anthropic, Google, OpenAI, DeepSeek, and xAI. Mistral AI is documented as the Synthesizer contingency. The selection is not arbitrary — each provider brings something the others do not.
 
 ## 8.2 Model Selection Rationale
 
@@ -17,27 +17,30 @@ Four providers — Anthropic, Google, OpenAI, and xAI — cover the complete del
 | Methodologist | GPT-4o | Structured analytical reasoning, statistical methodology, and methodology-claim matching. OpenAI's training emphasis on academic and scientific literature makes GPT-4o the strongest choice for evaluating whether the methods behind a claim actually support the conclusion drawn from it. |
 | Guardian | Claude Sonnet 4.6 | Safety-critical rule-following task. Must apply precise rules consistently, transform accepted contributions into neutral language, and hard-block manipulative inputs silently. Sonnet's superior safety criterion adherence makes it the correct choice. Any other model introduces unacceptable variance on the hard-block path. |
 | **Contrarian** | Sonnet 4.6 / Opus 4.6 | Highest temperature (1.0) and most creatively demanding reasoning task in the ensemble. Sonnet 4.6 produces the most consistent calibrated adversarial reasoning of any frontier model — it pushes hard without hallucinating objections. Opus 4.6 raises the ceiling on adversarial reasoning quality for Deep sessions where the additional cost is justified. |
-| Synthesizer | GPT-4o | Temperature = 0 hard requirement; reads the largest context of any agent (full conversation thread); must integrate contested, adversarial, and methodologically constrained inputs into one defensible conclusion. GPT-4o's structured analytical reasoning and deterministic output at temperature zero make it the right choice for the role that must always produce the same verdict from the same evidence. |
+| Synthesizer | DeepSeek V4 | Temperature = 0 hard requirement; reads the largest context of any agent (full conversation thread); must integrate contested, adversarial, and methodologically constrained inputs into one defensible conclusion. DeepSeek V4 performs at frontier quality on structured synthesis at significantly lower cost than alternatives. Highest leverage cost decision in the stack. |
 | Pragmatist | Grok 4.1 Fast | Last agent to fire, operates only in Round 3, output is the most time-sensitive in the ensemble. Recommendations need current market data, not knowledge from a training cutoff. Grok's real-time data grounding is the decisive factor. Near-zero cost at the Pragmatist's output scale. |
 
 ## 8.3 Provider Diversity as a Design Constraint
 
 Three of the seven agents run on Claude — Topic Architect, Guardian, and Contrarian. This is the highest provider concentration in the ensemble and is deliberate. The two non-Contrarian Claude positions are precision rule-following roles where Sonnet's instruction adherence is uniquely valuable. The Contrarian position uses Claude because Sonnet (and Opus on Deep) produce the most consistently calibrated adversarial reasoning of any model tested.
 
-The remaining four positions are spread across three different providers — Google, OpenAI, and xAI. Each is selected for the specific strength that maps to its role. The result is an ensemble where no single provider's failure modes dominate any phase of the deliberation, and where the providers most likely to share blindspots (Anthropic-on-Anthropic) are positioned in roles where their precision is the asset.
+The remaining four positions are spread across four different providers — Google, OpenAI, DeepSeek, and xAI. Each is selected for the specific strength that maps to its role. The result is an ensemble where no single provider's failure modes dominate any phase of the deliberation, and where the providers most likely to share blindspots (Anthropic-on-Anthropic) are positioned in roles where their precision is the asset.
 
 ## 8.4 The Synthesizer Contingency
 
-The architecture is built so that swapping the Synthesizer is a single config-variable change — not hardcoded. Claude Sonnet 4.6 is the documented contingency: no rebuild required to flip. The contingency exists precisely so that the provider choice can be a customer-facing decision rather than an architectural one.
+DeepSeek is a Chinese company. For Augle's v1 prediction markets audience this is a non-issue. For enterprise customers in healthcare, finance, US government, or for investors with concerns about Chinese AI infrastructure, the DeepSeek decision warrants a managed conversation.
+
+The architecture is built so that swapping the Synthesizer is a single config-variable change — not hardcoded. Mistral Large is the documented contingency: EU-based, GDPR-native, Apache 2.0 licensed. No rebuild required to flip. The contingency exists precisely so that the provider choice can be a customer-facing decision rather than an architectural one.
 
 | Config variable | Primary | Contingency |
 |----------------|---------|-------------|
-| synthesizer.provider | openai | anthropic |
-| synthesizer.model | gpt-4o | claude-sonnet-4-6 |
+| synthesizer.provider | deepseek | mistral |
+| synthesizer.model | deepseek-v4 | mistral-large-latest |
 | synthesizer.temperature | 0.0 | 0.0 |
 
 ## 8.5 What Provider Diversity Costs
 
-Running an ensemble across four providers is more expensive and more operationally complex than running it on a single provider. We pay for that complexity with four sets of API credentials, four rate-limit profiles, four outage windows, and four sets of model behavior to validate against. The provider failure handling described in Section 4.5 exists because real production with four providers means real production with four different failure modes.
+Running an ensemble across five providers is more expensive and more operationally complex than running it on a single provider. We pay for that complexity with five sets of API credentials, five rate-limit profiles, five outage windows, and five sets of model behavior to validate against. The provider failure handling described in Section 4.5 exists because real production with five providers means real production with five different failure modes.
 
 The complexity is the point. An ensemble that costs nothing to run on a single provider is an ensemble that inherits one provider's failure modes. The architecture pays for diversity in operational overhead because the alternative is paying for it in deliberation quality.
+
